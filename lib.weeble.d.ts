@@ -56,9 +56,7 @@ declare namespace discord {
    */
   type Snowflake = string;
 
-  /**
-   * Discord localization map keyed by locale code, such as `"en-US"`, `"fr"`, or `"ar"`.
-   */
+  /** Discord localization map keyed by locale code, such as `"en-US"`, `"fr"`, or `"ar"`. */
   type LocaleMap = Record<string, string>;
 
   /**
@@ -94,19 +92,13 @@ declare namespace discord {
    * Unicode emoji (identified by the emoji string as the name).
    */
   interface EmojiData {
-    /**
-     * Indicates whether this custom emoji is animated.
-     */
+    /** Whether this custom emoji is animated. */
     animated?: boolean;
 
-    /**
-     * Custom emoji ID, or null for unicode emoji.
-     */
+    /** Custom emoji ID, or null for unicode emoji. */
     id?: string | null;
 
-    /**
-     * Custom emoji name, or the Unicode emoji string.
-     */
+    /** Custom emoji name, or the Unicode emoji string. */
     name: string;
   }
 
@@ -155,24 +147,16 @@ declare namespace discord {
    * The optional MIME type lets you override Discord's auto-detection.
    */
   interface AttachmentInput {
-    /**
-     * MIME type of the file. When omitted Discord attempts to detect it.
-     */
+    /** MIME type of the file. When omitted Discord attempts to detect it. */
     contentType?: string;
 
-    /**
-     * Raw binary data of the file.
-     */
+    /** Raw binary data of the file. */
     data: ArrayBuffer;
 
-    /**
-     * The file name visible to recipients.
-     */
+    /** The file name visible to recipients. */
     fileName: string;
 
-    /**
-     * Indicates whether the attachment should be marked as a spoiler.
-     */
+    /** Whether the attachment should be marked as a spoiler. */
     spoiler?: boolean;
   }
 
@@ -182,58 +166,40 @@ declare namespace discord {
    * For uploading new files use {@link AttachmentInput} instead.
    */
   interface Attachment {
-    /**
-     * MIME type of the file, or null when unknown.
-     */
+    /** MIME type of the file, or null when unknown. */
     contentType: string | null;
 
     /** Alternative text shown for this attachment, or `null` when unset. */
     description: string | null;
 
-    /**
-     * Indicates whether this attachment is ephemeral (only visible to the interaction user).
-     */
+    /** Whether this attachment is ephemeral (only visible to the interaction user). */
     ephemeral: boolean;
 
     /** Discord attachment flag bitfield. */
     flags: number;
 
-    /**
-     * File name as uploaded.
-     */
+    /** File name as uploaded. */
     filename: string;
 
-    /**
-     * Height of the image in pixels, or null for non-image attachments.
-     */
+    /** Height of the image in pixels, or null for non-image attachments. */
     height: number | null;
 
-    /**
-     * The unique ID for this attachment.
-     */
+    /** The unique ID for this attachment. */
     id: Snowflake;
 
     /** Whether Discord marks this attachment as a spoiler. */
     isSpoiler: boolean;
 
-    /**
-     * Proxied CDN URL for the attachment.
-     */
+    /** Proxied CDN URL for the attachment. */
     proxyUrl: string;
 
-    /**
-     * Size of the file in bytes.
-     */
+    /** Size of the file in bytes. */
     size: number;
 
-    /**
-     * CDN URL for the attachment.
-     */
+    /** CDN URL for the attachment. */
     url: string;
 
-    /**
-     * Width of the image in pixels, or null for non-image attachments.
-     */
+    /** Width of the image in pixels, or null for non-image attachments. */
     width: number | null;
   }
 
@@ -246,8 +212,11 @@ declare namespace discord {
 
   /** Metadata that can be changed while retaining an existing attachment. */
   interface AttachmentEdit {
+    /** ID of an attachment already on the message. */
     id: Snowflake;
+    /** New alt text, or `null` to remove it. */
     description?: string | null;
+    /** Whether to hide the attachment behind a spoiler. */
     isSpoiler?: boolean;
   }
 
@@ -257,19 +226,13 @@ declare namespace discord {
    * to your handler rather than the display name.
    */
   interface CommandChoice {
-    /**
-     * Display name of the choice visible to the user.
-     */
+    /** Display name of the choice visible to the user. */
     name: string;
 
-    /**
-     * Localized display names keyed by Discord locale code.
-     */
+    /** Localized display names keyed by Discord locale code. */
     nameLocalizations?: LocaleMap;
 
-    /**
-     * Underlying value sent when the user picks this choice.
-     */
+    /** Underlying value sent when the user picks this choice. */
     value: string | number;
   }
 
@@ -279,24 +242,16 @@ declare namespace discord {
    * may be omitted when replying in the same channel/guild.
    */
   interface MessageReference {
-    /**
-     * ID of the channel.
-     */
+    /** ID of the channel. */
     channelId?: Snowflake;
 
-    /**
-     * Whether Discord should reject the reply if the referenced message no longer exists.
-     */
+    /** Whether Discord should reject the reply if the referenced message no longer exists. */
     failIfNotExists?: boolean;
 
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId?: Snowflake;
 
-    /**
-     * ID of the referenced message.
-     */
+    /** ID of the referenced message. */
     messageId: Snowflake;
   }
 
@@ -384,9 +339,7 @@ declare namespace discord {
     readonly PUBLIC_THREAD: 11;
   };
 
-  /**
-   * Union of numeric Discord channel type values.
-   */
+  /** Union of numeric Discord channel type values. */
   type ChannelType = (typeof ChannelType)[keyof typeof ChannelType];
 
   /**
@@ -403,9 +356,7 @@ declare namespace discord {
     readonly WATCHING: 3;
   };
 
-  /**
-   * Union of numeric Discord activity type values.
-   */
+  /** Union of numeric Discord activity type values. */
   type ActivityType = (typeof ActivityType)[keyof typeof ActivityType];
 
   /**
@@ -486,15 +437,11 @@ declare namespace discord {
     readonly WEBHOOK_UPDATE: 51;
   };
 
-  /**
-   * Union of numeric Discord audit log action values.
-   */
+  /** Union of numeric Discord audit log action values. */
   type AuditLogActionType =
     (typeof AuditLogActionType)[keyof typeof AuditLogActionType];
 
-  /**
-   * File format variants supported by Discord stickers.
-   */
+  /** File format variants supported by Discord stickers. */
   const StickerFormatType: {
     readonly APNG: 2;
     readonly GIF: 4;
@@ -502,56 +449,40 @@ declare namespace discord {
     readonly PNG: 1;
   };
 
-  /**
-   * Union of numeric Discord sticker format values.
-   */
+  /** Union of numeric Discord sticker format values. */
   type StickerFormatType =
     (typeof StickerFormatType)[keyof typeof StickerFormatType];
 
-  /**
-   * Target type for a channel permission overwrite.
-   */
+  /** Target type for a channel permission overwrite. */
   const PermissionOverwriteType: {
     readonly MEMBER: 1;
     readonly ROLE: 0;
   };
 
-  /**
-   * Union of channel permission overwrite target types.
-   */
+  /** Union of channel permission overwrite target types. */
   type PermissionOverwriteType =
     (typeof PermissionOverwriteType)[keyof typeof PermissionOverwriteType];
 
-  /**
-   * Numeric webhook type values returned by Discord.
-   */
+  /** Numeric webhook type values returned by Discord. */
   const WebhookType: {
     readonly APPLICATION: 3;
     readonly CHANNEL_FOLLOWER: 2;
     readonly INCOMING: 1;
   };
 
-  /**
-   * Union of numeric Discord webhook type values.
-   */
+  /** Union of numeric Discord webhook type values. */
   type WebhookType = (typeof WebhookType)[keyof typeof WebhookType];
 
-  /**
-   * Events that can trigger an auto moderation rule.
-   */
+  /** Events that can trigger an auto moderation rule. */
   const AutoModEventType: {
     readonly MESSAGE_SEND: 1;
   };
 
-  /**
-   * Union of auto moderation event type values.
-   */
+  /** Union of auto moderation event type values. */
   type AutoModEventType =
     (typeof AutoModEventType)[keyof typeof AutoModEventType];
 
-  /**
-   * Types of triggers an auto moderation rule can use.
-   */
+  /** Types of triggers an auto moderation rule can use. */
   const AutoModTriggerType: {
     readonly HARMFUL_LINK: 2;
     readonly KEYWORD: 1;
@@ -561,15 +492,11 @@ declare namespace discord {
     readonly SPAM: 3;
   };
 
-  /**
-   * Union of auto moderation trigger type values.
-   */
+  /** Union of auto moderation trigger type values. */
   type AutoModTriggerType =
     (typeof AutoModTriggerType)[keyof typeof AutoModTriggerType];
 
-  /**
-   * Actions an auto moderation rule can take when triggered.
-   */
+  /** Actions an auto moderation rule can take when triggered. */
   const AutoModActionType: {
     readonly BLOCK_MEMBER_INTERACTION: 4;
     readonly BLOCK_MESSAGE: 1;
@@ -577,9 +504,7 @@ declare namespace discord {
     readonly TIMEOUT: 3;
   };
 
-  /**
-   * Union of auto moderation action type values.
-   */
+  /** Union of auto moderation action type values. */
   type AutoModActionType =
     (typeof AutoModActionType)[keyof typeof AutoModActionType];
 
@@ -596,9 +521,7 @@ declare namespace discord {
     readonly PING: 1;
   };
 
-  /**
-   * Union of numeric Discord interaction type values.
-   */
+  /** Union of numeric Discord interaction type values. */
   type InteractionType = (typeof InteractionType)[keyof typeof InteractionType];
 
   /**
@@ -631,14 +554,10 @@ declare namespace discord {
     readonly USER_SELECT: 5;
   };
 
-  /**
-   * Union of numeric Discord component type values.
-   */
+  /** Union of numeric Discord component type values. */
   type ComponentType = (typeof ComponentType)[keyof typeof ComponentType];
 
-  /**
-   * Numeric style values accepted by button components.
-   */
+  /** Numeric style values accepted by button components. */
   const ButtonStyle: {
     readonly DANGER: 4;
     readonly LINK: 5;
@@ -647,22 +566,16 @@ declare namespace discord {
     readonly SUCCESS: 3;
   };
 
-  /**
-   * Union of numeric Discord button style values.
-   */
+  /** Union of numeric Discord button style values. */
   type ButtonStyle = (typeof ButtonStyle)[keyof typeof ButtonStyle];
 
-  /**
-   * Numeric style values accepted by modal text inputs.
-   */
+  /** Numeric style values accepted by modal text inputs. */
   const TextInputStyle: {
     readonly PARAGRAPH: 2;
     readonly SHORT: 1;
   };
 
-  /**
-   * Union of numeric Discord text input style values.
-   */
+  /** Union of numeric Discord text input style values. */
   type TextInputStyle = (typeof TextInputStyle)[keyof typeof TextInputStyle];
 
   /**
@@ -685,9 +598,7 @@ declare namespace discord {
     readonly URGENT: 16;
   };
 
-  /**
-   * Union of Discord message flag bit values.
-   */
+  /** Union of Discord message flag bit values. */
   type MessageFlags = (typeof MessageFlags)[keyof typeof MessageFlags];
 
   /** Bitmask flags that describe an attachment. */
@@ -745,42 +656,30 @@ declare namespace discord {
     readonly USER_JOIN: 7;
   };
 
-  /**
-   * Union of numeric Discord message type values.
-   */
+  /** Union of numeric Discord message type values. */
   type MessageType = (typeof MessageType)[keyof typeof MessageType];
 
-  /**
-   * Privacy levels for scheduled events.
-   */
+  /** Privacy levels for scheduled events. */
   const ScheduledEventPrivacyLevel: {
     readonly GUILD_ONLY: 2;
   };
 
-  /**
-   * Union of scheduled event privacy level values.
-   */
+  /** Union of scheduled event privacy level values. */
   type ScheduledEventPrivacyLevel =
     (typeof ScheduledEventPrivacyLevel)[keyof typeof ScheduledEventPrivacyLevel];
 
-  /**
-   * Types of entities a scheduled event can be associated with.
-   */
+  /** Types of entities a scheduled event can be associated with. */
   const ScheduledEventEntityType: {
     readonly EXTERNAL: 3;
     readonly STAGE_INSTANCE: 1;
     readonly VOICE: 2;
   };
 
-  /**
-   * Union of scheduled event entity type values.
-   */
+  /** Union of scheduled event entity type values. */
   type ScheduledEventEntityType =
     (typeof ScheduledEventEntityType)[keyof typeof ScheduledEventEntityType];
 
-  /**
-   * Status values for a scheduled event's lifecycle.
-   */
+  /** Status values for a scheduled event's lifecycle. */
   const ScheduledEventStatus: {
     readonly ACTIVE: 2;
     readonly CANCELED: 4;
@@ -788,23 +687,17 @@ declare namespace discord {
     readonly SCHEDULED: 1;
   };
 
-  /**
-   * Union of scheduled event status values.
-   */
+  /** Union of scheduled event status values. */
   type ScheduledEventStatus =
     (typeof ScheduledEventStatus)[keyof typeof ScheduledEventStatus];
 
-  /**
-   * Privacy levels for stage instances.
-   */
+  /** Privacy levels for stage instances. */
   const StageInstancePrivacyLevel: {
     readonly GUILD_ONLY: 2;
     readonly PUBLIC: 1;
   };
 
-  /**
-   * Union of stage instance privacy level values.
-   */
+  /** Union of stage instance privacy level values. */
   type StageInstancePrivacyLevel =
     (typeof StageInstancePrivacyLevel)[keyof typeof StageInstancePrivacyLevel];
 
@@ -838,78 +731,48 @@ declare namespace discord {
     readonly retryAfter: number | null;
   }
 
-  /**
-   * Author information for an embed. Used with `EmbedBuilder.setAuthor()`.
-   */
+  /** Author information for an embed. Used with `EmbedBuilder.setAuthor()`. */
   interface EmbedAuthorData {
-    /**
-     * URL of the author icon.
-     */
+    /** URL of the author icon. */
     iconUrl?: string;
 
-    /**
-     * Author name displayed in the embed.
-     */
+    /** Author name displayed in the embed. */
     name: string;
 
-    /**
-     * URL the author name links to.
-     */
+    /** URL the author name links to. */
     url?: string;
   }
 
-  /**
-   * Footer information for an embed. Used with `EmbedBuilder.setFooter()`.
-   */
+  /** Footer information for an embed. Used with `EmbedBuilder.setFooter()`. */
   interface EmbedFooterData {
-    /**
-     * URL of the footer icon.
-     */
+    /** URL of the footer icon. */
     iconUrl?: string;
 
-    /**
-     * Footer text content.
-     */
+    /** Footer text content. */
     text: string;
   }
 
-  /**
-   * Media (image/video) attachment data for an embed.
-   */
+  /** Media (image/video) attachment data for an embed. */
   interface EmbedMediaData {
-    /**
-     * Display height in pixels.
-     */
+    /** Display height in pixels. */
     height?: number;
 
-    /**
-     * Direct URL to the media file.
-     */
+    /** Direct URL to the media file. */
     url: string;
 
-    /**
-     * Display width in pixels.
-     */
+    /** Display width in pixels. */
     width?: number;
   }
 
-  /**
-   * A named field displayed in an embed body.
-   */
+  /** A named field displayed in an embed body. */
   interface EmbedFieldData {
-    /**
-     * Indicates whether the field should be rendered inline with adjacent inline fields.
-     */
+    /** Whether the field should be rendered inline with adjacent inline fields. */
     inline?: boolean;
 
-    /**
-     * Field name (bold heading).
-     */
+    /** Field name (bold heading). */
     name: string;
 
-    /**
-     * Field value (body text).
-     */
+    /** Field value (body text). */
     value: string;
   }
 
@@ -933,7 +796,6 @@ declare namespace discord {
      * @param name The field name (bold heading).
      * @param value The field value (body text, supports Markdown).
      * @param inline Whether the field should render inline with adjacent inline fields.
-     * @returns The builder instance for chaining.
      */
     addField(name: string, value: string, inline?: boolean): EmbedBuilder;
 
@@ -941,13 +803,10 @@ declare namespace discord {
      * Append one or more field data objects.
      *
      * @param fields One or more EmbedFieldData objects to append.
-     * @returns The builder instance for chaining.
      */
     addFields(...fields: EmbedFieldData[]): EmbedBuilder;
 
-    /**
-     * Remove all fields from the embed.
-     */
+    /** Remove all fields from the embed. */
     clearFields(): EmbedBuilder;
 
     /**
@@ -962,7 +821,6 @@ declare namespace discord {
      * Set the author section with name, optional URL, and optional icon.
      *
      * @param author Object containing the author name, and optionally a URL and icon URL.
-     * @returns The builder instance for chaining.
      */
     setAuthor(author: EmbedAuthorData): EmbedBuilder;
 
@@ -970,7 +828,6 @@ declare namespace discord {
      * Set the sidebar color as a 24-bit RGB integer (e.g. `0xFF0000` for red).
      *
      * @param color 24-bit RGB color value.
-     * @returns The builder instance for chaining.
      */
     setColor(color: number): EmbedBuilder;
 
@@ -978,7 +835,6 @@ declare namespace discord {
      * Set the embed description.
      *
      * @param description The description text (supports Markdown).
-     * @returns The builder instance for chaining.
      */
     setDescription(description: string): EmbedBuilder;
 
@@ -986,7 +842,6 @@ declare namespace discord {
      * Set the footer with text and optional icon.
      *
      * @param footer Object containing footer text and optionally an icon URL.
-     * @returns The builder instance for chaining.
      */
     setFooter(footer: EmbedFooterData): EmbedBuilder;
 
@@ -994,7 +849,6 @@ declare namespace discord {
      * Set the main image. Accepts a URL string or a media data object.
      *
      * @param image Direct URL string, or a media data object with url, height, and width.
-     * @returns The builder instance for chaining.
      */
     setImage(image: string | EmbedMediaData): EmbedBuilder;
 
@@ -1002,7 +856,6 @@ declare namespace discord {
      * Set the thumbnail in the top-right corner. Accepts a URL string or a media data object.
      *
      * @param thumbnail Direct URL string, or a media data object with url, height, and width.
-     * @returns The builder instance for chaining.
      */
     setThumbnail(thumbnail: string | EmbedMediaData): EmbedBuilder;
 
@@ -1010,7 +863,6 @@ declare namespace discord {
      * Set the timestamp displayed in the embed footer. Defaults to now when no argument is provided.
      *
      * @param timestamp A Date object or Unix timestamp (ms). Omit to use the current time.
-     * @returns The builder instance for chaining.
      */
     setTimestamp(timestamp?: Date | number): EmbedBuilder;
 
@@ -1018,7 +870,6 @@ declare namespace discord {
      * Set the embed title.
      *
      * @param title The title text to display at the top of the embed.
-     * @returns The builder instance for chaining.
      */
     setTitle(title: string): EmbedBuilder;
 
@@ -1026,7 +877,6 @@ declare namespace discord {
      * Set a URL the embed title links to.
      *
      * @param url The URL to open when the title is clicked.
-     * @returns The builder instance for chaining.
      */
     setURL(url: string): EmbedBuilder;
 
@@ -1042,45 +892,33 @@ declare namespace discord {
    * A read-only embed from a received message. All properties are immutable copies of the Discord embed data.
    */
   class Embed {
-    /**
-     * Author information, or `null` if not set.
-     */
+    /** Author information, or `null` if not set. */
     readonly author: {
       iconUrl: string | null;
       name: string;
       url: string | null;
     } | null;
 
-    /**
-     * 24-bit RGB sidebar color, or `null` if not set.
-     */
+    /** 24-bit RGB sidebar color, or `null` if not set. */
     readonly color: number | null;
 
-    /**
-     * Description text, or `null` if not set.
-     */
+    /** Description text, or `null` if not set. */
     readonly description: string | null;
 
-    /**
-     * Array of field objects displayed in the embed body.
-     */
+    /** Array of field objects displayed in the embed body. */
     readonly fields: Array<{
       inline: boolean;
       name: string;
       value: string;
     }>;
 
-    /**
-     * Footer information, or `null` if not set.
-     */
+    /** Footer information, or `null` if not set. */
     readonly footer: {
       iconUrl: string | null;
       text: string;
     } | null;
 
-    /**
-     * Main image, or `null` if not set.
-     */
+    /** Main image, or `null` if not set. */
     readonly image: {
       height: number | null;
       proxyUrl: string | null;
@@ -1088,9 +926,7 @@ declare namespace discord {
       width: number | null;
     } | null;
 
-    /**
-     * Thumbnail image, or `null` if not set.
-     */
+    /** Thumbnail image, or `null` if not set. */
     readonly thumbnail: {
       height: number | null;
       proxyUrl: string | null;
@@ -1098,76 +934,48 @@ declare namespace discord {
       width: number | null;
     } | null;
 
-    /**
-     * ISO-8601 timestamp displayed in the footer, or `null` if not set.
-     */
+    /** ISO-8601 timestamp displayed in the footer, or `null` if not set. */
     readonly timestamp: Date | null;
 
-    /**
-     * Title of the embed, or `null` if not set.
-     */
+    /** Title of the embed, or `null` if not set. */
     readonly title: string | null;
 
-    /**
-     * URL the title links to, or `null` if not set.
-     */
+    /** URL the title links to, or `null` if not set. */
     readonly url: string | null;
   }
   interface EmbedData {
-    /**
-     * Embed author block.
-     */
+    /** Embed author block. */
     author?: EmbedAuthorData;
 
-    /**
-     * 24-bit RGB color value.
-     */
+    /** 24-bit RGB color value. */
     color?: number;
 
-    /**
-     * Description text.
-     */
+    /** Description text. */
     description?: string;
 
-    /**
-     * Embed fields displayed in the body.
-     */
+    /** Embed fields displayed in the body. */
     fields?: EmbedFieldData[];
 
-    /**
-     * Embed footer block.
-     */
+    /** Embed footer block. */
     footer?: EmbedFooterData;
 
-    /**
-     * Embed image media.
-     */
+    /** Embed image media. */
     image?: EmbedMediaData;
 
-    /**
-     * Embed thumbnail media.
-     */
+    /** Embed thumbnail media. */
     thumbnail?: EmbedMediaData;
 
-    /**
-     * Timestamp displayed by Discord.
-     */
+    /** Timestamp displayed by Discord. */
     timestamp?: string | Date;
 
-    /**
-     * Embed title text.
-     */
+    /** Embed title text. */
     title?: string;
 
-    /**
-     * URL used by Discord for this field.
-     */
+    /** URL used by Discord for this field. */
     url?: string;
   }
 
-  /**
-   * Embed input accepted by message send and edit methods.
-   */
+  /** Embed input accepted by message send and edit methods. */
   type EmbedLike = EmbedBuilder | EmbedData;
 
   /**
@@ -1179,14 +987,10 @@ declare namespace discord {
 
     /** ID of the message containing this poll, or `null` when the poll is not attached to a message. */
     readonly messageId: Snowflake | null;
-    /**
-     * Indicates whether members can select multiple answers.
-     */
+    /** Whether members can select multiple answers. */
     readonly allowMultiselect: boolean;
 
-    /**
-     * Array of answer options with their vote counts.
-     */
+    /** Array of answer options with their vote counts. */
     readonly answers: Array<{
       answerId: number;
       count: number;
@@ -1194,26 +998,18 @@ declare namespace discord {
       text: string;
     }>;
 
-    /**
-     * When the poll expires, or `null` if no expiration is set.
-     */
+    /** When the poll expires, or `null` if no expiration is set. */
     readonly expiration: Date | null;
 
-    /**
-     * Underlying Discord poll layout type identifier.
-     */
+    /** Underlying Discord poll layout type identifier. */
     readonly layoutType: number;
 
-    /**
-     * The question prompt for this poll.
-     */
+    /** The question prompt for this poll. */
     readonly question: {
       text: string;
     };
 
-    /**
-     * Aggregated results, or `null` when Discord omitted them.
-     */
+    /** Aggregated results, or `null` when Discord omitted them. */
     readonly results: {
       answerCounts: Array<{ id: number; count: number }>;
       isFinalized: boolean;
@@ -1241,40 +1037,28 @@ declare namespace discord {
     ): Promise<User[]>;
 
     /**
-     * Indicates whether the poll results are finalized (no more voting).
+     * Whether the poll results are finalized (no more voting).
      *
      * @returns `true` if the poll results have been published and voting has ended.
      */
     isFinalized(): boolean;
   }
 
-  /**
-   * Message fields accepted by send and reply methods.
-   */
+  /** Message fields accepted by send and reply methods. */
   interface SendMessageOptions {
-    /**
-     * Mention parsing rules for this message.
-     */
+    /** Mention parsing rules for this message. */
     allowedMentions?: AllowedMentions;
 
-    /**
-     * Existing attachments to keep or include.
-     */
+    /** Existing attachments to keep or include. */
     attachments?: Attachment[];
 
-    /**
-     * Components to include with the message.
-     */
+    /** Components to include with the message. */
     components?: Component[];
 
-    /**
-     * Message content.
-     */
+    /** Message content. */
     content?: string;
 
-    /**
-     * Embeds to include with the message.
-     */
+    /** Embeds to include with the message. */
     embeds?: EmbedLike[];
 
     /**
@@ -1289,79 +1073,49 @@ declare namespace discord {
      */
     flags?: number;
 
-    /**
-     * Poll to create with the message.
-     */
+    /** Poll to create with the message. */
     poll?: PollCreateOptions;
 
-    /**
-     * Message reference used to create a reply.
-     */
+    /** Message reference used to create a reply. */
     reply?: MessageReference;
 
-    /**
-     * Sticker IDs to attach to the message.
-     */
+    /** Sticker IDs to attach to the message. */
     stickerIds?: Snowflake[];
 
-    /**
-     * Whether to send the message using text-to-speech.
-     */
+    /** Whether to send the message using text-to-speech. */
     tts?: boolean;
   }
 
-  /**
-   * Configuration for a poll attached to a new message.
-   */
+  /** Configuration for a poll attached to a new message. */
   interface PollCreateOptions {
-    /**
-     * Indicates whether members can select multiple answers.
-     */
+    /** Whether members can select multiple answers. */
     allowMultiselect?: boolean;
 
-    /**
-     * Answer choices. Discord accepts between 2 and 10 answers.
-     */
+    /** Answer choices. Discord accepts between 2 and 10 answers. */
     answers: string[];
 
-    /**
-     * Duration in hours. Discord accepts whole numbers from 1 through 768.
-     */
+    /** Duration in hours. Discord accepts whole numbers from 1 through 768. */
     duration: number;
 
-    /**
-     * The question text for the poll.
-     */
+    /** The question text for the poll. */
     question: string;
   }
 
-  /**
-   * Message fields accepted when editing an existing message.
-   */
+  /** Message fields accepted when editing an existing message. */
   interface EditMessageOptions {
-    /**
-     * Mention parsing rules for this message.
-     */
+    /** Mention parsing rules for this message. */
     allowedMentions?: AllowedMentions;
 
-    /**
-     * Existing attachments to keep or include.
-     */
+    /** Existing attachments to keep or include. */
     attachments?: AttachmentEdit[];
 
-    /**
-     * Components to include with the message.
-     */
+    /** Components to include with the message. */
     components?: Component[];
 
-    /**
-     * Message content.
-     */
+    /** Message content. */
     content?: string;
 
-    /**
-     * Embeds to include with the message.
-     */
+    /** Embeds to include with the message. */
     embeds?: EmbedLike[];
 
     /**
@@ -1371,58 +1125,36 @@ declare namespace discord {
     flags?: number;
   }
 
-  /**
-   * Message fields accepted when executing a webhook, including per-request identity overrides.
-   */
+  /** Message fields accepted when executing a webhook, including per-request identity overrides. */
   interface WebhookExecuteOptions extends SendMessageOptions {
-    /**
-     * Override the webhook avatar for this execution.
-     */
+    /** Override the webhook avatar for this execution. */
     avatarUrl?: string;
 
-    /**
-     * Override the webhook username for this execution.
-     */
+    /** Override the webhook username for this execution. */
     username?: string;
   }
 
-  /**
-   * Pagination controls for retrieving messages from a channel.
-   */
+  /** Pagination controls for retrieving messages from a channel. */
   interface FetchMessagesOptions {
-    /**
-     * Fetch messages after this ID (newer messages).
-     */
+    /** Fetch messages after this ID (newer messages). */
     after?: Snowflake;
 
-    /**
-     * Fetch messages around this ID (centered pagination).
-     */
+    /** Fetch messages around this ID (centered pagination). */
     around?: Snowflake;
 
-    /**
-     * Fetch messages before this ID (older messages).
-     */
+    /** Fetch messages before this ID (older messages). */
     before?: Snowflake;
 
-    /**
-     * Maximum number of messages to fetch (1-100).
-     */
+    /** Maximum number of messages to fetch (1-100). */
     limit?: number;
   }
 
-  /**
-   * Pagination controls for retrieving members from a guild.
-   */
+  /** Pagination controls for retrieving members from a guild. */
   interface FetchMembersOptions {
-    /**
-     * Fetch members after this ID for pagination.
-     */
+    /** Fetch members after this ID for pagination. */
     after?: Snowflake;
 
-    /**
-     * Maximum number of members to fetch (1-1000).
-     */
+    /** Maximum number of members to fetch (1-1000). */
     limit?: number;
   }
 
@@ -1431,9 +1163,7 @@ declare namespace discord {
    * Sending through this handle does not fetch the full channel first.
    */
   class MessageChannel {
-    /**
-     * Channel ID.
-     */
+    /** Channel ID. */
     readonly id: Snowflake;
 
     /**
@@ -1444,9 +1174,7 @@ declare namespace discord {
      */
     send(content: string | SendMessageOptions): Promise<Message>;
 
-    /**
-     * Trigger Discord's typing indicator in this channel.
-     */
+    /** Trigger Discord's typing indicator in this channel. */
     typing(): Promise<void>;
 
     /**
@@ -1471,9 +1199,7 @@ declare namespace discord {
    * @see https://docs.discord.com/developers/resources/message#message-object
    */
   class Message {
-    /**
-     * Files attached to the message.
-     */
+    /** Files attached to the message. */
     readonly attachments: Attachment[];
 
     /**
@@ -1488,9 +1214,7 @@ declare namespace discord {
      */
     readonly channel: MessageChannel;
 
-    /**
-     * ID of the channel where this message was sent.
-     */
+    /** ID of the channel where this message was sent. */
     readonly channelId: Snowflake;
 
     /**
@@ -1499,57 +1223,37 @@ declare namespace discord {
      */
     readonly content: string;
 
-    /**
-     * When this message was created.
-     */
+    /** When this message was created. */
     readonly createdAt: Date;
 
-    /**
-     * Timestamp derived from the Discord snowflake ID, in milliseconds since epoch.
-     */
+    /** Timestamp derived from the Discord snowflake ID, in milliseconds since epoch. */
     readonly createdTimestamp: number;
 
-    /**
-     * When this message was last edited, or `null` if it has not been edited.
-     */
+    /** When this message was last edited, or `null` if it has not been edited. */
     readonly editedAt: Date | null;
 
-    /**
-     * Edited timestamp in milliseconds since epoch, or `null` if never edited.
-     */
+    /** Edited timestamp in milliseconds since epoch, or `null` if never edited. */
     readonly editedTimestamp: number | null;
 
-    /**
-     * Rich embeds in the message.
-     */
+    /** Rich embeds in the message. */
     readonly embeds: Embed[];
 
     /** Bitmask of message flags. Zero means no flags are set. */
     readonly flags: number;
 
-    /**
-     * ID of the guild this message was sent in, or `null` when Discord omits it.
-     */
+    /** ID of the guild this message was sent in, or `null` when Discord omits it. */
     readonly guildId: Snowflake | null;
 
-    /**
-     * Message ID.
-     */
+    /** Message ID. */
     readonly id: Snowflake;
 
-    /**
-     * The guild member who sent the message, or `null` if not in a guild.
-     */
+    /** The guild member who sent the message, or `null` if not in a guild. */
     readonly member: GuildMember | null;
 
-    /**
-     * Indicates whether the message mentions everyone or here.
-     */
+    /** Whether the message mentions everyone or here. */
     readonly mentionEveryone: boolean;
 
-    /**
-     * IDs of roles explicitly mentioned in the message.
-     */
+    /** IDs of roles explicitly mentioned in the message. */
     readonly mentionRoles: Snowflake[];
 
     /**
@@ -1558,44 +1262,28 @@ declare namespace discord {
      */
     readonly mentions: User[];
 
-    /**
-     * Whether this message is pinned in its channel.
-     */
+    /** Whether this message is pinned in its channel. */
     readonly pinned: boolean;
 
-    /**
-     * Poll attached to this message, or `null` if none.
-     */
+    /** Poll attached to this message, or `null` if none. */
     readonly poll: Poll | null;
 
-    /**
-     * Reactions on the message.
-     */
+    /** Reactions on the message. */
     readonly reactions: MessageReaction[];
 
-    /**
-     * Reference to a replied-to or crossposted message, or `null`.
-     */
+    /** Reference to a replied-to or crossposted message, or `null`. */
     readonly reference: MessageReference | null;
 
-    /**
-     * The message being replied to, or `null` when unavailable.
-     */
+    /** The message being replied to, or `null` when unavailable. */
     readonly referencedMessage: Message | null;
 
-    /**
-     * The type of message (system message, reply, etc.).
-     */
+    /** The type of message (system message, reply, etc.). */
     readonly type: MessageType;
 
-    /**
-     * A URL that can be used to jump to this message in Discord.
-     */
+    /** A URL that can be used to jump to this message in Discord. */
     readonly url: string;
 
-    /**
-     * ID of the webhook that sent this message, or `null` if sent by a user.
-     */
+    /** ID of the webhook that sent this message, or `null` if sent by a user. */
     readonly webhookId: Snowflake | null;
 
     /**
@@ -1609,7 +1297,6 @@ declare namespace discord {
      * Create a thread from this message.
      *
      * @param options Thread options including name, auto-archive duration, and slowmode.
-     * @returns The created thread channel.
      */
     createThread(
       options: ThreadFromMessageCreateOptions,
@@ -1633,22 +1320,15 @@ declare namespace discord {
      * Edit this message with new content or options.
      *
      * @param content New message body as a string, or an options object with embeds, components, etc.
-     * @returns The updated message.
      */
     edit(content: string | EditMessageOptions): Promise<Message>;
 
-    /**
-     * End the poll on this message early and publish results.
-     *
-     * @returns The updated message with finalized poll results.
-     */
+    /** End the poll on this message early and publish results. */
     endPoll(): Promise<Message>;
 
     /**
      * Requests the latest version of this message from Discord.
      * Use this when the event snapshot may be stale after edits, reactions, or poll updates.
-     *
-     * @returns The updated message.
      */
     fetch(): Promise<Message>;
 
@@ -1657,7 +1337,6 @@ declare namespace discord {
      *
      * @param emoji Emoji string (for example `"🔥"` or `"name:id"` for a custom emoji).
      * @param options Optional pagination. Discord returns up to 100 users per request.
-     * @returns Array of users who reacted with that emoji.
      */
     fetchReactionUsers(
       emoji: string,
@@ -1667,17 +1346,10 @@ declare namespace discord {
       },
     ): Promise<User[]>;
 
-    /**
-     * Forward this message's content and embeds to another channel.
-     *
-     * @param channelId The ID of the channel to forward to.
-     * @returns The sent message in the target channel.
-     */
+    /** Forward this message's content and embeds to another channel. */
     forward(channelId: Snowflake): Promise<Message>;
 
-    /**
-     * Fetch the channel this message was sent in from Discord.
-     */
+    /** Fetch the channel this message was sent in from Discord. */
     fetchChannel(): Promise<TextChannel>;
 
     /**
@@ -1701,16 +1373,13 @@ declare namespace discord {
      */
     react(emoji: string): Promise<void>;
 
-    /**
-     * Remove all reactions from this message.
-     */
+    /** Remove all reactions from this message. */
     removeAllReactions(): Promise<void>;
 
     /**
      * Remove another user's reaction from this message.
      *
      * @param emoji The emoji string identifying the reaction.
-     * @param userId The ID of the user whose reaction to remove.
      */
     removeReaction(emoji: string, userId: Snowflake): Promise<void>;
 
@@ -1719,7 +1388,6 @@ declare namespace discord {
      * The returned message is the newly created reply, not this source message.
      *
      * @param content Message body as a string, or a full options object for embeds, files, etc.
-     * @returns The sent message.
      * @throws {@link ApiError} When Discord rejects the message or the channel is unavailable.
      */
     reply(content: string | SendMessageOptions): Promise<Message>;
@@ -1739,60 +1407,39 @@ declare namespace discord {
     unreact(emoji: string): Promise<void>;
   }
 
-  /**
-   * A message sent in a guild channel, guaranteed to have a guild ID and member.
-   */
+  /** A message sent in a guild channel, guaranteed to have a guild ID and member. */
   class GuildMemberMessage extends Message {
-    /**
-     * User who sent this message.
-     */
+    /** User who sent this message. */
     readonly author: User;
 
-    /**
-     * ID of the guild where this message was sent.
-     */
+    /** ID of the guild where this message was sent. */
     readonly guildId: Snowflake;
 
-    /**
-     * Guild member who sent this message.
-     */
+    /** Guild member who sent this message. */
     readonly member: GuildMember;
 
-    /**
-     * Fetch the guild where this message was sent.
-     */
+    /** Fetch the guild where this message was sent. */
     fetchGuild(): Promise<Guild>;
   }
 
-  /**
-   * Aggregated reaction data for one emoji on a message.
-   */
+  /** Aggregated reaction data for one emoji on a message. */
   class MessageReaction {
-    /**
-     * Number of users who reacted with this emoji.
-     */
+    /** Number of users who reacted with this emoji. */
     readonly count: number;
 
-    /**
-     * Emoji this reaction entry represents.
-     */
+    /** Emoji this reaction entry represents. */
     readonly emoji: EmojiData;
 
-    /**
-     * Whether the bot reacted with this emoji.
-     */
+    /** Whether the bot reacted with this emoji. */
     readonly me: boolean;
 
-    /**
-     * Remove the bot's own reaction from this message.
-     */
+    /** Remove the bot's own reaction from this message. */
     remove(): Promise<void>;
 
     /**
      * Fetch the users who reacted with this emoji, with optional pagination.
      *
      * @param options Pagination options with `after` (user ID to start after) and `limit` (max users to return).
-     * @returns Array of users who reacted.
      */
     users(options?: { after?: Snowflake; limit?: number }): Promise<User[]>;
   }
@@ -1812,29 +1459,19 @@ declare namespace discord {
    * @see https://docs.discord.com/developers/resources/user#user-object
    */
   class User implements Mentionable {
-    /**
-     * The user's accent color as a 24-bit RGB integer, or `null`.
-     */
+    /** The user's accent color as a 24-bit RGB integer, or `null`. */
     readonly accentColor: number | null | undefined;
 
-    /**
-     * Hash of the user's avatar, or `null` if using the default avatar.
-     */
+    /** Hash of the user's avatar, or `null` if using the default avatar. */
     readonly avatar: string | null | undefined;
 
-    /**
-     * Hash of the user's banner, or `null` if no banner is set.
-     */
+    /** Hash of the user's banner, or `null` if no banner is set. */
     readonly banner: string | null | undefined;
 
-    /**
-     * Indicates whether this user is a bot. `undefined` when omitted, `null` if Discord sent null.
-     */
+    /** Whether this user is a bot. `undefined` when omitted, `null` if Discord sent null. */
     readonly bot: boolean | null | undefined;
 
-    /**
-     * When this Discord account was created, decoded from the user snowflake.
-     */
+    /** When this Discord account was created, decoded from the user snowflake. */
     readonly createdAt: Date;
 
     /**
@@ -1851,27 +1488,19 @@ declare namespace discord {
      */
     readonly displayName: string;
 
-    /**
-     * The user's global display name, or `null` if not set.
-     */
+    /** The user's global display name, or `null` if not set. */
     readonly globalName: string | null | undefined;
 
-    /**
-     * User ID.
-     */
+    /** User ID. */
     readonly id: Snowflake;
 
-    /**
-     * Public Discord user flags bitfield, or `null` when Discord omitted it.
-     */
+    /** Public Discord user flags bitfield, or `null` when Discord omitted it. */
     readonly publicFlags: number | null | undefined;
 
     /** The user's displayed guild identity, or `null` when none is selected. */
     readonly primaryGuild: UserPrimaryGuild | null | undefined;
 
-    /**
-     * The user's display name (not globally unique).
-     */
+    /** The user's display name (not globally unique). */
     readonly username: string;
 
     /**
@@ -1885,11 +1514,7 @@ declare namespace discord {
       size?: number;
     }): string;
 
-    /**
-     * Refetch the latest user data from Discord.
-     *
-     * @returns The updated user object.
-     */
+    /** Refetch the latest user data from Discord. */
     fetch(): Promise<User>;
 
     /**
@@ -1914,14 +1539,10 @@ declare namespace discord {
    * @see https://docs.discord.com/developers/resources/guild#guild-member-object
    */
   class GuildMember implements Mentionable {
-    /**
-     * When the member's timeout expires, or `null` if not timed out.
-     */
+    /** When the member's timeout expires, or `null` if not timed out. */
     readonly communicationDisabledUntil: Date | null | undefined;
 
-    /**
-     * When the underlying user account was created, decoded from the member/user snowflake.
-     */
+    /** When the underlying user account was created, decoded from the member/user snowflake. */
     readonly createdAt: Date;
 
     /**
@@ -1931,19 +1552,13 @@ declare namespace discord {
      */
     readonly displayName: string;
 
-    /**
-     * ID of the guild this member belongs to.
-     */
+    /** ID of the guild this member belongs to. */
     readonly guildId: Snowflake;
 
-    /**
-     * User ID for this guild member.
-     */
+    /** User ID for this guild member. */
     readonly id: Snowflake;
 
-    /**
-     * Whether the member is currently timed out.
-     */
+    /** Whether the member is currently timed out. */
     readonly isTimedOut: boolean;
 
     /**
@@ -1952,14 +1567,10 @@ declare namespace discord {
      */
     readonly joinedAt: Date | undefined;
 
-    /**
-     * The member's nickname (server name), or `null` if not set.
-     */
+    /** The member's nickname (server name), or `null` if not set. */
     readonly nick: string | null | undefined;
 
-    /**
-     * Whether the member has not yet passed the guild's membership screening requirements.
-     */
+    /** Whether the member has not yet passed the guild's membership screening requirements. */
     readonly pending: boolean | undefined;
 
     /**
@@ -1968,25 +1579,18 @@ declare namespace discord {
      */
     readonly permissions: bigint | undefined;
 
-    /**
-     * When the member started boosting, or `null` if not boosting.
-     */
+    /** When the member started boosting, or `null` if not boosting. */
     readonly premiumSince: Date | null | undefined;
 
-    /**
-     * Array of role IDs assigned to this member.
-     */
+    /** Array of role IDs assigned to this member. */
     readonly roles: Snowflake[] | undefined;
 
-    /**
-     * The underlying user object.
-     */
+    /** The underlying user object. */
     readonly user: User;
 
     /**
      * Add a role to this member.
      *
-     * @param roleId The ID of the role to add.
      * @param reason Audit-log reason for adding the role.
      */
     addRole(roleId: Snowflake, reason?: string): Promise<void>;
@@ -2041,8 +1645,6 @@ declare namespace discord {
     /**
      * Requests the latest guild-member data from Discord.
      * This is useful after role, nickname, timeout, or membership changes.
-     *
-     * @returns The updated member object.
      */
     fetch(): Promise<GuildMember>;
 
@@ -2050,7 +1652,6 @@ declare namespace discord {
      * Edit this member's guild-specific state.
      *
      * @param options Member properties to update and optional audit-log reason.
-     * @returns The updated member.
      */
     edit(options: GuildMemberEditOptions): Promise<GuildMember>;
 
@@ -2076,7 +1677,6 @@ declare namespace discord {
     /**
      * Check if this member has a specific role.
      *
-     * @param roleId The ID of the role to check.
      * @returns Whether the member has the role.
      */
     hasRole(roleId: Snowflake): boolean;
@@ -2098,16 +1698,11 @@ declare namespace discord {
     /**
      * Remove a role from this member.
      *
-     * @param roleId The ID of the role to remove.
      * @param reason Audit-log reason for removing the role.
      */
     removeRole(roleId: Snowflake, reason?: string): Promise<void>;
 
-    /**
-     * Get all role objects assigned to this member.
-     *
-     * @returns Array of role objects.
-     */
+    /** Get all role objects assigned to this member. */
     roleObjects(): Promise<Role[]>;
 
     /**
@@ -2142,49 +1737,31 @@ declare namespace discord {
    * @see https://docs.discord.com/developers/resources/channel#channel-object
    */
   class Channel implements Mentionable {
-    /**
-     * When this channel was created, decoded from the channel snowflake.
-     */
+    /** When this channel was created, decoded from the channel snowflake. */
     readonly createdAt: Date | null;
 
-    /**
-     * Channel ID.
-     */
+    /** Channel ID. */
     readonly id: Snowflake;
 
-    /**
-     * The type of this channel. Check it to narrow the channel to its subclass.
-     */
+    /** The type of this channel. Check it to narrow the channel to its subclass. */
     readonly type: ChannelType;
 
-    /**
-     * Delete this channel.
-     */
+    /** Delete this channel. */
     delete(reason?: string): Promise<void>;
 
-    /**
-     * Requests the latest channel data from Discord instead of relying on cached state.
-     */
+    /** Requests the latest channel data from Discord instead of relying on cached state. */
     fetch(): Promise<AnyChannel>;
 
-    /**
-     * Returns `<#channelId>` mention syntax.
-     */
+    /** Returns `<#channelId>` mention syntax. */
     toMention(): string;
   }
 
-  /**
-   * Base class for all guild-bound channels (text, voice, category, forum, stage, etc.).
-   */
+  /** Base class for all guild-bound channels (text, voice, category, forum, stage, etc.). */
   class GuildChannel extends Channel {
-    /**
-     * ID of the guild this channel belongs to.
-     */
+    /** ID of the guild this channel belongs to. */
     readonly guildId: Snowflake;
 
-    /**
-     * Channel name.
-     */
+    /** Channel name. */
     readonly name: string | undefined;
 
     /**
@@ -2206,19 +1783,13 @@ declare namespace discord {
         }>
       | undefined;
 
-    /**
-     * Manager for permission overwrites on this channel.
-     */
+    /** Manager for permission overwrites on this channel. */
     readonly permissions: ChannelPermissionManager;
 
-    /**
-     * Position in the channel list (left-to-right, top-to-bottom).
-     */
+    /** Position in the channel list (left-to-right, top-to-bottom). */
     readonly position: number | undefined;
 
-    /**
-     * Discord URL to jump to this channel.
-     */
+    /** Discord URL to jump to this channel. */
     readonly url: string;
 
     /**
@@ -2249,7 +1820,6 @@ declare namespace discord {
      *
      * @param options.name Name for the copy. Defaults to this channel's name.
      * @param options.reason Audit-log reason for creating the copy.
-     * @returns The new channel.
      */
     clone(options?: { name?: string; reason?: string }): Promise<AnyGuildChannel>;
 
@@ -2257,7 +1827,6 @@ declare namespace discord {
      * Create an invite for this channel.
      *
      * @param options Optional invite settings (max age, max uses, etc.).
-     * @returns The created invite.
      */
     createInvite(options?: InviteCreateOptions): Promise<Invite>;
 
@@ -2268,11 +1837,7 @@ declare namespace discord {
      */
     fetchGuild(): Promise<Guild>;
 
-    /**
-     * Fetch all invites for this channel.
-     *
-     * @returns Array of invites.
-     */
+    /** Fetch all invites for this channel. */
     fetchInvites(): Promise<Invite[]>;
 
     /**
@@ -2290,6 +1855,23 @@ declare namespace discord {
      * @returns The permission bitmask.
      */
     getRolePermissions(role: Role): Promise<bigint>;
+
+    /**
+     * Ask Discord for a member's permissions in this channel, with roles and
+     * channel overwrites applied. `getMemberPermissions()` computes the same
+     * from the gateway cache and costs no request.
+     *
+     * @returns The permission bits.
+     */
+    fetchMemberPermissions(userId: Snowflake): Promise<bigint>;
+
+    /**
+     * Ask Discord for the permissions a role has in this channel, with channel
+     * overwrites applied.
+     *
+     * @returns The permission bits.
+     */
+    fetchRolePermissions(roleId: Snowflake): Promise<bigint>;
 
     /**
      * Returns `<#channelId>` mention syntax.
@@ -2328,24 +1910,16 @@ declare namespace discord {
     readonly type:
       | typeof ChannelType.GUILD_TEXT
       | typeof ChannelType.GUILD_ANNOUNCEMENT;
-    /**
-     * Indicates whether this channel is marked as not-safe-for-work.
-     */
+    /** Whether this channel is marked as not-safe-for-work. */
     readonly nsfw: boolean | undefined;
 
-    /**
-     * Slow mode cooldown in seconds (0 = disabled).
-     */
+    /** Slow mode cooldown in seconds (0 = disabled). */
     readonly rateLimitPerUser: number | undefined;
 
-    /**
-     * The channel topic, or `null` if not set.
-     */
+    /** The channel topic, or `null` if not set. */
     readonly topic: string | null | undefined;
 
-    /**
-     * List this channel's active threads.
-     */
+    /** List this channel's active threads. */
     fetchActiveThreads(): Promise<ThreadChannel[]>;
 
     /**
@@ -2362,6 +1936,19 @@ declare namespace discord {
     fetchArchivedThreads(
       options?: ArchivedThreadsOptions,
     ): Promise<ArchivedThreadPage>;
+
+    /**
+     * List the archived private threads the bot has joined, newest first. This
+     * needs only Read Message History, where `fetchArchivedThreads({ type:
+     * "private" })` needs Manage Threads. Pass `nextBefore` back as `before`
+     * for the next page.
+     *
+     * @param options `before` is a thread ID. `limit` is from 2 to 100.
+     */
+    fetchJoinedPrivateArchivedThreads(options?: {
+      before?: Snowflake;
+      limit?: number;
+    }): Promise<ArchivedThreadPage>;
 
     /**
      * Bulk delete messages by ID (Discord limit: 2-100, older than 2 weeks fails).
@@ -2391,16 +1978,13 @@ declare namespace discord {
      * Create a new thread in this channel.
      *
      * @param options Thread creation options including name and auto-archive duration.
-     * @returns The created thread.
      */
     createThread(options: ThreadCreateOptions): Promise<ThreadChannel>;
 
     /**
      * Create a thread from an existing message.
      *
-     * @param messageId The ID of the source message.
      * @param options Thread creation options including name and auto-archive duration.
-     * @returns The created thread.
      */
     createThreadFromMessage(
       messageId: Snowflake,
@@ -2411,7 +1995,6 @@ declare namespace discord {
      * Create a webhook for this channel.
      *
      * @param options Webhook creation options including name and optional avatar.
-     * @returns The created webhook.
      */
     createWebhook(options: {
       avatar?: string;
@@ -2419,27 +2002,17 @@ declare namespace discord {
       reason?: string;
     }): Promise<Webhook>;
 
-    /**
-     * Edit channel properties.
-     *
-     * @param options The channel properties to update.
-     * @returns The updated channel.
-     */
+    /** Edit channel properties. */
     edit(options: GuildTextChannelEditOptions): Promise<GuildTextChannel>;
 
     /**
      * Fetch recent messages with optional pagination.
      *
      * @param options Optional pagination parameters.
-     * @returns Array of messages.
      */
     fetchMessages(options?: FetchMessagesOptions): Promise<Message[]>;
 
-    /**
-     * Fetch all pinned messages in this channel.
-     *
-     * @returns Array of pinned messages.
-     */
+    /** Fetch all pinned messages in this channel. */
     fetchPinnedMessages(): Promise<Message[]>;
 
     /** Fetch a page of pinned messages with Discord's cursor-based pins API. */
@@ -2448,18 +2021,14 @@ declare namespace discord {
       limit?: number;
     }): Promise<PinPage>;
 
-    /**
-     * Fetch all webhooks in this channel.
-     *
-     * @returns Array of webhooks.
-     */
+    /** Fetch all webhooks in this channel. */
     fetchWebhooks(): Promise<Webhook[]>;
 
     /**
-     * Fetch a specific message by ID, or `null` if not found.
+     * Fetch a specific message by ID.
      *
-     * @param messageId The ID of the message to fetch.
-     * @returns The message, or null if not found.
+     * @returns The message, or `null` when it does not exist. Any other failure,
+     * such as missing Read Message History, throws.
      */
     fetchMessage(messageId: Snowflake): Promise<Message | null>;
 
@@ -2467,7 +2036,6 @@ declare namespace discord {
      * Send a message in this channel.
      *
      * @param content The message content or send options.
-     * @returns The sent message.
      */
     send(content: string | SendMessageOptions): Promise<Message>;
 
@@ -2475,7 +2043,6 @@ declare namespace discord {
      * Turn the NSFW flag on or off.
      *
      * @param nsfw Whether the channel should be NSFW.
-     * @returns The updated channel.
      */
     setNsfw(nsfw: boolean): Promise<GuildTextChannel>;
 
@@ -2483,7 +2050,6 @@ declare namespace discord {
      * Set the slow mode cooldown.
      *
      * @param seconds Slow mode cooldown in seconds (0 to disable).
-     * @returns The updated channel.
      */
     setSlowmode(seconds: number): Promise<GuildTextChannel>;
 
@@ -2491,37 +2057,23 @@ declare namespace discord {
      * Set the channel topic.
      *
      * @param topic The new topic, or null to clear.
-     * @returns The updated channel.
      */
     setTopic(topic: string | null): Promise<GuildTextChannel>;
 
-    /**
-     * Trigger the typing indicator in this channel.
-     */
+    /** Trigger the typing indicator in this channel. */
     typing(): Promise<void>;
   }
 
-  /**
-   * A guild voice channel.
-   */
+  /** A guild voice channel. */
   class GuildVoiceChannel extends GuildChannel {
     readonly type: typeof ChannelType.GUILD_VOICE;
-    /**
-     * Audio bitrate in bps.
-     */
+    /** Audio bitrate in bps. */
     readonly bitrate: number | undefined;
 
-    /**
-     * Maximum number of users allowed in the channel (0 = unlimited).
-     */
+    /** Maximum number of users allowed in the channel (0 = unlimited). */
     readonly userLimit: number | undefined;
 
-    /**
-     * Edit voice channel properties.
-     *
-     * @param options The voice channel properties to update.
-     * @returns The updated voice channel.
-     */
+    /** Edit voice channel properties. */
     edit(options: GuildVoiceChannelEditOptions): Promise<GuildVoiceChannel>;
 
     /** Set the status displayed for this voice channel. */
@@ -2533,24 +2085,25 @@ declare namespace discord {
     /** List the voice states currently cached for this channel. */
     getVoiceStates(): Promise<VoiceState[]>;
 
+    /**
+     * Play a soundboard sound to everyone in this voice channel. The bot must
+     * be connected to the channel, and needs Speak and Use Soundboard.
+     *
+     * @param soundId The sound to play.
+     * @param sourceGuildId The server the sound belongs to, when it isn't this
+     * one. Playing another server's sound also needs Use External Sounds.
+     */
+    sendSoundboardSound(soundId: Snowflake, sourceGuildId?: Snowflake): Promise<void>;
+
   }
 
-  /**
-   * A category channel that groups other channels in the channel list.
-   */
+  /** A category channel that groups other channels in the channel list. */
   class GuildCategory extends GuildChannel {
     readonly type: typeof ChannelType.GUILD_CATEGORY;
-    /**
-     * Always `null`; category channels cannot have parent categories.
-     */
+    /** Always `null`; category channels cannot have parent categories. */
     readonly parentId: null;
 
-    /**
-     * Edit category properties.
-     *
-     * @param options The category properties to update.
-     * @returns The updated category.
-     */
+    /** Edit category properties. */
     edit(options: {
       name?: string;
       position?: number;
@@ -2572,15 +2125,12 @@ declare namespace discord {
     /**
      * Publish a message to followed channels.
      *
-     * @param messageId The ID of the message to publish.
      * @returns The published message.
      */
     publishMessage(messageId: Snowflake): Promise<Message>;
   }
 
-  /**
-   * A forum-style channel with individual posts organized as threads.
-   */
+  /** A forum-style channel with individual posts organized as threads. */
   class GuildForumChannel extends GuildChannel {
     readonly type: typeof ChannelType.GUILD_FORUM;
     /** Tags that posts in this channel can use. */
@@ -2590,7 +2140,6 @@ declare namespace discord {
      * Create a new post (a thread with its first message).
      *
      * @param options The post creation options including name, message content, and optional tags.
-     * @returns The created thread.
      */
     createPost(options: ForumPostCreateOptions): Promise<ThreadChannel>;
 
@@ -2603,6 +2152,19 @@ declare namespace discord {
     ): Promise<ArchivedThreadPage>;
 
     /**
+     * Search this channel's posts by title, active and archived alike. Check
+     * `status` first: Discord may still be indexing the channel.
+     *
+     * ```ts
+     * const found = await forum.searchPosts({ name: "refund", sortBy: "last_message_time" });
+     * if (found.status === "ready") {
+     *   for (const post of found.threads) console.log(post.name);
+     * }
+     * ```
+     */
+    searchPosts(options?: ForumPostSearchOptions): Promise<ForumPostSearchResult>;
+
+    /**
      * Edit forum channel properties. `availableTags` replaces the whole tag list:
      * include existing tags by `id` to keep them.
      *
@@ -2611,9 +2173,6 @@ declare namespace discord {
      *   availableTags: [...forum.availableTags, { name: "Solved", emojiName: "✅" }],
      * });
      * ```
-     *
-     * @param options The forum channel properties to update.
-     * @returns The updated forum channel.
      */
     edit(options: ForumChannelEditOptions): Promise<GuildForumChannel>;
   }
@@ -2631,7 +2190,6 @@ declare namespace discord {
      * Create a new post (a thread with its first message).
      *
      * @param options The post creation options including name, message content, and optional tags.
-     * @returns The created thread.
      */
     createPost(options: ForumPostCreateOptions): Promise<ThreadChannel>;
 
@@ -2644,11 +2202,19 @@ declare namespace discord {
     ): Promise<ArchivedThreadPage>;
 
     /**
-     * Edit media channel properties. `availableTags` replaces the whole tag list.
+     * Search this channel's posts by title, active and archived alike. Check
+     * `status` first: Discord may still be indexing the channel.
      *
-     * @param options The channel properties to update.
-     * @returns The updated media channel.
+     * ```ts
+     * const found = await forum.searchPosts({ name: "refund", sortBy: "last_message_time" });
+     * if (found.status === "ready") {
+     *   for (const post of found.threads) console.log(post.name);
+     * }
+     * ```
      */
+    searchPosts(options?: ForumPostSearchOptions): Promise<ForumPostSearchResult>;
+
+    /** Edit media channel properties. `availableTags` replaces the whole tag list. */
     edit(options: ForumChannelEditOptions): Promise<GuildMediaChannel>;
   }
 
@@ -2666,17 +2232,25 @@ declare namespace discord {
 
   /** A tag in `ForumChannelEditOptions.availableTags`. Omit `id` to create a new tag. */
   interface ForumTagInput {
+    /** ID of an existing tag to keep or change. Leave out to create a new tag. */
     id?: Snowflake;
+    /** Tag name, up to 20 characters. */
     name: string;
+    /** `true` when only members with Manage Threads may apply the tag. */
     moderated?: boolean;
+    /** Custom emoji shown on the tag. Set this or `emojiName`, not both. */
     emojiId?: Snowflake | null;
+    /** Unicode emoji shown on the tag. */
     emojiName?: string | null;
   }
 
   /** Options for editing a forum or media channel. */
   interface ForumChannelEditOptions {
+    /** New channel name. */
     name?: string;
+    /** Audit-log reason for the edit. */
     reason?: string;
+    /** The posting guidelines shown above the posts, or `null` to clear them. */
     topic?: string | null;
     /** The full tag list, at most 20 tags. */
     availableTags?: ForumTagInput[];
@@ -2701,27 +2275,52 @@ declare namespace discord {
     nextBefore: string | null;
   }
 
-  /**
-   * A stage channel designed for voice events with speakers and an audience.
-   */
+  /** Options for `searchPosts()` on a forum or media channel. */
+  interface ForumPostSearchOptions {
+    /** Words to look for in post titles, up to 100 characters. */
+    name?: string;
+    /** `true` for archived posts only, `false` for active ones only. Leave out for both. */
+    archived?: boolean;
+    /** What to order by. Defaults to relevance when `name` is set. */
+    sortBy?: "relevance" | "creation_time" | "last_message_time" | "archive_time";
+    /** `"asc"` for oldest or least relevant first, `"desc"` for the reverse. */
+    sortOrder?: "asc" | "desc";
+    /** Posts per page, from 1 to 25. */
+    limit?: number;
+    /** How many posts to skip, for the pages after the first. */
+    offset?: number;
+  }
+
+  /** Result of `searchPosts()`. Check `status` before reading `threads`. */
+  type ForumPostSearchResult =
+    | {
+        status: "ready";
+        threads: ThreadChannel[];
+        /** How many posts match in total, across all pages. */
+        totalResults: number;
+        /** Whether a later page has more posts. */
+        hasMore: boolean;
+      }
+    | {
+        /** Discord has not finished indexing the channel. Search again later. */
+        status: "indexing";
+        threads: [];
+        totalResults: null;
+        hasMore: false;
+        /** Seconds to wait before searching again. */
+        retryAfter: number;
+      };
+
+  /** A stage channel designed for voice events with speakers and an audience. */
   class GuildStageVoiceChannel extends GuildChannel {
     readonly type: typeof ChannelType.GUILD_STAGE_VOICE;
-    /**
-     * Audio bitrate in bps.
-     */
+    /** Audio bitrate in bps. */
     readonly bitrate: number | undefined;
 
-    /**
-     * The stage topic, or `null` if not set.
-     */
+    /** The stage topic, or `null` if not set. */
     readonly topic: string | null | undefined;
 
-    /**
-     * Edit stage channel properties.
-     *
-     * @param options The stage channel properties to update.
-     * @returns The updated stage channel.
-     */
+    /** Edit stage channel properties. */
     edit(
       options: GuildStageVoiceChannelEditOptions,
     ): Promise<GuildStageVoiceChannel>;
@@ -2735,11 +2334,24 @@ declare namespace discord {
     /** List the voice states currently cached for this channel. */
     getVoiceStates(): Promise<VoiceState[]>;
 
+    /**
+     * Move someone in this stage channel between the speakers and the audience.
+     * Needs Mute Members, or Request to Speak when `userId` is the bot itself.
+     *
+     * @param userId The member to move, or `"@me"` for the bot.
+     * @param speaker `true` to make them a speaker, `false` to move them to the audience.
+     */
+    setSpeaker(userId: Snowflake | "@me", speaker: boolean): Promise<void>;
+
+    /**
+     * Raise the bot's hand in this stage channel. The bot must already be in
+     * the channel, and needs Request to Speak.
+     */
+    requestToSpeak(): Promise<void>;
+
   }
 
-  /**
-   * A temporary sub-channel within a guild text or forum channel.
-   */
+  /** A temporary sub-channel within a guild text or forum channel. */
   class ThreadChannel extends Channel {
     readonly type:
       | typeof ChannelType.ANNOUNCEMENT_THREAD
@@ -2747,19 +2359,13 @@ declare namespace discord {
       | typeof ChannelType.PRIVATE_THREAD;
     /** Tag IDs applied to this post, when the thread is in a forum or media channel. */
     readonly appliedTags: Snowflake[];
-    /**
-     * ID of the guild this thread belongs to.
-     */
+    /** ID of the guild this thread belongs to. */
     readonly guildId: Snowflake;
 
-    /**
-     * ID of the member who created this thread, or `null`.
-     */
+    /** ID of the member who created this thread, or `null`. */
     readonly ownerId: Snowflake | null | undefined;
 
-    /**
-     * ID of the parent channel, or `null` if not available.
-     */
+    /** ID of the parent channel, or `null` if not available. */
     readonly parentId: Snowflake | null | undefined;
 
     /** Thread name. */
@@ -2786,11 +2392,7 @@ declare namespace discord {
     /** Slowmode delay in seconds. */
     readonly rateLimitPerUser: number | null | undefined;
 
-    /**
-     * Add a member to this thread.
-     *
-     * @param userId The ID of the user to add.
-     */
+    /** Add a member to this thread. */
     addThreadMember(userId: Snowflake): Promise<void>;
 
     /**
@@ -2805,7 +2407,6 @@ declare namespace discord {
      * Edit thread properties.
      *
      * @param options Thread fields to update. Omitted fields are left unchanged.
-     * @returns The updated thread.
      */
     edit(options: ThreadChannelEditOptions): Promise<ThreadChannel>;
 
@@ -2813,7 +2414,6 @@ declare namespace discord {
      * Fetch recent messages with optional pagination.
      *
      * @param options Optional pagination parameters.
-     * @returns Array of messages.
      */
     fetchMessages(options?: FetchMessagesOptions): Promise<Message[]>;
 
@@ -2824,10 +2424,18 @@ declare namespace discord {
     }): Promise<PinPage>;
 
     /**
-     * Fetch members participating in this thread.
+     * Check whether one user has joined this thread.
      *
-     * @returns Array of thread member objects.
+     * @param userId The user to look for.
+     * @returns Their thread membership, or `null` when they haven't joined.
      */
+    fetchThreadMember(userId: Snowflake): Promise<{
+      id: Snowflake;
+      joinedAt: Date | null;
+      userId: Snowflake;
+    } | null>;
+
+    /** Fetch members participating in this thread. */
     fetchThreadMembers(): Promise<
       Array<{
         id: Snowflake;
@@ -2837,41 +2445,30 @@ declare namespace discord {
     >;
 
     /**
-     * Fetch a specific message by ID, or `null` if not found.
+     * Fetch a specific message by ID.
      *
-     * @param messageId The ID of the message to fetch.
-     * @returns The message, or null if not found.
+     * @returns The message, or `null` when it does not exist. Any other failure,
+     * such as missing Read Message History, throws.
      */
     fetchMessage(messageId: Snowflake): Promise<Message | null>;
 
-    /**
-     * Add the bot to this thread.
-     */
+    /** Add the bot to this thread. */
     join(): Promise<void>;
 
-    /**
-     * Remove the bot from this thread.
-     */
+    /** Remove the bot from this thread. */
     leave(): Promise<void>;
 
-    /**
-     * Remove a member from this thread.
-     *
-     * @param userId The ID of the user to remove.
-     */
+    /** Remove a member from this thread. */
     removeThreadMember(userId: Snowflake): Promise<void>;
 
     /**
      * Send a message in this thread.
      *
      * @param content The message content or send options.
-     * @returns The sent message.
      */
     send(content: string | SendMessageOptions): Promise<Message>;
 
-    /**
-     * Trigger the typing indicator in this thread.
-     */
+    /** Trigger the typing indicator in this thread. */
     typing(): Promise<void>;
 
     /**
@@ -2883,9 +2480,7 @@ declare namespace discord {
     unarchive(reason?: string): Promise<ThreadChannel>;
   }
 
-  /**
-   * Union of all guild channel types.
-   */
+  /** Union of all guild channel types. */
   type AnyGuildChannel =
     | GuildTextChannel
     | GuildVoiceChannel
@@ -2895,28 +2490,18 @@ declare namespace discord {
     | GuildMediaChannel
     | GuildStageVoiceChannel;
 
-  /**
-   * Union of all supported guild and thread channel types.
-   */
+  /** Union of all supported guild and thread channel types. */
   type AnyChannel = AnyGuildChannel | ThreadChannel;
 
-  /**
-   * A channel that can receive ordinary messages.
-   */
+  /** A channel that can receive ordinary messages. */
   type TextChannel =
     | GuildTextChannel
     | GuildAnnouncementChannel
     | ThreadChannel;
 
-  /**
-   * Manages permission overwrites on a guild channel.
-   */
+  /** Manages permission overwrites on a guild channel. */
   class ChannelPermissionManager {
-    /**
-     * Delete a permission overwrite.
-     *
-     * @param overwriteId The ID of the role or member to remove overwrites for.
-     */
+    /** Delete a permission overwrite. */
     delete(overwriteId: Snowflake): Promise<void>;
 
     /**
@@ -2931,7 +2516,6 @@ declare namespace discord {
      * Replace the permission overwrite for a role or member. Values omitted from
      * `allow` or `deny` are not merged with the existing overwrite.
      *
-     * @param overwriteId The ID of the role or member.
      * @param options The overwrite options including type, allow and deny bitfields.
      */
     set(
@@ -2969,26 +2553,45 @@ declare namespace discord {
    * Array filters match any of their values.
    */
   interface GuildMessageSearchOptions {
+    /** Words to look for in the message text. */
     content?: string;
+    /** Only messages in these channels. */
     channelIds?: Snowflake[];
+    /** Only messages from these users. */
     authorIds?: Snowflake[];
+    /** Only messages from these kinds of author. A leading `-` excludes the kind instead. */
     authorTypes?: Array<
       "user" | "bot" | "webhook" | "-user" | "-bot" | "-webhook"
     >;
+    /** Only messages that mention one of these users. */
     mentions?: Snowflake[];
+    /** Only messages that mention one of these roles. */
     mentionRoleIds?: Snowflake[];
+    /** Whether the message mentions `@everyone`. */
     mentionEveryone?: boolean;
+    /** Only replies to these users. */
     repliedToUserIds?: Snowflake[];
+    /** Only replies to these messages. */
     repliedToMessageIds?: Snowflake[];
+    /** Whether the message is pinned. */
     pinned?: boolean;
+    /** Only messages that contain one of these kinds of content. */
     has?: GuildMessageSearchHas[];
+    /** Only messages with an embed of one of these types. */
     embedTypes?: Array<"image" | "video" | "gif" | "sound" | "article">;
+    /** Only messages with an embed from one of these providers, such as `"YouTube"`. */
     embedProviders?: string[];
+    /** Only messages that link to one of these hosts, such as `"github.com"`. */
     linkHostnames?: string[];
+    /** Only messages with an attachment of one of these extensions, without the dot. */
     attachmentExtensions?: string[];
+    /** Only messages with an attachment of one of these file names. */
     attachmentFilenames?: string[];
+    /** Order by time or by relevance to `content`. Defaults to `"timestamp"`. */
     sortBy?: "timestamp" | "relevance";
+    /** `"asc"` for oldest or least relevant first. Defaults to `"desc"`. */
     sortOrder?: "asc" | "desc";
+    /** Whether to include messages from age-restricted channels. Defaults to `false`. */
     includeNsfw?: boolean;
     /** Only messages older than this message ID. */
     maxId?: Snowflake;
@@ -3009,7 +2612,9 @@ declare namespace discord {
     totalResults: number;
     /** Matching messages, grouped as Discord returns them. */
     groups: Message[][];
+    /** `true` while Discord is still indexing older messages, so results may be incomplete. */
     doingDeepHistoricalIndex: boolean;
+    /** How many messages are indexed so far, when Discord reports it. */
     documentsIndexed: number | null;
   }
 
@@ -3019,6 +2624,7 @@ declare namespace discord {
     totalResults: null;
     groups: [];
     doingDeepHistoricalIndex: true;
+    /** How many messages are indexed so far. */
     documentsIndexed: number;
     /** Seconds to wait before searching again. */
     retryAfter: number;
@@ -3260,7 +2866,9 @@ declare namespace discord {
 
   /** Result of `guild.bulkBan()`. */
   interface BulkBanResult {
+    /** IDs of the users that were banned. */
     bannedUsers: Snowflake[];
+    /** IDs that could not be banned, such as users who were already banned. */
     failedUsers: Snowflake[];
   }
 
@@ -3306,10 +2914,18 @@ declare namespace discord {
 
   /** Options for `guild.editOnboarding()`. Omitted fields keep their current value. */
   interface GuildOnboardingEditOptions {
+    /** The questions new members answer. Replaces the whole list. */
     prompts?: GuildOnboardingPrompt[];
+    /** Channels every new member is added to. Replaces the whole list. */
     defaultChannelIds?: Snowflake[];
+    /** Whether onboarding is turned on. */
     enabled?: boolean;
+    /**
+     * `0` counts only default channels towards Discord's onboarding requirements, `1` also
+     * counts channels reached through prompts.
+     */
     mode?: 0 | 1;
+    /** Audit-log reason for the edit. */
     reason?: string;
   }
 
@@ -3329,9 +2945,13 @@ declare namespace discord {
 
   /** Options for `guild.editWelcomeScreen()`. */
   interface WelcomeScreenEditOptions {
+    /** Whether the welcome screen is shown to new members. */
     enabled?: boolean;
+    /** The server description on the welcome screen, or `null` to clear it. */
     description?: string | null;
+    /** Channels linked from the welcome screen, up to 5. Replaces the whole list. */
     welcomeChannels?: WelcomeScreenChannel[];
+    /** Audit-log reason for the edit. */
     reason?: string;
   }
 
@@ -3344,9 +2964,159 @@ declare namespace discord {
 
   /** Options for `guild.editWidgetSettings()`. */
   interface GuildWidgetSettingsEditOptions {
+    /** Whether the widget is turned on. */
     enabled?: boolean;
+    /** The channel the widget's invite leads to, or `null` for no invite. */
     channelId?: Snowflake | null;
+    /** Audit-log reason for the edit. */
     reason?: string;
+  }
+
+  /** What anyone can see of a server before joining it. */
+  interface GuildPreview {
+    id: Snowflake;
+    name: string;
+    description: string | null;
+    /** Icon hash, or `null` when the server has no icon. */
+    icon: string | null;
+    /** Invite splash hash, or `null` when the server has none. */
+    splash: string | null;
+    /** Discovery splash hash, or `null` when the server has none. */
+    discoverySplash: string | null;
+    /** Enabled server features, such as `"COMMUNITY"`. */
+    features: string[];
+    approximateMemberCount: number;
+    /** Roughly how many members are online. */
+    approximatePresenceCount: number;
+    emojis: Emoji[];
+    stickers: Sticker[];
+  }
+
+  /** A voice server location a voice or stage channel can be pinned to. */
+  interface VoiceRegion {
+    /** The value to use as a channel's `rtcRegion`. */
+    id: string;
+    name: string;
+    /** `true` for the region closest to the bot. */
+    optimal: boolean;
+    /** `true` when Discord advises against choosing this region. */
+    deprecated: boolean;
+    /** `true` for a region reserved for events and similar. */
+    custom: boolean;
+  }
+
+  /** What a server's public widget shows. */
+  interface GuildWidget {
+    id: Snowflake;
+    name: string;
+    /** Invite URL for the widget's invite channel, or `null` when none is set. */
+    instantInvite: string | null;
+    /** Voice and stage channels everyone can see. */
+    channels: Array<{ id: Snowflake; name: string; position: number }>;
+    /** Online members, up to 100. */
+    members: GuildWidgetMember[];
+    /** How many members are online. */
+    presenceCount: number;
+  }
+
+  /** A member as the widget shows them. The widget hides real user IDs. */
+  interface GuildWidgetMember {
+    /** A position in the list, not the user's ID. */
+    id: string;
+    username: string;
+    /** `"online"`, `"idle"` or `"dnd"`. */
+    status: string;
+    avatarUrl: string;
+    /** What they are playing, or `null`. */
+    activityName: string | null;
+    /** The voice channel they are in, or `null`. */
+    channelId: Snowflake | null;
+    /** `true` when muted, by themselves or by the server. */
+    mute: boolean;
+    /** `true` when deafened, by themselves or by the server. */
+    deaf: boolean;
+  }
+
+  /** An emoji in a server's welcome settings. */
+  interface GuildWelcomeEmoji {
+    /** The custom emoji's ID, or `null` for a Unicode emoji. */
+    id: Snowflake | null;
+    /** The emoji's name, or the character itself for a Unicode emoji. */
+    name: string | null;
+    animated: boolean;
+  }
+
+  /** Something a new member is prompted to do first. */
+  interface GuildNewMemberAction {
+    /** The channel the action happens in. */
+    channelId: Snowflake;
+    /** `0` to view the channel, `1` to talk in it. */
+    actionType: 0 | 1;
+    title: string;
+    description: string;
+    emoji: GuildWelcomeEmoji | null;
+  }
+
+  /** A channel recommended to new members as a resource. */
+  interface GuildResourceChannel {
+    channelId: Snowflake;
+    title: string;
+    description: string;
+    emoji: GuildWelcomeEmoji | null;
+  }
+
+  /** What new members of a community server are shown. */
+  interface GuildNewMemberWelcome {
+    enabled: boolean;
+    /** The welcome message and the members it is signed by, or `null` when none is set. */
+    welcomeMessage: { authorIds: Snowflake[]; message: string } | null;
+    newMemberActions: GuildNewMemberAction[];
+    resourceChannels: GuildResourceChannel[];
+  }
+
+  /**
+   * Where an application to join a server stands: `"STARTED"` before the
+   * applicant submits it, `"SUBMITTED"` while it waits for review, then
+   * `"APPROVED"` or `"REJECTED"`.
+   */
+  type GuildJoinRequestStatus = "STARTED" | "SUBMITTED" | "REJECTED" | "APPROVED";
+
+  /** An application to join a server that reviews its members. */
+  interface GuildJoinRequest {
+    id: Snowflake;
+    userId: Snowflake;
+    /** The applicant, when Discord includes them. */
+    user: User | null;
+    status: GuildJoinRequestStatus | null;
+    /** When the application was created, in Unix milliseconds. */
+    createdTimestamp: number;
+    /** When it was approved or rejected, in Unix milliseconds, or `null` while it waits. */
+    reviewedTimestamp: number | null;
+    /** Why it was rejected. Only set when `status` is `"REJECTED"`. */
+    rejectionReason: string | null;
+    /** Who approved or rejected it, when Discord includes them. */
+    reviewedBy: User | null;
+    /** The applicant's answers to the server's questions, as Discord sends them. */
+    formResponses: unknown[];
+  }
+
+  /** Options for `Guild.fetchJoinRequests()`. */
+  interface FetchJoinRequestsOptions {
+    /** Only applications in this state. */
+    status?: GuildJoinRequestStatus;
+    /** Applications per page, from 1 to 100. */
+    limit?: number;
+    /** Only applications with IDs lower than this. */
+    before?: Snowflake;
+    /** Only applications with IDs higher than this. */
+    after?: Snowflake;
+  }
+
+  /** One page of `Guild.fetchJoinRequests()`. */
+  interface GuildJoinRequestPage {
+    /** How many applications match in total, across all pages. */
+    total: number;
+    requests: GuildJoinRequest[];
   }
 
   /** The server's vanity invite. */
@@ -3649,9 +3419,7 @@ declare namespace discord {
    * @see https://docs.discord.com/developers/resources/guild#guild-object
    */
   class Guild {
-    /**
-     * Hash of the guild's banner, or `null` if not set.
-     */
+    /** Hash of the guild's banner, or `null` if not set. */
     readonly banner: string | null | undefined;
 
     readonly splash: string | null | undefined;
@@ -3680,14 +3448,10 @@ declare namespace discord {
     readonly stickers: Map<Snowflake, Sticker> | undefined;
     readonly createdTimestamp: number;
 
-    /**
-     * When this guild was created.
-     */
+    /** When this guild was created. */
     readonly createdAt: Date;
 
-    /**
-     * Default notification level for the guild.
-     */
+    /** Default notification level for the guild. */
     readonly defaultMessageNotifications: Guild.NotificationsLevel | undefined;
 
     /**
@@ -3696,14 +3460,10 @@ declare namespace discord {
      */
     readonly description: string | null | undefined;
 
-    /**
-     * Level of content filtering applied to messages.
-     */
+    /** Level of content filtering applied to messages. */
     readonly explicitContentFilter: Guild.ExplicitContentFilterLevel | undefined;
 
-    /**
-     * Array of feature flags the guild has enabled.
-     */
+    /** Array of feature flags the guild has enabled. */
     readonly features: Guild.Feature[] | undefined;
 
     /**
@@ -3712,9 +3472,7 @@ declare namespace discord {
      */
     readonly icon: string | null | undefined;
 
-    /**
-     * Guild ID.
-     */
+    /** Guild ID. */
     readonly id: Snowflake;
 
     /**
@@ -3723,48 +3481,33 @@ declare namespace discord {
      */
     readonly memberCount: number | undefined;
 
-    /**
-     * The guild's name.
-     */
+    /** The guild's name. */
     readonly name: string;
 
-    /**
-     * ID of the guild owner, when the payload included it.
-     */
+    /** ID of the guild owner, when the payload included it. */
     readonly ownerId: Snowflake | null | undefined;
 
-    /**
-     * The guild's preferred locale (e.g. `"en-US"`).
-     */
+    /** The guild's preferred locale (e.g. `"en-US"`). */
     readonly preferredLocale: string | undefined;
 
-    /**
-     * Number of Nitro boosts the guild currently has.
-     */
+    /** Number of Nitro boosts the guild currently has. */
     readonly premiumSubscriptionCount: number | undefined;
 
-    /**
-     * The guild's Nitro boost tier. `undefined` when omitted; `0` only when Discord sent 0.
-     */
+    /** The guild's Nitro boost tier. `undefined` when omitted; `0` only when Discord sent 0. */
     readonly premiumTier: Guild.PremiumTier | undefined;
 
-    /**
-     * The vanity invite code, or `null` if the guild doesn't have a vanity URL.
-     */
+    /** The vanity invite code, or `null` if the guild doesn't have a vanity URL. */
     readonly vanityUrlCode: string | null | undefined;
 
     /** When paused invites resume, or `null` when invites are not paused. See `pauseInvites()`. */
     readonly invitesPausedUntil: Date | null;
 
-    /**
-     * Verification level required to send messages.
-     */
+    /** Verification level required to send messages. */
     readonly verificationLevel: Guild.VerificationLevel | undefined;
 
     /**
      * Ban a user from the guild.
      *
-     * @param userId The ID of the user to ban.
      * @param options Ban options (message deletion duration, reason).
      */
     ban(
@@ -3806,7 +3549,6 @@ declare namespace discord {
     /**
      * Create a new auto moderation rule.
      *
-     * @param options Auto moderation rule options.
      * @returns The newly created rule.
      */
     createAutoModRule(options: AutoModRuleCreateOptions): Promise<AutoModRule>;
@@ -3814,7 +3556,6 @@ declare namespace discord {
     /**
      * Create a new channel in this guild.
      *
-     * @param options Channel creation options.
      * @returns The newly created channel.
      */
     createChannel(options: GuildChannelCreateOptions): Promise<AnyGuildChannel>;
@@ -3822,7 +3563,6 @@ declare namespace discord {
     /**
      * Create a new custom emoji.
      *
-     * @param options Emoji creation options.
      * @returns The newly created emoji.
      */
     createEmoji(options: EmojiCreateOptions): Promise<Emoji>;
@@ -3830,7 +3570,6 @@ declare namespace discord {
     /**
      * Create a new role.
      *
-     * @param options Role creation options.
      * @returns The newly created role.
      */
     createRole(options: RoleCreateOptions): Promise<Role>;
@@ -3838,7 +3577,6 @@ declare namespace discord {
     /**
      * Create a new scheduled event.
      *
-     * @param options Event creation options.
      * @returns The newly created event.
      */
     createScheduledEvent(
@@ -3848,7 +3586,6 @@ declare namespace discord {
     /**
      * Create a stage instance in a stage channel.
      *
-     * @param options Stage instance creation options.
      * @returns The newly created stage instance.
      */
     createStageInstance(
@@ -3858,7 +3595,6 @@ declare namespace discord {
     /**
      * Create a new sticker.
      *
-     * @param options Sticker creation options.
      * @returns The newly created sticker.
      */
     createSticker(options: StickerCreateOptions): Promise<Sticker>;
@@ -3866,7 +3602,6 @@ declare namespace discord {
     /**
      * Upload a sound to this guild's soundboard.
      *
-     * @param options The sound file and its settings.
      * @returns The uploaded sound.
      *
      * @example
@@ -3885,7 +3620,6 @@ declare namespace discord {
     /**
      * Create a new guild template from current settings.
      *
-     * @param options Template creation options.
      * @returns The newly created template.
      */
     createTemplate(options: {
@@ -3928,7 +3662,6 @@ declare namespace discord {
      *
      * @param positions Array of role entries with new positions.
      * @param reason Audit-log reason for changing the positions.
-     * @returns The updated roles in their new order.
      */
     editRolePositions(
       positions: Array<{
@@ -3938,39 +3671,24 @@ declare namespace discord {
       reason?: string,
     ): Promise<Role[]>;
 
-    /**
-     * Refetch the latest guild data from Discord.
-     *
-     * @returns The updated guild object.
-     */
+    /** Refetch the latest guild data from Discord. */
     fetch(): Promise<Guild>;
 
     /**
      * Fetch a page of guild audit log entries and related resolved resources.
      * Requires the bot to have {@link PermissionFlags.VIEW_AUDIT_LOG}.
      *
-     * @param options Optional filters and pagination options.
      * @see https://docs.discord.com/developers/resources/audit-log
      */
     fetchAuditLogs(options?: AuditLogFetchOptions): Promise<AuditLog>;
 
-    /**
-     * Fetch all auto moderation rules.
-     *
-     * @returns An array of all auto moderation rules.
-     */
+    /** Fetch all auto moderation rules. */
     fetchAutoModRules(): Promise<AutoModRule[]>;
 
-    /**
-     * Read a member's presence from Weeble's gateway cache, if currently known.
-     */
+    /** Read a member's presence from Weeble's gateway cache, if currently known. */
     getCachedPresence(userId: Snowflake): Promise<Presence | null>;
 
-    /**
-     * Fetch all scheduled events.
-     *
-     * @returns An array of all scheduled events.
-     */
+    /** Fetch all scheduled events. */
     fetchScheduledEvents(options?: {
       withUserCount?: boolean;
     }): Promise<ScheduledEvent[]>;
@@ -3978,7 +3696,8 @@ declare namespace discord {
     /**
      * Fetch the active stage instance.
      *
-     * @returns The stage instance, or null if none is running.
+     * @returns The stage instance, or `null` when nothing is running in that
+     * channel. Any other failure throws.
      */
     fetchStageInstance(channelId: Snowflake): Promise<StageInstance | null>;
 
@@ -3989,47 +3708,31 @@ declare namespace discord {
      */
     fetchSoundboardSounds(): Promise<SoundboardSound[]>;
 
-    /**
-     * Fetch all stickers for this guild.
-     *
-     * @returns An array of all stickers.
-     */
+    /** Fetch all stickers for this guild. */
     fetchStickers(): Promise<Sticker[]>;
 
-    /**
-     * Fetch all guild templates.
-     *
-     * @returns An array of all templates.
-     */
+    /** Fetch all guild templates. */
     fetchTemplates(): Promise<GuildTemplate[]>;
 
-    /**
-     * Fetch all webhooks for this guild.
-     *
-     * @returns An array of all webhooks.
-     */
+    /** Fetch all webhooks for this guild. */
     fetchWebhooks(): Promise<Webhook[]>;
 
     /**
      * Fetch the ban record for a specific user.
      *
-     * @param userId The ID of the banned user.
-     * @returns The ban object.
+     * @returns The ban, or `null` when the user is not banned. Any other
+     * failure, such as missing Ban Members, throws.
      */
     fetchBan(userId: Snowflake): Promise<GuildBan | null>;
 
-    /**
-     * Fetch all bans in this guild.
-     *
-     * @returns An array of all guild bans.
-     */
+    /** Fetch all bans in this guild. */
     fetchBans(): Promise<GuildBan[]>;
 
     /**
      * Fetch a specific channel by ID.
      *
-     * @param channelId The ID of the channel to fetch.
-     * @returns The channel, or null if not found.
+     * @returns The channel, or `null` when it does not exist or belongs to
+     * another server. Any other failure throws.
      */
     fetchChannel(channelId: Snowflake): Promise<AnyGuildChannel | null>;
 
@@ -4072,62 +3775,173 @@ declare namespace discord {
      */
     getRoles(): Promise<Role[]>;
 
-    /**
-     * Fetch all channels in this guild.
-     *
-     * @returns An array of all guild channels.
-     */
+    /** Fetch all channels in this guild. */
     fetchChannels(): Promise<AnyGuildChannel[]>;
 
     /**
-     * Fetch a specific emoji by ID.
+     * Fetch one of this server's emojis.
      *
-     * @param emojiId The ID of the emoji to fetch.
-     * @returns The emoji, or null if not found.
+     * @returns The emoji, or `null` when the server has no emoji with that ID.
+     * Any other failure throws.
      */
     fetchEmoji(emojiId: Snowflake): Promise<Emoji | null>;
 
     /**
-     * Fetch all emojis for this guild.
-     *
-     * @returns An array of all custom emojis.
+     * Fetch the server's public preview: its name, images, description, custom
+     * emojis and stickers, and approximate member counts.
      */
-    fetchEmojis(): Promise<Emoji[]>;
+    fetchPreview(): Promise<GuildPreview>;
 
     /**
-     * Fetch all invites for this guild.
+     * Count the members that have each role. Costs one request however many
+     * roles the server has. The `@everyone` role is not included.
      *
-     * @returns An array of all guild invites.
+     * ```ts
+     * const counts = await guild.fetchRoleMemberCounts();
+     * console.log(`${counts.get(role.id) ?? 0} members have ${role.name}`);
+     * ```
+     *
+     * @returns Member counts keyed by role ID.
      */
+    fetchRoleMemberCounts(): Promise<Map<Snowflake, number>>;
+
+    /**
+     * Fetch one of this server's stickers.
+     *
+     * @returns The sticker, or `null` when the server has no sticker with that ID.
+     */
+    fetchSticker(stickerId: Snowflake): Promise<Sticker | null>;
+
+    /**
+     * Fetch one scheduled event.
+     *
+     * @param options Set `withUserCount` to also get how many users are interested.
+     * @returns The event, or `null` when the server has no event with that ID.
+     */
+    fetchScheduledEvent(
+      eventId: Snowflake,
+      options?: { withUserCount?: boolean },
+    ): Promise<ScheduledEvent | null>;
+
+    /**
+     * Fetch one auto moderation rule. Needs Manage Server.
+     *
+     * @returns The rule, or `null` when the server has no rule with that ID.
+     */
+    fetchAutoModRule(ruleId: Snowflake): Promise<AutoModRule | null>;
+
+    /**
+     * Fetch one of the sounds uploaded to this server's soundboard.
+     *
+     * @returns The sound, or `null` when the server has no sound with that ID.
+     */
+    fetchSoundboardSound(soundId: Snowflake): Promise<SoundboardSound | null>;
+
+    /**
+     * Ask Discord for a member's current voice state. Use
+     * `GuildVoiceChannel.getVoiceStates()` when the gateway cache is enough: it
+     * costs no request.
+     *
+     * @param userId The member to look up. Leave out for the bot itself.
+     * @returns The voice state, or `null` when they aren't in a voice channel.
+     */
+    fetchVoiceState(userId?: Snowflake): Promise<VoiceState | null>;
+
+    /**
+     * List the voice regions this server can use for a voice or stage channel's
+     * `rtcRegion`.
+     */
+    fetchVoiceRegions(): Promise<VoiceRegion[]>;
+
+    /**
+     * Fetch what the server's public widget shows: its invite, voice channels
+     * and online members. Throws when the widget is turned off; turn it on with
+     * `editWidgetSettings({ enabled: true })`.
+     */
+    fetchWidget(): Promise<GuildWidget>;
+
+    /**
+     * Ask Discord for a member's server-wide permissions, with every role
+     * applied. Channel overwrites are not included.
+     *
+     * ```ts
+     * const permissions = await guild.fetchMemberPermissions(member.id);
+     * const canBan = (permissions & PermissionFlags.BAN_MEMBERS) !== 0n;
+     * ```
+     *
+     * @returns The permission bits.
+     */
+    fetchMemberPermissions(userId: Snowflake): Promise<bigint>;
+
+    /**
+     * Ask Discord for the server-wide permissions a role grants.
+     *
+     * @returns The permission bits.
+     */
+    fetchRolePermissions(roleId: Snowflake): Promise<bigint>;
+
+    /**
+     * Fetch the welcome message, suggested first actions and resource channels
+     * new members see in a community server.
+     *
+     * @returns The settings, or `null` when the server has not set them up.
+     */
+    fetchNewMemberWelcome(): Promise<GuildNewMemberWelcome | null>;
+
+    /**
+     * List applications to join the server, for servers that review members
+     * before letting them in. Up to 100 per call.
+     *
+     * ```ts
+     * const { requests } = await guild.fetchJoinRequests({ status: "SUBMITTED" });
+     * for (const request of requests) {
+     *   await guild.reviewJoinRequest(request.id, "APPROVED");
+     * }
+     * ```
+     */
+    fetchJoinRequests(options?: FetchJoinRequestsOptions): Promise<GuildJoinRequestPage>;
+
+    /**
+     * Approve or reject an application to join the server.
+     *
+     * @param rejectionReason Shown to the applicant, up to 160 characters. Only
+     * used with `"REJECTED"`.
+     * @returns The application after the decision.
+     */
+    reviewJoinRequest(
+      requestId: Snowflake,
+      action: "APPROVED" | "REJECTED",
+      rejectionReason?: string,
+    ): Promise<GuildJoinRequest>;
+
+    /** Fetch all emojis for this guild. */
+    fetchEmojis(): Promise<Emoji[]>;
+
+    /** Fetch all invites for this guild. */
     fetchInvites(): Promise<Invite[]>;
 
     /**
      * Fetches a guild member from Discord by user ID.
      *
-     * @param userId The ID of the user to fetch.
-     * @returns The guild member, or `null` when it cannot be retrieved.
+     * @returns The guild member, or `null` when the user is not in the server.
+     * Any other failure throws.
      */
     fetchMember(userId: Snowflake): Promise<GuildMember | null>;
 
     /**
      * Fetch a role by ID.
      *
-     * @param roleId The ID of the role to fetch.
-     * @returns The role, or null if not found.
+     * @returns The role, or `null` when the server has no role with that ID.
+     * Any other failure throws.
      */
     fetchRole(roleId: Snowflake): Promise<Role | null>;
 
-    /**
-     * Fetch all roles in this guild.
-     *
-     * @returns An array of all roles.
-     */
+    /** Fetch all roles in this guild. */
     fetchRoles(): Promise<Role[]>;
 
     /**
      * Get the CDN URL for the guild's icon.
      *
-     * @param options Icon size and format options.
      * @returns The icon URL, or null if no icon is set.
      */
     iconURL(options?: {
@@ -4182,7 +3996,6 @@ declare namespace discord {
      * Search for guild members by username or nickname prefix via Discord API.
      *
      * @param query The username or nickname prefix to search for.
-     * @param options Optional search options.
      * @param options.limit Maximum number of results to return (1–1000, defaults to 1).
      * @returns Matching guild members.
      */
@@ -4269,19 +4082,14 @@ declare namespace discord {
     /**
      * Remove (unban) a user.
      *
-     * @param userId The ID of the user to unban.
      * @param reason Reason for the unban, shown in audit log.
      */
     unban(userId: Snowflake, reason?: string): Promise<void>;
   }
 
-  /**
-   * Guild-scoped enums and feature type aliases.
-   */
+  /** Guild-scoped enums and feature type aliases. */
   namespace Guild {
-    /**
-     * Explicit content filter: 0 = disabled, 1 = members without roles, 2 = all members.
-     */
+    /** Explicit content filter: 0 = disabled, 1 = members without roles, 2 = all members. */
     type ExplicitContentFilterLevel = 0 | 1 | 2;
 
     /**
@@ -4320,39 +4128,25 @@ declare namespace discord {
       | "WELCOME_SCREEN_ENABLED"
       | (string & {});
 
-    /**
-     * Default notification level: 0 = all messages, 1 = only @mentions.
-     */
+    /** Default notification level: 0 = all messages, 1 = only @mentions. */
     type NotificationsLevel = 0 | 1;
 
-    /**
-     * Boost tier: 0 = none, 1-3 = corresponding tier.
-     */
+    /** Boost tier: 0 = none, 1-3 = corresponding tier. */
     type PremiumTier = 0 | 1 | 2 | 3;
 
-    /**
-     * Verification level: 0 = none, 1 = low, 2 = medium, 3 = high, 4 = very high.
-     */
+    /** Verification level: 0 = none, 1 = low, 2 = medium, 3 = high, 4 = very high. */
     type VerificationLevel = 0 | 1 | 2 | 3 | 4;
   }
 
-  /**
-   * A guild ban record containing the banned user and the audit-log reason, when available.
-   */
+  /** A guild ban record containing the banned user and the audit-log reason, when available. */
   class GuildBan {
-    /**
-     * Guild ID this ban applies to.
-     */
+    /** Guild ID this ban applies to. */
     readonly guildId: Snowflake;
 
-    /**
-     * Reason for the ban, or `null` when Discord did not provide one.
-     */
+    /** Reason for the ban, or `null` when Discord did not provide one. */
     readonly reason: string | null;
 
-    /**
-     * The banned user.
-     */
+    /** The banned user. */
     readonly user: User;
 
     /**
@@ -4378,71 +4172,45 @@ declare namespace discord {
     tertiary: number | null;
   }
 
-  /**
-   * A guild role, including its permission bitfield, hierarchy position, and display settings.
-   */
+  /** A guild role, including its permission bitfield, hierarchy position, and display settings. */
   class Role implements Mentionable {
-    /**
-     * 24-bit RGB color for this role. `undefined` when omitted; `0` only when Discord sent 0.
-     */
+    /** 24-bit RGB color for this role. `undefined` when omitted; `0` only when Discord sent 0. */
     readonly color: number | undefined;
 
     /** Role colors. Prefer this over the legacy singular `color` field. */
     readonly colors: RoleColors | undefined;
 
-    /**
-     * When this role was created.
-     */
+    /** When this role was created. */
     readonly createdAt: Date;
 
-    /**
-     * Guild ID this role belongs to.
-     */
+    /** Guild ID this role belongs to. */
     readonly guildId: Snowflake;
 
-    /**
-     * Indicates whether this role is displayed separately in the member list.
-     */
+    /** Whether this role is displayed separately in the member list. */
     readonly hoist: boolean | undefined;
 
-    /**
-     * Hash of the role's icon, or `null` if not set.
-     */
+    /** Hash of the role's icon, or `null` if not set. */
     readonly icon: string | null | undefined;
 
-    /**
-     * Role ID.
-     */
+    /** Role ID. */
     readonly id: Snowflake;
 
-    /**
-     * Indicates whether this role is managed by an integration.
-     */
+    /** Whether this role is managed by an integration. */
     readonly managed: boolean | undefined;
 
-    /**
-     * Indicates whether this role can be mentioned by anyone.
-     */
+    /** Whether this role can be mentioned by anyone. */
     readonly mentionable: boolean | undefined;
 
-    /**
-     * Role name.
-     */
+    /** Role name. */
     readonly name: string;
 
-    /**
-     * Permission bitmask for this role.
-     */
+    /** Permission bitmask for this role. */
     readonly permissions: bigint | undefined;
 
-    /**
-     * Position in the role hierarchy (higher = higher priority).
-     */
+    /** Position in the role hierarchy (higher = higher priority). */
     readonly position: number | undefined;
 
-    /**
-     * Unicode emoji displayed as the role icon, or `null`.
-     */
+    /** Unicode emoji displayed as the role icon, or `null`. */
     readonly unicodeEmoji: string | null | undefined;
 
     /**
@@ -4456,13 +4224,10 @@ declare namespace discord {
      * Edit role properties.
      *
      * @param options Role properties to update.
-     * @returns The updated role.
      */
     edit(options: RoleEditOptions): Promise<Role>;
 
-    /**
-     * Fetch guild members who have this role.
-     */
+    /** Fetch guild members who have this role. */
     fetchMembers(options?: FetchMembersOptions): Promise<GuildMember[]>;
 
     /**
@@ -4473,33 +4238,21 @@ declare namespace discord {
     toMention(): string;
   }
 
-  /**
-   * A custom emoji owned by a guild.
-   */
+  /** A custom emoji owned by a guild. */
   class Emoji implements Mentionable {
-    /**
-     * Indicates whether this emoji is animated.
-     */
+    /** Whether this emoji is animated. */
     readonly animated: boolean | undefined;
 
-    /**
-     * When this emoji was created, decoded from the emoji snowflake.
-     */
+    /** When this emoji was created, decoded from the emoji snowflake. */
     readonly createdAt: Date | null;
 
-    /**
-     * Guild ID this emoji belongs to.
-     */
+    /** Guild ID this emoji belongs to. */
     readonly guildId: Snowflake;
 
-    /**
-     * Emoji ID.
-     */
+    /** Emoji ID. */
     readonly id: Snowflake | null | undefined;
 
-    /**
-     * Emoji name used for the colon syntax (`:name:`).
-     */
+    /** Emoji name used for the colon syntax (`:name:`). */
     readonly name: string | null | undefined;
 
     /** Role IDs allowed to use the emoji, or `null` when unrestricted. */
@@ -4523,7 +4276,6 @@ declare namespace discord {
      * Edit emoji properties.
      *
      * @param options Emoji properties to update (name, restricted roles).
-     * @returns The updated emoji.
      */
     edit(options: EmojiEditOptions): Promise<Emoji>;
 
@@ -4543,73 +4295,45 @@ declare namespace discord {
     toMention(): string;
   }
 
-  /**
-   * Trigger-specific settings for an auto moderation rule.
-   */
+  /** Trigger-specific settings for an auto moderation rule. */
   interface AutoModTriggerMetadata {
-    /**
-     * Keywords that exempt messages from the rule.
-     */
+    /** Keywords that exempt messages from the rule. */
     allowList?: string[];
 
-    /**
-     * Keywords to match against message content.
-     */
+    /** Keywords to match against message content. */
     keywordFilter?: string[];
 
-    /**
-     * Indicates whether mention raid protection is enabled.
-     */
+    /** Whether mention raid protection is enabled. */
     mentionRaidProtectionEnabled?: boolean;
 
-    /**
-     * Max mentions allowed per message for mention spam rules.
-     */
+    /** Max mentions allowed per message for mention spam rules. */
     mentionTotalLimit?: number;
 
-    /**
-     * Preset keyword lists by ID (`1` = profanity, `2` = sexual content, `3` = slurs).
-     */
+    /** Preset keyword lists by ID (`1` = profanity, `2` = sexual content, `3` = slurs). */
     presets?: number[];
 
-    /**
-     * Regex patterns to match against message content.
-     */
+    /** Regex patterns to match against message content. */
     regexPatterns?: string[];
   }
 
-  /**
-   * Action-specific settings for an auto moderation rule response.
-   */
+  /** Action-specific settings for an auto moderation rule response. */
   interface AutoModActionMetadata {
-    /**
-     * Channel ID where alert messages are sent.
-     */
+    /** Channel ID where alert messages are sent. */
     channelId?: Snowflake;
 
-    /**
-     * Custom message shown to the user when blocked.
-     */
+    /** Custom message shown to the user when blocked. */
     customMessage?: string;
 
-    /**
-     * Duration in seconds for timeout actions.
-     */
+    /** Duration in seconds for timeout actions. */
     durationSeconds?: number;
   }
 
-  /**
-   * Action executed when an auto moderation rule matches.
-   */
+  /** Action executed when an auto moderation rule matches. */
   interface AutoModAction {
-    /**
-     * Action-specific metadata, optional depending on action type.
-     */
+    /** Action-specific metadata, optional depending on action type. */
     metadata?: AutoModActionMetadata;
 
-    /**
-     * The type of action to take.
-     */
+    /** The type of action to take. */
     type: AutoModActionType;
   }
 
@@ -4619,59 +4343,37 @@ declare namespace discord {
    * @see https://docs.discord.com/developers/resources/auto-moderation
    */
   class AutoModRule {
-    /**
-     * Actions taken when this rule is triggered.
-     */
+    /** Actions taken when this rule is triggered. */
     readonly actions: AutoModAction[];
 
-    /**
-     * When this auto moderation rule was created, decoded from the rule snowflake.
-     */
+    /** When this auto moderation rule was created, decoded from the rule snowflake. */
     readonly createdAt: Date;
 
-    /**
-     * Indicates whether this rule is currently enabled.
-     */
+    /** Whether this rule is currently enabled. */
     readonly enabled: boolean;
 
-    /**
-     * The type of event that triggers this rule.
-     */
+    /** The type of event that triggers this rule. */
     readonly eventType: AutoModEventType;
 
-    /**
-     * Channel IDs exempt from this rule.
-     */
+    /** Channel IDs exempt from this rule. */
     readonly exemptChannels: Snowflake[];
 
-    /**
-     * Role IDs exempt from this rule.
-     */
+    /** Role IDs exempt from this rule. */
     readonly exemptRoles: Snowflake[];
 
-    /**
-     * Guild ID this rule belongs to.
-     */
+    /** Guild ID this rule belongs to. */
     readonly guildId: Snowflake;
 
-    /**
-     * Auto moderation rule ID.
-     */
+    /** Auto moderation rule ID. */
     readonly id: Snowflake;
 
-    /**
-     * Rule name.
-     */
+    /** Rule name. */
     readonly name: string;
 
-    /**
-     * Metadata specific to the trigger type.
-     */
+    /** Metadata specific to the trigger type. */
     readonly triggerMetadata: AutoModTriggerMetadata;
 
-    /**
-     * The type of trigger used by this rule.
-     */
+    /** The type of trigger used by this rule. */
     readonly triggerType: AutoModTriggerType;
 
     /**
@@ -4685,73 +4387,46 @@ declare namespace discord {
      * Edit rule properties.
      *
      * @param options Rule properties to update.
-     * @returns The updated rule.
      */
     edit(options: AutoModRuleEditOptions): Promise<AutoModRule>;
   }
 
-  /**
-   * A scheduled guild event for a voice channel, stage channel, or external location.
-   */
+  /** A scheduled guild event for a voice channel, stage channel, or external location. */
   class ScheduledEvent {
-    /**
-     * Channel ID for voice/stage events, or `null` for external events.
-     */
+    /** Channel ID for voice/stage events, or `null` for external events. */
     readonly channelId: Snowflake | null;
 
-    /**
-     * When this scheduled event was created, decoded from the event snowflake.
-     */
+    /** When this scheduled event was created, decoded from the event snowflake. */
     readonly createdAt: Date | null;
 
-    /**
-     * ID of the user who created the event, or `null`.
-     */
+    /** ID of the user who created the event, or `null`. */
     readonly creatorId: Snowflake | null;
 
-    /**
-     * Event description, or `null` if not set.
-     */
+    /** Event description, or `null` if not set. */
     readonly description: string | null;
 
-    /**
-     * Type of entity the event is associated with.
-     */
+    /** Type of entity the event is associated with. */
     readonly entityType: ScheduledEventEntityType;
 
-    /**
-     * Guild ID this event belongs to.
-     */
+    /** Guild ID this event belongs to. */
     readonly guildId: Snowflake;
 
-    /**
-     * Scheduled event ID.
-     */
+    /** Scheduled event ID. */
     readonly id: Snowflake;
 
-    /**
-     * Event name.
-     */
+    /** Event name. */
     readonly name: string;
 
-    /**
-     * Privacy level of the event.
-     */
+    /** Privacy level of the event. */
     readonly privacyLevel: ScheduledEventPrivacyLevel;
 
-    /**
-     * When the event is scheduled to end, or `null`.
-     */
+    /** When the event is scheduled to end, or `null`. */
     readonly scheduledEndTime: Date | null;
 
-    /**
-     * When the event is scheduled to start.
-     */
+    /** When the event is scheduled to start. */
     readonly scheduledStartTime: Date;
 
-    /**
-     * Current status of the event.
-     */
+    /** Current status of the event. */
     readonly status: ScheduledEventStatus;
 
     /** How the event repeats, or `null` for a one-off event. */
@@ -4768,7 +4443,6 @@ declare namespace discord {
      * Edit event properties.
      *
      * @param options Event properties to update.
-     * @returns The updated event.
      */
     edit(options: ScheduledEventEditOptions): Promise<ScheduledEvent>;
 
@@ -4781,6 +4455,45 @@ declare namespace discord {
      * ```
      */
     fetchUsers(
+      options?: FetchScheduledEventUsersOptions,
+    ): Promise<ScheduledEventUser[]>;
+
+    /**
+     * Count the interested users without listing them. For a recurring event,
+     * `exceptions` holds the count of each occurrence that was changed, keyed
+     * by exception ID.
+     */
+    fetchUserCounts(): Promise<ScheduledEventUserCounts>;
+
+    /**
+     * Change or cancel one occurrence of a recurring event, leaving the rest
+     * of the series as it is.
+     *
+     * ```ts
+     * // Skip the occurrence on the 14th.
+     * await event.createException({
+     *   originalStartTime: "2026-05-14T18:00:00Z",
+     *   canceled: true,
+     * });
+     * ```
+     */
+    createException(options: ScheduledEventExceptionCreateOptions): Promise<ScheduledEventException>;
+
+    /** Change an occurrence that already has an exception. */
+    editException(
+      exceptionId: Snowflake,
+      options: ScheduledEventExceptionEditOptions,
+    ): Promise<ScheduledEventException>;
+
+    /** Remove an exception, so that occurrence follows the series again. */
+    deleteException(exceptionId: Snowflake): Promise<void>;
+
+    /**
+     * List users interested in one changed occurrence of a recurring event.
+     * Pages like `fetchUsers()`.
+     */
+    fetchExceptionUsers(
+      exceptionId: Snowflake,
       options?: FetchScheduledEventUsersOptions,
     ): Promise<ScheduledEventUser[]>;
   }
@@ -4835,38 +4548,60 @@ declare namespace discord {
     withMember?: boolean;
   }
 
-  /**
-   * The live session attached to a stage channel.
-   */
+  /** Result of `ScheduledEvent.fetchUserCounts()`. */
+  interface ScheduledEventUserCounts {
+    /** Users interested in the event as a whole. */
+    total: number;
+    /** Users interested in each changed occurrence, keyed by exception ID. */
+    exceptions: Map<Snowflake, number>;
+  }
+
+  /** One occurrence of a recurring event that differs from the series. */
+  interface ScheduledEventException {
+    id: Snowflake;
+    eventId: Snowflake;
+    /** The occurrence's new start, in Unix milliseconds, or `null` when unchanged. */
+    scheduledStartTimestamp: number | null;
+    /** The occurrence's new end, in Unix milliseconds, or `null` when unchanged. */
+    scheduledEndTimestamp: number | null;
+    /** `true` when this occurrence will not happen. */
+    canceled: boolean;
+  }
+
+  /** Options for `ScheduledEvent.editException()`. */
+  interface ScheduledEventExceptionEditOptions {
+    /** New start for this occurrence. `null` goes back to the series' time. */
+    startTime?: Date | number | string | null;
+    /** New end for this occurrence. `null` goes back to the series' time. */
+    endTime?: Date | number | string | null;
+    /** `true` to cancel this occurrence. */
+    canceled?: boolean;
+  }
+
+  /** Options for `ScheduledEvent.createException()`. */
+  interface ScheduledEventExceptionCreateOptions extends ScheduledEventExceptionEditOptions {
+    /** When the occurrence would start according to the series. This picks the occurrence. */
+    originalStartTime: Date | number | string;
+  }
+
+  /** The live session attached to a stage channel. */
   class StageInstance {
-    /**
-     * Stage channel ID.
-     */
+    /** Stage channel ID. */
     readonly channelId: Snowflake;
 
-    /**
-     * When this stage instance was created, decoded from the stage instance snowflake.
-     */
+    /** When this stage instance was created, decoded from the stage instance snowflake. */
     readonly createdAt: Date | null;
 
-    /**
-     * Guild ID this stage belongs to.
-     */
+    /** Guild ID this stage belongs to. */
     readonly guildId: Snowflake;
 
-    /**
-     * Stage instance ID.
-     */
+    /** Stage instance ID. */
     readonly id: Snowflake;
 
-    /**
-     * Privacy level of the stage.
-     */
+    /** Privacy level of the stage. */
     readonly privacyLevel: StageInstancePrivacyLevel;
 
-    /**
-     * The topic/subject of the stage.
-     */
+    /** The topic/subject of the stage. */
     readonly topic: string;
 
     /**
@@ -4880,53 +4615,34 @@ declare namespace discord {
      * Edit stage instance properties.
      *
      * @param options Stage properties to update.
-     * @returns The updated stage instance.
      */
     edit(options: StageInstanceEditOptions): Promise<StageInstance>;
   }
 
-  /**
-   * A custom sticker owned by a guild.
-   */
+  /** A custom sticker owned by a guild. */
   class Sticker {
-    /**
-     * Indicates whether this sticker is available for use.
-     */
+    /** Whether this sticker is available for use. */
     readonly available: boolean | null;
 
-    /**
-     * When this sticker was created, decoded from the sticker snowflake.
-     */
+    /** When this sticker was created, decoded from the sticker snowflake. */
     readonly createdAt: Date;
 
-    /**
-     * Sticker description.
-     */
+    /** Sticker description. */
     readonly description: string | null;
 
-    /**
-     * File format of the sticker.
-     */
+    /** File format of the sticker. */
     readonly formatType: StickerFormatType;
 
-    /**
-     * Guild ID this sticker belongs to.
-     */
+    /** Guild ID this sticker belongs to. */
     readonly guildId: Snowflake | null;
 
-    /**
-     * Sticker ID.
-     */
+    /** Sticker ID. */
     readonly id: Snowflake;
 
-    /**
-     * Sticker name.
-     */
+    /** Sticker name. */
     readonly name: string;
 
-    /**
-     * Autocomplete/suggested tags for this sticker.
-     */
+    /** Autocomplete/suggested tags for this sticker. */
     readonly tags: string;
 
     /**
@@ -4940,14 +4656,11 @@ declare namespace discord {
      * Edit sticker properties.
      *
      * @param options Sticker properties to update.
-     * @returns The updated sticker.
      */
     edit(options: StickerEditOptions): Promise<Sticker>;
   }
 
-  /**
-   * A sound uploaded to a guild's soundboard.
-   */
+  /** A sound uploaded to a guild's soundboard. */
   class SoundboardSound {
     /**
      * Whether the sound can be played. Discord marks sounds unavailable when
@@ -4955,34 +4668,22 @@ declare namespace discord {
      */
     readonly available: boolean;
 
-    /**
-     * When this sound was uploaded, decoded from the sound snowflake.
-     */
+    /** When this sound was uploaded, decoded from the sound snowflake. */
     readonly createdAt: Date;
 
-    /**
-     * ID of the custom emoji shown next to the sound.
-     */
+    /** ID of the custom emoji shown next to the sound. */
     readonly emojiId: Snowflake | null;
 
-    /**
-     * Unicode emoji shown next to the sound.
-     */
+    /** Unicode emoji shown next to the sound. */
     readonly emojiName: string | null;
 
-    /**
-     * Guild ID this sound belongs to.
-     */
+    /** Guild ID this sound belongs to. */
     readonly guildId: Snowflake;
 
-    /**
-     * Sound ID.
-     */
+    /** Sound ID. */
     readonly id: Snowflake;
 
-    /**
-     * Sound name.
-     */
+    /** Sound name. */
     readonly name: string;
 
     /**
@@ -4991,9 +4692,7 @@ declare namespace discord {
      */
     readonly user: User | null;
 
-    /**
-     * Playback volume from 0 to 1.
-     */
+    /** Playback volume from 0 to 1. */
     readonly volume: number;
 
     /**
@@ -5007,7 +4706,6 @@ declare namespace discord {
      * Edit sound properties.
      *
      * @param options Sound properties to update.
-     * @returns The updated sound.
      */
     edit(options: SoundboardSoundEditOptions): Promise<SoundboardSound>;
   }
@@ -5023,6 +4721,13 @@ declare namespace discord {
     readonly vanityUrlCode: string | null;
     readonly createdTimestamp: number;
     readonly createdAt: Date;
+    /**
+     * Build the CDN URL of the server's icon.
+     *
+     * @param options `size` is a power of two from 16 to 4096 and defaults to
+     * 256. `format` defaults to `"gif"` for an animated icon and `"png"` otherwise.
+     * @returns The URL, or `null` when the server has no icon.
+     */
     iconURL(options?: {
       size?: number;
       format?: "png" | "jpg" | "webp" | "gif";
@@ -5036,6 +4741,7 @@ declare namespace discord {
     readonly type: number;
     readonly createdTimestamp: number;
     readonly createdAt: Date;
+    /** Returns `<#channelId>` mention syntax. */
     toMention(): string;
   }
 
@@ -5047,42 +4753,28 @@ declare namespace discord {
    * @see https://docs.discord.com/developers/resources/invite#invite-object
    */
   class Invite {
-    /**
-     * Approximate member count at the time the invite was fetched, or `null`.
-     */
+    /** Approximate member count at the time the invite was fetched, or `null`. */
     readonly approximateMemberCount: number | null;
 
-    /**
-     * Approximate online member count, or `null`.
-     */
+    /** Approximate online member count, or `null`. */
     readonly approximatePresenceCount: number | null;
 
     /** Partial target channel information included with the invite. */
     readonly channel: InviteChannel | null;
 
-    /**
-     * Channel ID the invite targets, or `null`.
-     */
+    /** Channel ID the invite targets, or `null`. */
     readonly channelId: Snowflake | null;
 
-    /**
-     * The invite code used in discord.gg/ links.
-     */
+    /** The invite code used in discord.gg/ links. */
     readonly code: string;
 
-    /**
-     * When this invite was created, or `null`.
-     */
+    /** When this invite was created, or `null`. */
     readonly createdAt: Date | null;
 
-    /**
-     * When this invite expires, or `null`.
-     */
+    /** When this invite expires, or `null`. */
     readonly expiresAt: Date | null;
 
-    /**
-     * Guild ID the invite targets, or `null`.
-     */
+    /** Guild ID the invite targets, or `null`. */
     readonly guildId: Snowflake | null;
 
     /** Partial target guild information included with the invite. */
@@ -5100,22 +4792,16 @@ declare namespace discord {
     /** Target application metadata when Discord includes it. */
     readonly targetApplication: Record<string, unknown> | null;
 
-    /**
-     * Duration in seconds before the invite expires, or `null`.
-     */
+    /** Duration in seconds before the invite expires, or `null`. */
     readonly maxAge: number | null;
 
     /** Maximum number of uses. `0` means unlimited; `null` means Discord omitted the field. */
     readonly maxUses: number | null;
 
-    /**
-     * Indicates whether this invite grants temporary membership, or `null`.
-     */
+    /** Whether this invite grants temporary membership, or `null`. */
     readonly temporary: boolean | null;
 
-    /**
-     * Number of times this invite has been used, or `null`.
-     */
+    /** Number of times this invite has been used, or `null`. */
     readonly uses: number | null;
 
     /**
@@ -5125,11 +4811,7 @@ declare namespace discord {
      */
     delete(reason?: string): Promise<void>;
 
-    /**
-     * Refetch the latest invite data from Discord.
-     *
-     * @returns The updated invite object.
-     */
+    /** Refetch the latest invite data from Discord. */
     fetch(): Promise<Invite>;
 
     /**
@@ -5155,29 +4837,19 @@ declare namespace discord {
    * @see https://docs.discord.com/developers/resources/webhook
    */
   class Webhook {
-    /**
-     * Channel ID this webhook posts to, or `null`.
-     */
+    /** Channel ID this webhook posts to, or `null`. */
     readonly channelId: Snowflake | null;
 
-    /**
-     * When this webhook was created, decoded from the webhook snowflake.
-     */
+    /** When this webhook was created, decoded from the webhook snowflake. */
     readonly createdAt: Date;
 
-    /**
-     * Guild ID this webhook belongs to, or `null`.
-     */
+    /** Guild ID this webhook belongs to, or `null`. */
     readonly guildId: Snowflake | null;
 
-    /**
-     * Webhook ID.
-     */
+    /** Webhook ID. */
     readonly id: Snowflake;
 
-    /**
-     * Webhook name, or `null`.
-     */
+    /** Webhook name, or `null`. */
     readonly name: string | null;
 
     /**
@@ -5186,9 +4858,7 @@ declare namespace discord {
      */
     readonly token: string | null;
 
-    /**
-     * Type of webhook.
-     */
+    /** Type of webhook. */
     readonly type: WebhookType;
 
     /**
@@ -5198,45 +4868,34 @@ declare namespace discord {
      */
     delete(reason?: string): Promise<void>;
 
-    /**
-     * Delete a message sent by this webhook.
-     *
-     * @param messageId The ID of the message to delete.
-     */
+    /** Delete a message sent by this webhook. */
     deleteMessage(messageId: Snowflake): Promise<void>;
 
     /**
      * Edit webhook properties.
      *
      * @param options Webhook properties to update.
-     * @returns The updated webhook.
      */
     edit(options: WebhookEditOptions): Promise<Webhook>;
 
     /**
      * Edit a message sent by this webhook.
      *
-     * @param messageId The ID of the message to edit.
      * @param body The new message content and options.
-     * @returns The updated message.
      */
     editMessage(
       messageId: Snowflake,
       body: EditMessageOptions,
     ): Promise<Message>;
 
-    /**
-     * Refetch the latest webhook data from Discord.
-     *
-     * @returns The updated webhook object.
-     */
+    /** Refetch the latest webhook data from Discord. */
     fetch(): Promise<Webhook>;
 
     /**
      * Fetch a message sent by this webhook.
      *
-     * @param messageId The ID of the message to fetch.
-     * @returns The fetched message, or null if not found.
+     * @returns The message, or `null` when it does not exist. Any other failure
+     * throws.
      */
     fetchMessage(messageId: Snowflake): Promise<Message | null>;
 
@@ -5244,63 +4903,40 @@ declare namespace discord {
      * Execute the webhook to send a message.
      *
      * @param content The message content or formatted options.
-     * @returns The sent message.
      */
     send(content: string | WebhookExecuteOptions): Promise<Message>;
   }
 
-  /**
-   * A reusable snapshot of a guild's channels, roles, and settings.
-   */
+  /** A reusable snapshot of a guild's channels, roles, and settings. */
   class GuildTemplate {
-    /**
-     * The template code used to reference this template.
-     */
+    /** The template code used to reference this template. */
     readonly code: string;
 
-    /**
-     * When this template was created.
-     */
+    /** When this template was created. */
     readonly createdAt: Date;
 
-    /**
-     * ID of the user who created this template, or `null`.
-     */
+    /** ID of the user who created this template, or `null`. */
     readonly creatorId: Snowflake | null;
 
-    /**
-     * Template description, or `null`.
-     */
+    /** Template description, or `null`. */
     readonly description: string | null;
 
-    /**
-     * Guild ID this template was created from.
-     */
+    /** Guild ID this template was created from. */
     readonly guildId: Snowflake;
 
-    /**
-     * Indicates whether the template is out of sync with the source guild, or `null`.
-     */
+    /** Whether the template is out of sync with the source guild, or `null`. */
     readonly isDirty: boolean | null;
 
-    /**
-     * Template name.
-     */
+    /** Template name. */
     readonly name: string;
 
-    /**
-     * Source guild ID (for synced templates), or `null`.
-     */
+    /** Source guild ID (for synced templates), or `null`. */
     readonly sourceGuildId: Snowflake | null;
 
-    /**
-     * When this template was last updated.
-     */
+    /** When this template was last updated. */
     readonly updatedAt: Date;
 
-    /**
-     * Number of times this template has been used.
-     */
+    /** Number of times this template has been used. */
     readonly usageCount: number;
 
     /**
@@ -5314,7 +4950,6 @@ declare namespace discord {
      * Edit template properties.
      *
      * @param options Template properties to update.
-     * @returns The updated template.
      */
     edit(options: {
       description?: string | null;
@@ -5324,15 +4959,11 @@ declare namespace discord {
     /**
      * Replace this template's snapshot with the current guild state. This does
      * not apply the template to the guild.
-     *
-     * @returns The updated template.
      */
     sync(): Promise<GuildTemplate>;
   }
 
-  /**
-   * Presence status string reported by Discord.
-   */
+  /** Presence status string reported by Discord. */
   type PresenceStatus =
     | "online"
     | "idle"
@@ -5341,103 +4972,63 @@ declare namespace discord {
     | "invisible"
     | string;
 
-  /**
-   * Activity included in a Discord presence update.
-   */
+  /** Activity included in a Discord presence update. */
   interface PresenceActivity {
-    /**
-     * Application ID for this activity, when Discord includes one.
-     */
+    /** Application ID for this activity, when Discord includes one. */
     application_id?: Snowflake;
 
-    /**
-     * Image asset metadata for rich presence activities.
-     */
+    /** Image asset metadata for rich presence activities. */
     assets?: Record<string, unknown>;
 
-    /**
-     * Buttons displayed on this activity.
-     */
+    /** Buttons displayed on this activity. */
     buttons?: unknown[];
 
-    /**
-     * Unix timestamp in milliseconds when this activity was added.
-     */
+    /** Unix timestamp in milliseconds when this activity was added. */
     created_at?: number;
 
-    /**
-     * Activity details line, or `null` when not provided.
-     */
+    /** Activity details line, or `null` when not provided. */
     details?: string | null;
 
-    /**
-     * Emoji shown with a custom status, or `null` when not set.
-     */
+    /** Emoji shown with a custom status, or `null` when not set. */
     emoji?: EmojiData | null;
 
-    /**
-     * Activity flags bitfield.
-     */
+    /** Activity flags bitfield. */
     flags?: number;
 
-    /**
-     * Whether this activity is an instanced game session.
-     */
+    /** Whether this activity is an instanced game session. */
     instance?: boolean;
 
-    /**
-     * Activity name shown by Discord.
-     */
+    /** Activity name shown by Discord. */
     name?: string;
 
-    /**
-     * Party metadata for rich presence activities.
-     */
+    /** Party metadata for rich presence activities. */
     party?: Record<string, unknown>;
 
-    /**
-     * Join/spectate secrets for rich presence activities.
-     */
+    /** Join/spectate secrets for rich presence activities. */
     secrets?: Record<string, unknown>;
 
-    /**
-     * Activity state text. For custom status, this is the custom status text.
-     */
+    /** Activity state text. For custom status, this is the custom status text. */
     state?: string | null;
 
-    /**
-     * Activity start/end timestamps supplied by Discord.
-     */
+    /** Activity start/end timestamps supplied by Discord. */
     timestamps?: Record<string, unknown>;
 
-    /**
-     * Activity type such as playing, streaming, listening, watching, or custom.
-     */
+    /** Activity type such as playing, streaming, listening, watching, or custom. */
     type?: ActivityType;
 
-    /**
-     * Stream URL for streaming activities, or `null` when not applicable.
-     */
+    /** Stream URL for streaming activities, or `null` when not applicable. */
     url?: string | null;
   }
 
-  /**
-   * Presence status split by Discord client platform.
-   */
+  /** Presence status split by Discord client platform. */
   interface ClientStatus {
-    /**
-     * Status reported by the desktop Discord client.
-     */
+    /** Status reported by the desktop Discord client. */
     desktop?: PresenceStatus;
 
-    /**
-     * Status reported by the mobile Discord client.
-     */
+    /** Status reported by the mobile Discord client. */
     mobile?: PresenceStatus;
 
-    /**
-     * Status reported by the web Discord client.
-     */
+    /** Status reported by the web Discord client. */
     web?: PresenceStatus;
   }
 
@@ -5449,39 +5040,25 @@ declare namespace discord {
    * @see https://docs.discord.com/developers/events/gateway-events#presence-update
    */
   class Presence {
-    /**
-     * Current activities sent by Discord.
-     */
+    /** Current activities sent by Discord. */
     readonly activities: PresenceActivity[];
 
-    /**
-     * Per-platform status sent by Discord.
-     */
+    /** Per-platform status sent by Discord. */
     readonly clientStatus: ClientStatus;
 
-    /**
-     * Guild ID this presence belongs to.
-     */
+    /** Guild ID this presence belongs to. */
     readonly guildId: Snowflake;
 
-    /**
-     * Raw Discord presence payload.
-     */
+    /** Raw Discord presence payload. */
     readonly raw: Record<string, unknown>;
 
-    /**
-     * The user's current status.
-     */
+    /** The user's current status. */
     readonly status: PresenceStatus;
 
-    /**
-     * User object from the presence update, or `null` when only cached status is available.
-     */
+    /** User object from the presence update, or `null` when only cached status is available. */
     readonly user: User | null;
 
-    /**
-     * User ID this presence belongs to.
-     */
+    /** User ID this presence belongs to. */
     readonly userId: Snowflake;
 
     /**
@@ -5491,14 +5068,10 @@ declare namespace discord {
      */
     getCustomStatus(): PresenceActivity | null;
 
-    /**
-     * Fetch the guild for this presence.
-     */
+    /** Fetch the guild for this presence. */
     fetchGuild(): Promise<Guild>;
 
-    /**
-     * Fetch the guild member for this presence.
-     */
+    /** Fetch the guild member for this presence. */
     fetchMember(): Promise<GuildMember | null>;
 
     /**
@@ -5508,9 +5081,7 @@ declare namespace discord {
      */
     getPrimaryActivity(): PresenceActivity | null;
 
-    /**
-     * Fetch the full user for this presence.
-     */
+    /** Fetch the full user for this presence. */
     fetchUser(): Promise<User>;
 
     /**
@@ -5546,103 +5117,67 @@ declare namespace discord {
    * Tracks a user's current voice connection status in a guild, including channel, mute/deafen state, and stage suppression.
    */
   class VoiceState {
-    /**
-     * Channel ID the user is connected to, or `null` if not in voice.
-     */
+    /** Channel ID the user is connected to, or `null` if not in voice. */
     readonly channelId: Snowflake | null | undefined;
 
     /**
-     * Indicates whether the user is server-deafened.
+     * Whether the user is server-deafened.
      * `undefined` when the payload omitted it; `false` only when Discord sent false.
      */
     readonly deaf: boolean | undefined;
 
-    /**
-     * Guild ID this voice state is for.
-     */
+    /** Guild ID this voice state is for. */
     readonly guildId: Snowflake;
 
-    /**
-     * Guild member object for this user, or `null`.
-     */
+    /** Guild member object for this user, or `null`. */
     readonly member: GuildMember | null;
 
-    /**
-     * Indicates whether the user is server-muted.
-     */
+    /** Whether the user is server-muted. */
     readonly mute: boolean | undefined;
 
-    /**
-     * Indicates whether the user has deafened themselves.
-     */
+    /** Whether the user has deafened themselves. */
     readonly selfDeaf: boolean | undefined;
 
-    /**
-     * Indicates whether the user has muted themselves.
-     */
+    /** Whether the user has muted themselves. */
     readonly selfMute: boolean | undefined;
 
-    /**
-     * Indicates whether the user is streaming.
-     */
+    /** Whether the user is streaming. */
     readonly selfStream: boolean | undefined;
 
-    /**
-     * Indicates whether the user's camera is enabled.
-     */
+    /** Whether the user's camera is enabled. */
     readonly selfVideo: boolean | undefined;
 
-    /**
-     * Session ID for the voice connection.
-     */
+    /** Session ID for the voice connection. */
     readonly sessionId: string;
 
-    /**
-     * Indicates whether the user is suppressed (in a stage).
-     */
+    /** Whether the user is suppressed (in a stage). */
     readonly suppress: boolean | undefined;
 
     /** Stage request-to-speak time as a Unix timestamp in milliseconds. */
     readonly requestToSpeakTimestamp: number | null;
 
-    /**
-     * User ID of the connected user.
-     */
+    /** User ID of the connected user. */
     readonly userId: Snowflake;
   }
 
-  /**
-   * Wraps a single new value for audit log changes on creation events.
-   */
+  /** Wraps a single new value for audit log changes on creation events. */
   interface IActionChangeNewValue<T> {
-    /**
-     * The new value after the action.
-     */
+    /** The new value after the action. */
     readonly newValue: T;
   }
 
-  /**
-   * Wraps a single old value for audit log changes on deletion events.
-   */
+  /** Wraps a single old value for audit log changes on deletion events. */
   interface IActionChangeOldValue<T> {
-    /**
-     * The value before deletion.
-     */
+    /** The value before deletion. */
     readonly oldValue: T;
   }
 
-  /**
-   * Contains both old and new values for an updated audit log property.
-   */
+  /** Contains both old and new values for an updated audit log property. */
   interface IActionChange<T> {
-    /**
-     * The value after the update.
-     */
+    /** The value after the update. */
     readonly newValue: T;
 
-    /**
-     * The value before the update.
-     */
+    /** The value before the update. */
     readonly oldValue?: T;
   }
 
@@ -5650,14 +5185,10 @@ declare namespace discord {
    * Base class for all audit log entries. Use a subclass narrowed by `actionType` for typed change access.
    */
   class AuditLogEntry {
-    /**
-     * The type of action this entry represents.
-     */
+    /** The type of action this entry represents. */
     readonly actionType: AuditLogActionType;
 
-    /**
-     * Raw changes object (use subclass for typed access).
-     */
+    /** Raw changes object (use subclass for typed access). */
     readonly changes: Record<
       string,
       { readonly oldValue?: unknown; readonly newValue?: unknown }
@@ -5666,126 +5197,84 @@ declare namespace discord {
     /** Additional action metadata supplied by Discord, or `null`. */
     readonly options: Record<string, unknown> | null;
 
-    /**
-     * The ID of the audit log entry.
-     */
+    /** The ID of the audit log entry. */
     readonly id: Snowflake;
 
-    /**
-     * Reason for the action, or `null` if not provided.
-     */
+    /** Reason for the action, or `null` if not provided. */
     readonly reason: string | null;
 
-    /**
-     * The ID of the affected resource (user, channel, role, etc.), or `null`.
-     */
+    /** The ID of the affected resource (user, channel, role, etc.), or `null`. */
     readonly targetId: Snowflake | null;
 
-    /**
-     * User who performed the audited action, or `null` if Discord omitted it.
-     */
+    /** User who performed the audited action, or `null` if Discord omitted it. */
     readonly user: User | null;
 
-    /**
-     * The ID of the user who performed the action, or `null`.
-     */
+    /** The ID of the user who performed the action, or `null`. */
     readonly userId: Snowflake | null;
 
-    /**
-     * Creates the appropriate typed subclass based on `actionType`.
-     */
+    /** Creates the appropriate typed subclass based on `actionType`. */
     static create(data: Record<string, unknown>): AnyAuditLogEntry;
   }
 
-  /**
-   * A fetched guild audit log page, including entries and resolved related resources.
-   */
+  /** A fetched guild audit log page, including entries and resolved related resources. */
   class AuditLog {
-    /**
-     * Application commands resolved by this audit log response.
-     */
+    /** Application commands resolved by this audit log response. */
     readonly applicationCommands: unknown[];
 
-    /**
-     * Auto moderation rules resolved by this audit log response.
-     */
+    /** Auto moderation rules resolved by this audit log response. */
     readonly autoModerationRules: AutoModRule[];
 
-    /**
-     * Audit log entries returned in this page.
-     */
+    /** Audit log entries returned in this page. */
     readonly entries: AnyAuditLogEntry[];
 
-    /**
-     * Scheduled events resolved by this audit log response.
-     */
+    /** Scheduled events resolved by this audit log response. */
     readonly guildScheduledEvents: ScheduledEvent[];
 
-    /**
-     * Integrations resolved by this audit log response.
-     */
+    /** Integrations resolved by this audit log response. */
     readonly integrations: unknown[];
 
-    /**
-     * Unmodified raw audit log response from Discord.
-     */
+    /** Unmodified raw audit log response from Discord. */
     readonly raw: unknown;
 
-    /**
-     * Threads resolved by this audit log response.
-     */
+    /** Threads resolved by this audit log response. */
     readonly threads: Channel[];
 
-    /**
-     * Users resolved by this audit log response.
-     */
+    /** Users resolved by this audit log response. */
     readonly users: User[];
 
-    /**
-     * Webhooks resolved by this audit log response.
-     */
+    /** Webhooks resolved by this audit log response. */
     readonly webhooks: Webhook[];
   }
 
-  /**
-   * Audit log entry for a member kick action.
-   */
+  /** Audit log entry for a member kick action. */
   class MemberKickEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.MEMBER_KICK;
 
     readonly changes: Record<string, never>;
   }
 
-  /**
-   * Audit log entry for a member prune action.
-   */
+  /** Audit log entry for a member prune action. */
   class MemberPruneEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.MEMBER_PRUNE;
 
     readonly changes: Record<string, never>;
   }
 
-  /**
-   * Audit log entry for a member ban add action.
-   */
+  /** Audit log entry for a member ban add action. */
   class MemberBanAddEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.MEMBER_BAN_ADD;
 
     readonly changes: Record<string, never>;
   }
 
-  /**
-   * Audit log entry for a member ban remove action.
-   */
+  /** Audit log entry for a member ban remove action. */
   class MemberBanRemoveEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.MEMBER_BAN_REMOVE;
 
     readonly changes: Record<string, never>;
   }
 
-  /**
-   * Audit log entry for a member update action, with typed change fields.
-   */
+  /** Audit log entry for a member update action, with typed change fields. */
   class MemberUpdateEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.MEMBER_UPDATE;
 
@@ -5798,9 +5287,7 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for a member role update (roles added/removed).
-   */
+  /** Audit log entry for a member role update (roles added/removed). */
   class MemberRoleUpdateEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.MEMBER_ROLE_UPDATE;
 
@@ -5838,9 +5325,7 @@ declare namespace discord {
     readonly changes: Record<string, never>;
   }
 
-  /**
-   * Audit log entry for a role creation action.
-   */
+  /** Audit log entry for a role creation action. */
   class RoleCreateEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.ROLE_CREATE;
 
@@ -5853,9 +5338,7 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for a role update action.
-   */
+  /** Audit log entry for a role update action. */
   class RoleUpdateEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.ROLE_UPDATE;
 
@@ -5868,9 +5351,7 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for a role deletion action.
-   */
+  /** Audit log entry for a role deletion action. */
   class RoleDeleteEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.ROLE_DELETE;
 
@@ -5883,9 +5364,7 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for a channel creation action.
-   */
+  /** Audit log entry for a channel creation action. */
   class ChannelCreateEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.CHANNEL_CREATE;
 
@@ -5899,9 +5378,7 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for a channel update action.
-   */
+  /** Audit log entry for a channel update action. */
   class ChannelUpdateEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.CHANNEL_UPDATE;
 
@@ -5914,9 +5391,7 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for a channel deletion action.
-   */
+  /** Audit log entry for a channel deletion action. */
   class ChannelDeleteEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.CHANNEL_DELETE;
 
@@ -5963,9 +5438,7 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for an emoji creation action.
-   */
+  /** Audit log entry for an emoji creation action. */
   class EmojiCreateEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.EMOJI_CREATE;
 
@@ -5974,9 +5447,7 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for an emoji update action.
-   */
+  /** Audit log entry for an emoji update action. */
   class EmojiUpdateEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.EMOJI_UPDATE;
 
@@ -5985,9 +5456,7 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for an emoji deletion action.
-   */
+  /** Audit log entry for an emoji deletion action. */
   class EmojiDeleteEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.EMOJI_DELETE;
 
@@ -5996,9 +5465,7 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for a guild update action.
-   */
+  /** Audit log entry for a guild update action. */
   class GuildUpdateEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.GUILD_UPDATE;
 
@@ -6021,9 +5488,7 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for an invite creation action.
-   */
+  /** Audit log entry for an invite creation action. */
   class InviteCreateEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.INVITE_CREATE;
 
@@ -6038,9 +5503,7 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for an invite update action.
-   */
+  /** Audit log entry for an invite update action. */
   class InviteUpdateEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.INVITE_UPDATE;
 
@@ -6055,9 +5518,7 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for an invite deletion action.
-   */
+  /** Audit log entry for an invite deletion action. */
   class InviteDeleteEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.INVITE_DELETE;
 
@@ -6072,9 +5533,7 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for a webhook creation action.
-   */
+  /** Audit log entry for a webhook creation action. */
   class WebhookCreateEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.WEBHOOK_CREATE;
 
@@ -6086,9 +5545,7 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for a webhook update action.
-   */
+  /** Audit log entry for a webhook update action. */
   class WebhookUpdateEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.WEBHOOK_UPDATE;
 
@@ -6100,9 +5557,7 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for a webhook deletion action.
-   */
+  /** Audit log entry for a webhook deletion action. */
   class WebhookDeleteEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.WEBHOOK_DELETE;
 
@@ -6114,45 +5569,35 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for a message deletion action.
-   */
+  /** Audit log entry for a message deletion action. */
   class MessageDeleteEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.MESSAGE_DELETE;
 
     readonly changes: Record<string, never>;
   }
 
-  /**
-   * Audit log entry for a bulk message deletion action.
-   */
+  /** Audit log entry for a bulk message deletion action. */
   class MessageBulkDeleteEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.MESSAGE_BULK_DELETE;
 
     readonly changes: Record<string, never>;
   }
 
-  /**
-   * Audit log entry for a message pin action.
-   */
+  /** Audit log entry for a message pin action. */
   class MessagePinEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.MESSAGE_PIN;
 
     readonly changes: Record<string, never>;
   }
 
-  /**
-   * Audit log entry for a message unpin action.
-   */
+  /** Audit log entry for a message unpin action. */
   class MessageUnpinEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.MESSAGE_UNPIN;
 
     readonly changes: Record<string, never>;
   }
 
-  /**
-   * Audit log entry for an integration creation action.
-   */
+  /** Audit log entry for an integration creation action. */
   class IntegrationCreateEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.INTEGRATION_CREATE;
 
@@ -6165,9 +5610,7 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for an integration update action.
-   */
+  /** Audit log entry for an integration update action. */
   class IntegrationUpdateEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.INTEGRATION_UPDATE;
 
@@ -6180,9 +5623,7 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for an integration deletion action.
-   */
+  /** Audit log entry for an integration deletion action. */
   class IntegrationDeleteEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.INTEGRATION_DELETE;
 
@@ -6195,9 +5636,7 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for an auto moderation rule creation action.
-   */
+  /** Audit log entry for an auto moderation rule creation action. */
   class AutoModRuleCreateEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.AUTO_MODERATION_RULE_CREATE;
 
@@ -6209,9 +5648,7 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for an auto moderation rule update action.
-   */
+  /** Audit log entry for an auto moderation rule update action. */
   class AutoModRuleUpdateEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.AUTO_MODERATION_RULE_UPDATE;
 
@@ -6222,18 +5659,14 @@ declare namespace discord {
     };
   }
 
-  /**
-   * Audit log entry for an auto moderation rule deletion action.
-   */
+  /** Audit log entry for an auto moderation rule deletion action. */
   class AutoModRuleDeleteEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.AUTO_MODERATION_RULE_DELETE;
 
     readonly changes: Record<string, never>;
   }
 
-  /**
-   * Union of all typed audit log entry types.
-   */
+  /** Union of all typed audit log entry types. */
   type AnyAuditLogEntry =
     | MemberKickEntry
     | MemberPruneEntry
@@ -6291,69 +5724,43 @@ declare namespace discord {
    * @see https://docs.discord.com/developers/interactions/receiving-and-responding
    */
   class Interaction {
-    /**
-     * Bitmask of the bot's permissions (as a decimal string).
-     */
+    /** Bitmask of the bot's permissions (as a decimal string). */
     readonly appPermissions: string | null;
 
-    /**
-     * Channel ID the interaction occurred in, or `null`.
-     */
+    /** Channel ID the interaction occurred in, or `null`. */
     readonly channelId: Snowflake | null;
 
-    /**
-     * The name of the invoked command, or `null` for non-command interactions.
-     */
+    /** The name of the invoked command, or `null` for non-command interactions. */
     readonly commandName: string | null;
 
-    /**
-     * The type of component (button, select, etc.), or `null`.
-     */
+    /** The type of component (button, select, etc.), or `null`. */
     readonly componentType: ComponentType | null;
 
-    /**
-     * The custom ID of the component or modal, or `null`.
-     */
+    /** The custom ID of the component or modal, or `null`. */
     readonly customId: string | null;
 
-    /**
-     * Entitlements for this interaction (SKU purchases).
-     */
+    /** Entitlements for this interaction (SKU purchases). */
     readonly entitlements: Entitlement[];
 
-    /**
-     * Guild ID the interaction occurred in, or `null` when Discord omits it.
-     */
+    /** Guild ID the interaction occurred in, or `null` when Discord omits it. */
     readonly guildId: Snowflake | null;
 
-    /**
-     * The guild's preferred locale, or `null` when Discord omits it.
-     */
+    /** The guild's preferred locale, or `null` when Discord omits it. */
     readonly guildLocale: string | null;
 
-    /**
-     * Discord snowflake ID.
-     */
+    /** Discord snowflake ID. */
     readonly id: Snowflake;
 
-    /**
-     * The preferred locale of the interacting user.
-     */
+    /** The preferred locale of the interacting user. */
     readonly locale: string | null;
 
-    /**
-     * The guild member who triggered the interaction, or `null`.
-     */
+    /** The guild member who triggered the interaction, or `null`. */
     readonly member: GuildMember | null;
 
-    /**
-     * The message the interaction was on (for component interactions), or `null`.
-     */
+    /** The message the interaction was on (for component interactions), or `null`. */
     readonly message: Message | null;
 
-    /**
-     * Target ID for context menu interactions, or `null`.
-     */
+    /** Target ID for context menu interactions, or `null`. */
     readonly targetId: Snowflake | null;
 
     /**
@@ -6362,19 +5769,13 @@ declare namespace discord {
      */
     readonly token: string;
 
-    /**
-     * The type of interaction.
-     */
+    /** The type of interaction. */
     readonly type: InteractionType;
 
-    /**
-     * User included in this payload.
-     */
+    /** User included in this payload. */
     readonly user: User | null;
 
-    /**
-     * Selected values from select menus.
-     */
+    /** Selected values from select menus. */
     readonly values: string[];
 
     /**
@@ -6392,16 +5793,10 @@ declare namespace discord {
      */
     defer(options?: { ephemeral?: boolean }): Promise<void>;
 
-    /**
-     * Acknowledge a component interaction without editing the message.
-     */
+    /** Acknowledge a component interaction without editing the message. */
     deferUpdate(): Promise<void>;
 
-    /**
-     * Delete a follow-up message.
-     *
-     * @param messageId The ID of the follow-up message to delete.
-     */
+    /** Delete a follow-up message. */
     deleteFollowup(messageId: Snowflake): Promise<void>;
 
     /**
@@ -6416,7 +5811,6 @@ declare namespace discord {
      *
      * @param body New message content or edit options.
      * @param messageId Specific message ID to edit (defaults to initial reply).
-     * @returns The edited message.
      */
     editReply(
       body: string | EditMessageOptions,
@@ -6427,7 +5821,6 @@ declare namespace discord {
      * Fetch the initial reply.
      *
      * @param messageId Specific message ID to fetch (defaults to initial reply).
-     * @returns The fetched message.
      */
     fetchReply(messageId?: Snowflake): Promise<Message>;
 
@@ -6435,7 +5828,6 @@ declare namespace discord {
      * Send a follow-up message after the initial interaction reply.
      *
      * @param body Message content or send options.
-     * @returns The sent message.
      */
     followup(
       body:
@@ -6457,7 +5849,6 @@ declare namespace discord {
      * Get the values of all checked checkboxes in a checkbox group.
      *
      * @param customId The custom ID of the checkbox group.
-     * @returns Array of checked checkbox values.
      */
     getCheckboxValues(customId: string): string[];
 
@@ -6473,13 +5864,10 @@ declare namespace discord {
      * Get all file attachments from a file upload component.
      *
      * @param customId The custom ID of the file upload component.
-     * @returns Array of attachments.
      */
     getFiles(customId: string): Attachment[];
 
-    /**
-     * Get a typed option parser for command options.
-     */
+    /** Get a typed option parser for command options. */
     getOptions(): InteractionOptionParser;
 
     /**
@@ -6498,9 +5886,7 @@ declare namespace discord {
      */
     getTextInput(customId: string): string | null;
 
-    /**
-     * Returns whether this interaction requests application-command autocomplete choices.
-     */
+    /** Returns whether this interaction requests application-command autocomplete choices. */
     isAutocomplete(): this is this & {
       type: typeof InteractionType.APPLICATION_COMMAND_AUTOCOMPLETE;
     };
@@ -6526,9 +5912,7 @@ declare namespace discord {
       customId: string;
     };
 
-    /**
-     * Returns whether this is an application-command interaction and narrows `commandName`.
-     */
+    /** Returns whether this is an application-command interaction and narrows `commandName`. */
     isCommand(): this is this & {
       commandName: string;
     };
@@ -6551,18 +5935,14 @@ declare namespace discord {
       customId: string;
     };
 
-    /**
-     * Returns whether this is a message context-menu command and narrows `targetId`.
-     */
+    /** Returns whether this is a message context-menu command and narrows `targetId`. */
     isMessageContextMenu(): this is this & {
       commandName: string;
       targetId: Snowflake;
       type: typeof InteractionType.APPLICATION_COMMAND;
     };
 
-    /**
-     * Returns whether this is a modal submission and narrows `customId`.
-     */
+    /** Returns whether this is a modal submission and narrows `customId`. */
     isModalSubmit(): this is this & {
       customId: string;
     };
@@ -6587,9 +5967,7 @@ declare namespace discord {
       customId: string;
     };
 
-    /**
-     * Returns whether this is a user context-menu command and narrows `targetId`.
-     */
+    /** Returns whether this is a user context-menu command and narrows `targetId`. */
     isUserContextMenu(): this is this & {
       commandName: string;
       targetId: Snowflake;
@@ -6624,7 +6002,6 @@ declare namespace discord {
      * Reply to this interaction with `wait: true` to get the sent message.
      *
      * @param body Message content or interaction reply options.
-     * @returns The sent message.
      */
     reply(
       body:
@@ -6662,7 +6039,6 @@ declare namespace discord {
     /**
      * Get an attachment option value.
      *
-     * @param name The option name.
      * @returns The resolved attachment, or `null` if not provided.
      */
     getAttachment(name: string): Attachment | null;
@@ -6670,7 +6046,6 @@ declare namespace discord {
     /**
      * Get a boolean option value.
      *
-     * @param name The option name.
      * @returns The option value, or `null` if not provided.
      */
     getBoolean(name: string): boolean | null;
@@ -6678,7 +6053,6 @@ declare namespace discord {
     /**
      * Get a channel option value.
      *
-     * @param name The option name.
      * @returns The resolved channel, or `null` if not provided.
      */
     getChannel(name: string): AnyGuildChannel | null;
@@ -6693,7 +6067,6 @@ declare namespace discord {
     /**
      * Get an integer option value.
      *
-     * @param name The option name.
      * @returns The option value, or `null` if not provided.
      */
     getInteger(name: string): number | null;
@@ -6701,7 +6074,6 @@ declare namespace discord {
     /**
      * Get a guild member option value.
      *
-     * @param name The option name.
      * @returns The resolved guild member, or `null` if not provided.
      */
     getMember(name: string): GuildMember | null;
@@ -6709,7 +6081,6 @@ declare namespace discord {
     /**
      * Get a number (float) option value.
      *
-     * @param name The option name.
      * @returns The option value, or `null` if not provided.
      */
     getNumber(name: string): number | null;
@@ -6717,7 +6088,6 @@ declare namespace discord {
     /**
      * Get a role option value.
      *
-     * @param name The option name.
      * @returns The resolved role, or `null` if not provided.
      */
     getRole(name: string): Role | null;
@@ -6725,7 +6095,6 @@ declare namespace discord {
     /**
      * Get a string option value.
      *
-     * @param name The option name.
      * @returns The option value, or `null` if not provided.
      */
     getString(name: string): string | null;
@@ -6733,62 +6102,50 @@ declare namespace discord {
     /**
      * Get a user option value.
      *
-     * @param name The option name.
      * @returns The resolved user, or `null` if not provided.
      */
     getUser(name: string): User | null;
   }
 
-  /**
-   * Options for replying to an interaction.
-   */
+  /** Options for replying to an interaction. */
   interface InteractionReplyOptions {
-    /**
-     * Controls which mentions are delivered.
-     */
+    /** Controls which mentions are delivered. */
     allowedMentions?: AllowedMentions;
 
-    /**
-     * Interactive components.
-     */
+    /** Interactive components. */
     components?: Component[];
 
-    /**
-     * Message body text.
-     */
+    /** Message body text. */
     content?: string;
 
-    /**
-     * Rich embeds to attach.
-     */
+    /** Rich embeds to attach. */
     embeds?: EmbedLike[];
 
-    /**
-     * Indicates whether this reply should only be visible to the interacting user.
-     */
+    /** Whether this reply should only be visible to the interacting user. */
     ephemeral?: boolean;
 
-    /**
-     * Poll to include with the reply.
-     */
+    /** Poll to include with the reply. */
     poll?: PollCreateOptions;
 
-    /**
-     * Indicates whether this is a text-to-speech message.
-     */
+    /** Whether this is a text-to-speech message. */
     tts?: boolean;
   }
 
   /** A labeled value returned by a slash-command autocomplete provider. */
   interface AutocompleteChoice<T extends string | number = string | number> {
+    /** The text shown in the list, up to 100 characters. */
     name: string;
+    /** What the option is set to when the user picks this choice. */
     value: T;
   }
 
   /** A fixed slash-command choice registered with Discord. */
   interface OptionChoice<T extends string | number = string | number> {
+    /** The text shown in the list, up to 100 characters. */
     name: string;
+    /** What the handler receives when the user picks this choice. */
     value: T;
+    /** Translations of `name`, keyed by locale. */
     nameLocalizations?: LocaleMap;
   }
 
@@ -6880,8 +6237,11 @@ declare namespace discord {
 
   /** Context passed to a custom prefix-command argument parser. */
   interface CustomArgumentContext {
+    /** The message that invoked the command. */
     readonly message: GuildMemberMessage;
+    /** The command being run. */
     readonly commandName: string;
+    /** The name of the argument being parsed. */
     readonly argument: string;
     /**
      * Rejects the input. The command stops and `onInputError` receives a
@@ -6945,6 +6305,13 @@ declare namespace discord {
    * `undefined` to continue, `false` to stop silently, or a string to stop and reply.
    */
   interface CommandFilter {
+    /**
+     * Decide whether the command may run. `context.kind` says whether it came
+     * from a slash command or a prefix message.
+     *
+     * @returns `true` or nothing to continue, `false` to stop without a reply,
+     * or a string to stop and reply with it.
+     */
     check(
       context:
         | {
@@ -7092,27 +6459,51 @@ declare namespace discord {
 
     /** Configuration sent to Discord for a slash command. */
     interface SlashConfig<TSchema extends OptionMap = Record<never, never>> {
+      /** Command name: 1 to 32 lowercase characters without spaces. */
       name: string;
+      /** Shown under the name in Discord's command list, up to 100 characters. */
       description: string;
+      /** Translations of `name`, keyed by locale. */
       nameLocalizations?: LocaleMap;
+      /** Translations of `description`, keyed by locale. */
       descriptionLocalizations?: LocaleMap;
+      /**
+       * Hides the command from members without these permissions. Server admins can still
+       * change who sees it under Server Settings > Integrations.
+       */
       defaultMemberPermissions?: PermissionFlag | null;
+      /** Marks the command as age-restricted. */
       nsfw?: boolean;
+      /** Declares the command's options. The handler receives them parsed and typed. */
       options?: (option: OptionBuilder) => TSchema;
+      /** Checks that run before the handler, in order. */
       filters?: CommandFilter[];
+      /** Permissions the member, the bot, or both must have, checked when the command runs. */
       permissions?: CommandPermissions;
+      /** How long a user, channel or server must wait between uses. */
       cooldown?: CommandCooldown;
     }
 
     /** Configuration for a message-based prefix command. */
     interface PrefixConfig<TSchema extends ArgumentMap = Record<never, never>> {
+      /** The word after the prefix that runs the command. */
       name: string;
+      /** Other words that run the same command. */
       aliases?: string[];
+      /**
+       * Extra prefixes for this command, on top of the application's. The application's default
+       * to `"!"`.
+       */
       prefixes?: string[];
+      /** A summary for your own help command. Discord does not show it. */
       description?: string;
+      /** Declares the command's arguments. The handler receives them parsed and typed. */
       args?: (argument: ArgumentBuilder) => TSchema;
+      /** Checks that run before the handler, in order. */
       filters?: CommandFilter[];
+      /** Permissions the member, the bot, or both must have, checked when the command runs. */
       permissions?: CommandPermissions;
+      /** How long a user, channel or server must wait between uses. */
       cooldown?: CommandCooldown;
     }
 
@@ -7125,8 +6516,11 @@ declare namespace discord {
        * to the handler as `params`.
        */
       customId: string;
+      /** Checks that run before the handler, in order. */
       filters?: CommandFilter[];
+      /** Permissions the member, the bot, or both must have, checked when the component is used. */
       permissions?: CommandPermissions;
+      /** How long a user, channel or server must wait between uses. */
       cooldown?: CommandCooldown;
     }
 
@@ -7142,9 +6536,13 @@ declare namespace discord {
 
     /** Shared registration settings for a slash-command group. */
     interface GroupConfig {
+      /** Group name: 1 to 32 lowercase characters without spaces. */
       name: string;
+      /** Shown in Discord's command list, up to 100 characters. */
       description: string;
+      /** Translations of `name`, keyed by locale. */
       nameLocalizations?: LocaleMap;
+      /** Translations of `description`, keyed by locale. */
       descriptionLocalizations?: LocaleMap;
       /**
        * Hides the group and all its subcommands from members without these
@@ -7155,7 +6553,9 @@ declare namespace discord {
       defaultMemberPermissions?: PermissionFlag | null;
       /** Marks the group as age-restricted. Top-level groups only. */
       nsfw?: boolean;
+      /** Checks that run before every subcommand's handler, in order. */
       filters?: CommandFilter[];
+      /** Permissions checked before every subcommand in the group. */
       permissions?: CommandPermissions;
     }
 
@@ -7344,33 +6744,53 @@ declare namespace discord {
 
   interface ButtonComponent {
     type: typeof ComponentType.BUTTON;
+    /** A `ButtonStyle` value. Link buttons use `url`, the others `custom_id`. */
     style: number;
+    /** Text on the button, up to 80 characters. */
     label?: string;
+    /** Emoji shown before the label. */
     emoji?: EmojiData;
+    /** ID sent back when the button is clicked. Required unless the button is a link. */
     custom_id?: string;
+    /** Where a link button goes. */
     url?: string;
+    /** `true` to grey the button out. */
     disabled?: boolean;
   }
 
   interface StringSelectComponent {
     type: typeof ComponentType.STRING_SELECT;
+    /** ID sent back when the user chooses. */
     custom_id: string;
+    /** The choices, up to 25. */
     options: SelectOption[];
+    /** Text shown while nothing is chosen, up to 150 characters. */
     placeholder?: string;
+    /** Fewest choices the user must pick, from 0 to 25. Defaults to 1. */
     min_values?: number;
+    /** Most choices the user may pick, up to 25. Defaults to 1. */
     max_values?: number;
+    /** `true` to grey the menu out. */
     disabled?: boolean;
   }
 
   interface TextInputComponent {
     type: typeof ComponentType.TEXT_INPUT;
+    /** ID the submitted value is reported under. */
     custom_id: string;
+    /** Label above the field, up to 45 characters. */
     label: string;
+    /** `1` for a single line, `2` for a paragraph. */
     style: number;
+    /** Whether the field must be filled in. */
     required: boolean;
+    /** Fewest characters accepted, from 0 to 4000. */
     min_length?: number;
+    /** Most characters accepted, from 1 to 4000. */
     max_length?: number;
+    /** Text the field starts with. */
     value?: string;
+    /** Text shown while the field is empty, up to 100 characters. */
     placeholder?: string;
   }
 
@@ -7381,8 +6801,11 @@ declare namespace discord {
 
   /** A modal payload, as returned by `discord.components.modal()`. */
   interface ModalComponent {
+    /** ID sent back when the modal is submitted. */
     custom_id: string;
+    /** Title of the popup, up to 45 characters. */
     title: string;
+    /** The modal's rows, up to 5. */
     components: Component[];
   }
 
@@ -7395,9 +6818,7 @@ declare namespace discord {
     | TextDisplayComponent
     | GenericComponent;
 
-  /**
-   * Options for a link button component.
-   */
+  /** Options for a link button component. */
   type LinkButtonOptions = {
     disabled?: boolean;
     emoji?: EmojiData;
@@ -7406,9 +6827,7 @@ declare namespace discord {
     url: string;
   };
 
-  /**
-   * Options for a custom-ID button component.
-   */
+  /** Options for a custom-ID button component. */
   type CustomButtonOptions = {
     customId: string;
     disabled?: boolean;
@@ -7417,158 +6836,96 @@ declare namespace discord {
     style?: Exclude<ButtonStyle, typeof ButtonStyle.LINK>;
   };
 
-  /**
-   * Options accepted by button component builders.
-   */
+  /** Options accepted by button component builders. */
   type ButtonOptions = LinkButtonOptions | CustomButtonOptions;
 
-  /**
-   * Option displayed in a select menu.
-   */
+  /** Option displayed in a select menu. */
   interface SelectOption {
-    /**
-     * Indicates whether this option is pre-selected by default.
-     */
+    /** Whether this option is pre-selected by default. */
     default?: boolean;
 
-    /**
-     * Optional description shown below the label.
-     */
+    /** Optional description shown below the label. */
     description?: string;
 
-    /**
-     * Optional emoji shown next to the option.
-     */
+    /** Optional emoji shown next to the option. */
     emoji?: EmojiData;
 
-    /**
-     * User-visible label for the option.
-     */
+    /** User-visible label for the option. */
     label: string;
 
-    /**
-     * Dev-facing value returned on selection.
-     */
+    /** Dev-facing value returned on selection. */
     value: string;
   }
 
-  /**
-   * Shared options for select menu components.
-   */
+  /** Shared options for select menu components. */
   interface SelectOptions {
-    /**
-     * Custom ID for the select menu.
-     */
+    /** Custom ID for the select menu. */
     customId: string;
 
-    /**
-     * Indicates whether the select menu is disabled.
-     */
+    /** Whether the select menu is disabled. */
     disabled?: boolean;
 
-    /**
-     * Maximum number of items that can be selected.
-     */
+    /** Maximum number of items that can be selected. */
     maxValues?: number;
 
-    /**
-     * Minimum number of items that must be selected.
-     */
+    /** Minimum number of items that must be selected. */
     minValues?: number;
 
-    /**
-     * Placeholder text when nothing is selected.
-     */
+    /** Placeholder text when nothing is selected. */
     placeholder?: string;
   }
 
-  /**
-   * Options for a string select menu.
-   */
+  /** Options for a string select menu. */
   interface StringSelectOptions extends SelectOptions {
-    /**
-     * The options shown in the dropdown.
-     */
+    /** The options shown in the dropdown. */
     options: SelectOption[];
   }
 
-  /**
-   * Options for a channel select menu.
-   */
+  /** Options for a channel select menu. */
   interface ChannelSelectOptions extends SelectOptions {
-    /**
-     * Filter which channel types appear in the list.
-     */
+    /** Filter which channel types appear in the list. */
     channelTypes?: ChannelType[];
   }
 
-  /**
-   * Options for a modal text input.
-   */
+  /** Options for a modal text input. */
   interface TextInputOptions {
-    /**
-     * Custom ID for the text input.
-     */
+    /** Custom ID for the text input. */
     customId: string;
 
-    /**
-     * Label displayed above the input field.
-     */
+    /** Label displayed above the input field. */
     label: string;
 
-    /**
-     * Maximum character length.
-     */
+    /** Maximum character length. */
     maxLength?: number;
 
-    /**
-     * Minimum character length.
-     */
+    /** Minimum character length. */
     minLength?: number;
 
-    /**
-     * Placeholder text shown when the input is empty.
-     */
+    /** Placeholder text shown when the input is empty. */
     placeholder?: string;
 
-    /**
-     * Indicates whether this input is required.
-     */
+    /** Whether this input is required. */
     required?: boolean;
 
-    /**
-     * Visual style (single-line vs paragraph).
-     */
+    /** Visual style (single-line vs paragraph). */
     style?: TextInputStyle;
 
-    /**
-     * Pre-filled value.
-     */
+    /** Pre-filled value. */
     value?: string;
   }
 
-  /**
-   * Options for a radio group component.
-   */
+  /** Options for a radio group component. */
   interface RadioGroupOptions {
-    /**
-     * Custom ID for the radio group.
-     */
+    /** Custom ID for the radio group. */
     customId: string;
 
-    /**
-     * Description displayed below the label.
-     */
+    /** Description displayed below the label. */
     description?: string;
 
-    /**
-     * Label displayed above the radio group in a modal.
-     */
+    /** Label displayed above the radio group in a modal. */
     label?: string;
 
-    /**
-     * Radio options the user can pick from.
-     */
+    /** Radio options the user can pick from. */
     options: Array<{
       checked?: boolean;
       customId?: string;
@@ -7579,79 +6936,49 @@ declare namespace discord {
       value?: string;
     }>;
 
-    /**
-     * Indicates whether selecting an option is required.
-     */
+    /** Whether selecting an option is required. */
     required?: boolean;
   }
 
-  /**
-   * Options for a checkbox group component.
-   */
+  /** Options for a checkbox group component. */
   interface CheckboxGroupOptions {
-    /**
-     * Custom ID for the checkbox group.
-     */
+    /** Custom ID for the checkbox group. */
     customId: string;
 
-    /**
-     * Description displayed below the label.
-     */
+    /** Description displayed below the label. */
     description?: string;
 
-    /**
-     * Label displayed above the checkbox group in a modal.
-     */
+    /** Label displayed above the checkbox group in a modal. */
     label?: string;
 
-    /**
-     * Maximum number of options that can be selected.
-     */
+    /** Maximum number of options that can be selected. */
     maxValues?: number;
 
-    /**
-     * Minimum number of options that must be selected.
-     */
+    /** Minimum number of options that must be selected. */
     minValues?: number;
 
-    /**
-     * Individual checkboxes in the group.
-     */
+    /** Individual checkboxes in the group. */
     options: CheckboxOptions[];
 
-    /**
-     * Indicates whether selecting within the group is required.
-     */
+    /** Whether selecting within the group is required. */
     required?: boolean;
   }
 
-  /**
-   * Options for a single checkbox component.
-   */
+  /** Options for a single checkbox component. */
   interface CheckboxOptions {
-    /**
-     * Indicates whether the checkbox is pre-checked.
-     */
+    /** Whether the checkbox is pre-checked. */
     checked?: boolean;
 
-    /**
-     * Custom ID for a standalone checkbox, or value for a checkbox group option.
-     */
+    /** Custom ID for a standalone checkbox, or value for a checkbox group option. */
     customId?: string;
 
-    /**
-     * Indicates whether the checkbox is pre-checked.
-     */
+    /** Whether the checkbox is pre-checked. */
     default?: boolean;
 
-    /**
-     * Description shown below the label.
-     */
+    /** Description shown below the label. */
     description?: string;
 
-    /**
-     * Optional emoji shown next to the label.
-     */
+    /** Optional emoji shown next to the label. */
     emoji?: EmojiData;
 
     /**
@@ -7659,14 +6986,10 @@ declare namespace discord {
      */
     label?: string;
 
-    /**
-     * Indicates whether this checkbox must be checked.
-     */
+    /** Whether this checkbox must be checked. */
     required?: boolean;
 
-    /**
-     * Value for a checkbox group option.
-     */
+    /** Value for a checkbox group option. */
     value?: string;
   }
 
@@ -7716,18 +7039,10 @@ declare namespace discord {
      */
     function channelSelect(options: ChannelSelectOptions): Component;
 
-    /**
-     * Create an individual checkbox component.
-     *
-     * @param options The checkbox configuration.
-     */
+    /** Create an individual checkbox component. */
     function checkbox(options: CheckboxOptions): Component;
 
-    /**
-     * Create a checkbox group for a modal.
-     *
-     * @param options The checkbox group configuration.
-     */
+    /** Create a checkbox group for a modal. */
     function checkboxGroup(options: CheckboxGroupOptions): Component;
 
     /**
@@ -7794,11 +7109,7 @@ declare namespace discord {
       }>,
     ): Component;
 
-    /**
-     * Create a mentionable (user + role) select menu.
-     *
-     * @param options The select menu configuration.
-     */
+    /** Create a mentionable (user + role) select menu. */
     function mentionableSelect(options: SelectOptions): Component;
 
     /**
@@ -7812,18 +7123,10 @@ declare namespace discord {
       title: string;
     }): ModalComponent;
 
-    /**
-     * Create a radio group component.
-     *
-     * @param options The radio group configuration.
-     */
+    /** Create a radio group component. */
     function radioGroup(options: RadioGroupOptions): Component;
 
-    /**
-     * Create a role select menu.
-     *
-     * @param options The select menu configuration.
-     */
+    /** Create a role select menu. */
     function roleSelect(options: SelectOptions): Component;
 
     /**
@@ -7855,11 +7158,7 @@ declare namespace discord {
       spacing?: number;
     }): Component;
 
-    /**
-     * Create a string select dropdown menu.
-     *
-     * @param options The select menu and its options.
-     */
+    /** Create a string select dropdown menu. */
     function stringSelect(options: StringSelectOptions): StringSelectComponent;
 
     /**
@@ -7869,11 +7168,7 @@ declare namespace discord {
      */
     function textDisplay(content: string): TextDisplayComponent;
 
-    /**
-     * Create a modal text input component.
-     *
-     * @param options The text input configuration.
-     */
+    /** Create a modal text input component. */
     function textInput(options: TextInputOptions): TextInputComponent;
 
     /**
@@ -7887,11 +7182,7 @@ declare namespace discord {
       width?: number;
     }): Component;
 
-    /**
-     * Create a user select menu.
-     *
-     * @param options The select menu configuration.
-     */
+    /** Create a user select menu. */
     function userSelect(options: SelectOptions): Component;
   }
 
@@ -7980,232 +7271,142 @@ declare namespace discord {
     const GUILD_AUDIT_LOG_ENTRY_CREATE: "GUILD_AUDIT_LOG_ENTRY_CREATE";
   }
 
-  /**
-   * Payload for guild ban add/remove events.
-   */
+  /** Payload for guild ban add/remove events. */
   interface GuildBanEvent {
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake;
 
-    /**
-     * The banned/unbanned user.
-     */
+    /** The banned/unbanned user. */
     user: User;
   }
 
-  /**
-   * Payload for a guild member remove event.
-   */
+  /** Payload for a guild member remove event. */
   interface GuildMemberRemoveEvent {
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake;
 
-    /**
-     * User who left or was removed from the guild.
-     */
+    /** User who left or was removed from the guild. */
     user: User;
   }
 
-  /**
-   * Payload for guild role create/update events.
-   */
+  /** Payload for guild role create/update events. */
   interface GuildRoleEvent {
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake;
 
-    /**
-     * Role created or updated by the event.
-     */
+    /** Role created or updated by the event. */
     role: Role;
   }
 
-  /**
-   * Payload for a guild role delete event.
-   */
+  /** Payload for a guild role delete event. */
   interface GuildRoleDeleteEvent {
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake;
 
-    /**
-     * ID of the role.
-     */
+    /** ID of the role. */
     roleId: Snowflake;
   }
 
-  /**
-   * Payload containing only a guild ID.
-   */
+  /** Payload containing only a guild ID. */
   interface GuildIdEvent {
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake;
   }
 
-  /**
-   * Payload for a guild emoji update event.
-   */
+  /** Payload for a guild emoji update event. */
   interface GuildEmojisUpdateEvent {
-    /**
-     * The full list of emojis after the change.
-     */
+    /** The full list of emojis after the change. */
     emojis: Emoji[];
 
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake;
   }
 
-  /**
-   * Payload for a guild sticker update event.
-   */
+  /** Payload for a guild sticker update event. */
   interface GuildStickersUpdateEvent {
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake;
 
-    /**
-     * The full list of stickers after the change.
-     */
+    /** The full list of stickers after the change. */
     stickers: Sticker[];
   }
 
-  /**
-   * Payload for scheduled event user add/remove events.
-   */
+  /** Payload for scheduled event user add/remove events. */
   interface GuildScheduledEventUserEvent {
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake;
 
-    /**
-     * ID of the scheduled event.
-     */
+    /** ID of the scheduled event. */
     guildScheduledEventId: Snowflake;
 
-    /**
-     * ID of the user.
-     */
+    /** ID of the user. */
     userId: Snowflake;
   }
 
-  /**
-   * Payload for a single message delete event.
-   */
+  /** Payload for a single message delete event. */
   interface MessageDeleteEvent {
-    /**
-     * ID of the channel.
-     */
+    /** ID of the channel. */
     channelId: Snowflake;
 
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake | null;
 
-    /**
-     * Discord snowflake ID.
-     */
+    /** Discord snowflake ID. */
     id: Snowflake;
   }
 
-  /**
-   * Payload for a bulk message delete event.
-   */
+  /** Payload for a bulk message delete event. */
   interface MessageDeleteBulkEvent {
-    /**
-     * ID of the channel.
-     */
+    /** ID of the channel. */
     channelId: Snowflake;
 
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake | null;
 
-    /**
-     * IDs of the deleted messages.
-     */
+    /** IDs of the deleted messages. */
     ids: Snowflake[];
   }
 
-  /**
-   * Payload for a message reaction add/remove event.
-   */
+  /** Payload for a message reaction add/remove event. */
   interface MessageReactionEvent {
-    /**
-     * ID of the channel.
-     */
+    /** ID of the channel. */
     channelId: Snowflake;
 
-    /**
-     * The emoji used in the reaction.
-     */
+    /** The emoji used in the reaction. */
     emoji: {
       animated: boolean;
       id: Snowflake | null;
       name: string | null;
     };
 
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake | null;
 
-    /**
-     * The guild member who reacted, or `null` when Discord omits it.
-     */
+    /** The guild member who reacted, or `null` when Discord omits it. */
     member: GuildMember | null;
 
-    /**
-     * ID of the referenced message.
-     */
+    /** ID of the referenced message. */
     messageId: Snowflake;
 
-    /**
-     * ID of the user.
-     */
+    /** ID of the user. */
     userId: Snowflake;
   }
 
-  /**
-   * Payload for clearing all reactions from a message.
-   */
+  /** Payload for clearing all reactions from a message. */
   interface MessageReactionRemoveAllEvent {
-    /**
-     * ID of the channel.
-     */
+    /** ID of the channel. */
     channelId: Snowflake;
 
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake | null;
 
-    /**
-     * ID of the referenced message.
-     */
+    /** ID of the referenced message. */
     messageId: Snowflake;
   }
 
-  /**
-   * Payload for clearing one emoji reaction from a message.
-   */
+  /** Payload for clearing one emoji reaction from a message. */
   interface MessageReactionRemoveEmojiEvent extends MessageReactionRemoveAllEvent {
-    /**
-     * The emoji whose reactions were removed.
-     */
+    /** The emoji whose reactions were removed. */
     emoji: {
       animated: boolean;
       id: Snowflake | null;
@@ -8221,115 +7422,73 @@ declare namespace discord {
     answerId: number;
   }
 
-  /**
-   * Payload for a channel pins update event.
-   */
+  /** Payload for a channel pins update event. */
   interface ChannelPinsUpdateEvent {
-    /**
-     * ID of the channel.
-     */
+    /** ID of the channel. */
     channelId: Snowflake;
 
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake | null;
 
-    /**
-     * When the newest pin was created, or `null` if no pins remain.
-     */
+    /** When the newest pin was created, or `null` if no pins remain. */
     lastPinTimestamp: Date | null;
   }
 
-  /**
-   * Payload for thread list sync events.
-   */
+  /** Payload for thread list sync events. */
   interface ThreadListSyncEvent {
-    /**
-     * Parent channel IDs whose threads were synced (empty = all).
-     */
+    /** Parent channel IDs whose threads were synced (empty = all). */
     channelIds: Snowflake[];
 
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake;
 
-    /**
-     * Thread members the bot is added to.
-     */
+    /** Thread members the bot is added to. */
     members: Array<{
       id: Snowflake;
       joinedAt: Date | null;
       userId: Snowflake;
     }>;
 
-    /**
-     * All active thread channels.
-     */
+    /** All active thread channels. */
     threads: ThreadChannel[];
   }
 
-  /**
-   * Payload for a thread member update event.
-   */
+  /** Payload for a thread member update event. */
   interface ThreadMemberUpdateEvent {
-    /**
-     * Thread member flags.
-     */
+    /** Thread member flags. */
     flags: number;
 
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake;
 
-    /**
-     * Discord snowflake ID.
-     */
+    /** Discord snowflake ID. */
     id: Snowflake;
 
-    /**
-     * When the member joined the thread.
-     */
+    /** When the member joined the thread. */
     joinedAt: Date | null;
 
-    /**
-     * ID of the user.
-     */
+    /** ID of the user. */
     userId: Snowflake;
   }
 
-  /**
-   * Payload for a batch thread members update event.
-   */
+  /** Payload for a batch thread members update event. */
   interface ThreadMembersUpdateEvent {
-    /**
-     * Members who were added in this update.
-     */
+    /** Members who were added in this update. */
     addedMembers: Array<{
       joinedAt: Date | null;
       userId: Snowflake;
     }>;
 
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake;
 
-    /**
-     * Discord snowflake ID.
-     */
+    /** Discord snowflake ID. */
     id: Snowflake;
 
-    /**
-     * Current number of thread members.
-     */
+    /** Current number of thread members. */
     memberCount: number;
 
-    /**
-     * User IDs of members who were removed.
-     */
+    /** User IDs of members who were removed. */
     removedMemberIds: Snowflake[];
   }
 
@@ -8373,73 +7532,45 @@ declare namespace discord {
     country?: string;
   }
 
-  /**
-   * Payload for an invite delete event.
-   */
+  /** Payload for an invite delete event. */
   interface InviteDeleteEvent {
-    /**
-     * ID of the channel.
-     */
+    /** ID of the channel. */
     channelId: Snowflake;
 
-    /**
-     * Invite code.
-     */
+    /** Invite code. */
     code: string;
 
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake;
   }
 
-  /**
-   * Payload for a typing start event.
-   */
+  /** Payload for a typing start event. */
   interface TypingStartEvent {
-    /**
-     * ID of the channel.
-     */
+    /** ID of the channel. */
     channelId: Snowflake;
 
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake | null;
 
-    /**
-     * The guild member typing, or `null` when Discord omits it.
-     */
+    /** The guild member typing, or `null` when Discord omits it. */
     member: GuildMember | null;
 
-    /**
-     * When the typing started.
-     */
+    /** When the typing started. */
     timestamp: Date;
 
-    /**
-     * ID of the user.
-     */
+    /** ID of the user. */
     userId: Snowflake;
   }
 
-  /**
-   * Payload for a voice server update event.
-   */
+  /** Payload for a voice server update event. */
   interface VoiceServerUpdateEvent {
-    /**
-     * The new voice server endpoint.
-     */
+    /** The new voice server endpoint. */
     endpoint: string;
 
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake;
 
-    /**
-     * The new voice connection token.
-     */
+    /** The new voice connection token. */
     token: string;
   }
 
@@ -8466,118 +7597,72 @@ declare namespace discord {
     soundVolume?: number | null;
   }
 
-  /**
-   * Payload for a webhooks update event.
-   */
+  /** Payload for a webhooks update event. */
   interface WebhooksUpdateEvent {
-    /**
-     * ID of the channel.
-     */
+    /** ID of the channel. */
     channelId: Snowflake;
 
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake;
   }
 
-  /**
-   * Payload for a presence update event.
-   */
+  /** Payload for a presence update event. */
   type PresenceUpdateEvent = Presence;
 
-  /**
-   * Payload for auto moderation rule create/update events.
-   */
+  /** Payload for auto moderation rule create/update events. */
   interface AutoModRuleEvent {
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake;
 
-    /**
-     * The auto moderation rule.
-     */
+    /** The auto moderation rule. */
     rule: AutoModRule;
   }
 
-  /**
-   * Payload for an auto moderation rule delete event.
-   */
+  /** Payload for an auto moderation rule delete event. */
   interface AutoModRuleDeleteEvent {
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake;
 
-    /**
-     * The ID of the deleted rule.
-     */
+    /** The ID of the deleted rule. */
     ruleId: Snowflake;
   }
 
-  /**
-   * Payload for an auto moderation action execution event.
-   */
+  /** Payload for an auto moderation action execution event. */
   interface AutoModActionExecutionEvent {
-    /**
-     * The action that was taken.
-     */
+    /** The action that was taken. */
     action: AutoModAction;
 
-    /**
-     * The alert message ID sent to the alert channel, or `null`.
-     */
+    /** The alert message ID sent to the alert channel, or `null`. */
     alertSystemMessage: Snowflake | null;
 
-    /**
-     * ID of the channel.
-     */
+    /** ID of the channel. */
     channelId: Snowflake | null;
 
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake;
 
-    /**
-     * The content that matched the rule, or `null`.
-     */
+    /** The content that matched the rule, or `null`. */
     matchedContent: string | null;
 
-    /**
-     * The specific keyword or regex that matched, or `null`.
-     */
+    /** The specific keyword or regex that matched, or `null`. */
     matchedKeyword: string | null;
 
-    /**
-     * ID of the referenced message.
-     */
+    /** ID of the referenced message. */
     messageId: Snowflake | null;
 
-    /**
-     * The rule that triggered.
-     */
+    /** The rule that triggered. */
     ruleId: Snowflake;
 
-    /**
-     * ID of the user.
-     */
+    /** ID of the user. */
     userId: Snowflake;
   }
 
-  /**
-   * Payload for audit log entry create events.
-   */
+  /** Payload for audit log entry create events. */
   interface AuditLogEntryEvent {
-    /**
-     * The audit log entry.
-     */
+    /** The audit log entry. */
     entry: AuditLogEntry;
 
-    /**
-     * ID of the guild.
-     */
+    /** ID of the guild. */
     guildId: Snowflake;
   }
 
@@ -8955,9 +8040,7 @@ declare namespace discord {
    */
   function getGuildId(): Snowflake;
 
-  /**
-   * Fetches the bot user running this deployment.
-   */
+  /** Fetches the bot user running this deployment. */
   function fetchBotUser(): Promise<User>;
 
   /**
@@ -8971,7 +8054,6 @@ declare namespace discord {
    * if (user) console.log(user.displayName);
    * ```
    *
-   * @param userId The user ID to fetch.
    * @see https://docs.discord.com/developers/resources/user#get-user
    */
   function fetchUser(userId: Snowflake): Promise<User | null>;
@@ -9011,16 +8093,12 @@ declare namespace discord {
    * Fetches any channel from Discord by ID.
    * Use a typed channel getter when you intend to call channel-specific methods.
    * Returns `null` when the channel cannot be found or fetched.
-   *
-   * @param channelId The channel ID to fetch.
    */
   function fetchChannel(channelId: Snowflake): Promise<AnyChannel | null>;
 
   /**
    * Fetches a channel that can receive messages.
    * Returns `null` for voice, category, forum, stage, or missing channels.
-   *
-   * @param channelId The channel ID to fetch.
    */
   function fetchTextChannel(channelId: Snowflake): Promise<TextChannel | null>;
 
@@ -9035,8 +8113,6 @@ declare namespace discord {
    * if (!channel) return console.warn('Invalid logs channel.');
    * await channel.send('Ready.');
    * ```
-   *
-   * @param channelId The channel ID to fetch.
    */
   function fetchGuildTextChannel(
     channelId: Snowflake,
@@ -9045,8 +8121,6 @@ declare namespace discord {
   /**
    * Fetches any channel that belongs to a guild.
    * Returns `null` for unsupported or missing channels.
-   *
-   * @param channelId The channel ID to fetch.
    */
   function fetchGuildChannel(
     channelId: Snowflake,
@@ -9054,8 +8128,6 @@ declare namespace discord {
 
   /**
    * Fetches an announcement channel, or `null` when the channel has another type or does not exist.
-   *
-   * @param channelId The channel ID to fetch.
    */
   function fetchGuildAnnouncementChannel(
     channelId: Snowflake,
@@ -9063,26 +8135,18 @@ declare namespace discord {
 
   /**
    * Fetches a guild voice channel, or `null` when the channel has another type or does not exist.
-   *
-   * @param channelId The channel ID to fetch.
    */
   function fetchGuildVoiceChannel(
     channelId: Snowflake,
   ): Promise<GuildVoiceChannel | null>;
 
-  /**
-   * Fetches a guild category, or `null` when the channel has another type or does not exist.
-   *
-   * @param channelId The channel ID to fetch.
-   */
+  /** Fetches a guild category, or `null` when the channel has another type or does not exist. */
   function fetchGuildCategory(
     channelId: Snowflake,
   ): Promise<GuildCategory | null>;
 
   /**
    * Fetches a guild forum channel, or `null` when the channel has another type or does not exist.
-   *
-   * @param channelId The channel ID to fetch.
    */
   function fetchGuildForumChannel(
     channelId: Snowflake,
@@ -9090,8 +8154,6 @@ declare namespace discord {
 
   /**
    * Fetches a guild media channel, or `null` when the channel has another type or does not exist.
-   *
-   * @param channelId The channel ID to fetch.
    */
   function fetchGuildMediaChannel(
     channelId: Snowflake,
@@ -9099,18 +8161,12 @@ declare namespace discord {
 
   /**
    * Fetches a guild stage channel, or `null` when the channel has another type or does not exist.
-   *
-   * @param channelId The channel ID to fetch.
    */
   function fetchGuildStageVoiceChannel(
     channelId: Snowflake,
   ): Promise<GuildStageVoiceChannel | null>;
 
-  /**
-   * Fetches a thread channel, or `null` when the channel has another type or does not exist.
-   *
-   * @param channelId The channel ID to fetch.
-   */
+  /** Fetches a thread channel, or `null` when the channel has another type or does not exist. */
   function fetchThreadChannel(
     channelId: Snowflake,
   ): Promise<ThreadChannel | null>;
@@ -9137,7 +8193,6 @@ declare namespace discord {
    * A webhook token may be required for webhooks the bot cannot access normally.
    * Returns `null` when Discord reports that the webhook does not exist.
    *
-   * @param webhookId The webhook ID to fetch.
    * @param token The webhook token, when required.
    */
   function fetchWebhook(
@@ -9145,57 +8200,37 @@ declare namespace discord {
     token?: string,
   ): Promise<Webhook | null>;
 
-  /**
-   * Returns whether a channel can receive ordinary messages and narrows its type.
-   */
+  /** Returns whether a channel can receive ordinary messages and narrows its type. */
   function isTextChannel(channel: Channel): channel is TextChannel;
 
-  /**
-   * Returns whether a channel is a guild text or announcement channel and narrows its type.
-   */
+  /** Returns whether a channel is a guild text or announcement channel and narrows its type. */
   function isGuildTextChannel(channel: Channel): channel is GuildTextChannel;
 
-  /**
-   * Returns whether a channel belongs to a guild and narrows its type.
-   */
+  /** Returns whether a channel belongs to a guild and narrows its type. */
   function isGuildChannel(channel: Channel): channel is AnyGuildChannel;
 
-  /**
-   * Returns whether a channel is an announcement channel and narrows its type.
-   */
+  /** Returns whether a channel is an announcement channel and narrows its type. */
   function isGuildAnnouncementChannel(
     channel: Channel,
   ): channel is GuildAnnouncementChannel;
 
-  /**
-   * Returns whether a channel is a guild voice channel and narrows its type.
-   */
+  /** Returns whether a channel is a guild voice channel and narrows its type. */
   function isGuildVoiceChannel(channel: Channel): channel is GuildVoiceChannel;
 
-  /**
-   * Returns whether a channel is a guild category and narrows its type.
-   */
+  /** Returns whether a channel is a guild category and narrows its type. */
   function isGuildCategory(channel: Channel): channel is GuildCategory;
 
-  /**
-   * Returns whether a channel is a guild forum channel and narrows its type.
-   */
+  /** Returns whether a channel is a guild forum channel and narrows its type. */
   function isGuildForumChannel(channel: Channel): channel is GuildForumChannel;
 
-  /**
-   * Returns whether a channel is a guild media channel and narrows its type.
-   */
+  /** Returns whether a channel is a guild media channel and narrows its type. */
   function isGuildMediaChannel(channel: Channel): channel is GuildMediaChannel;
 
-  /**
-   * Returns whether a channel is a guild stage channel and narrows its type.
-   */
+  /** Returns whether a channel is a guild stage channel and narrows its type. */
   function isGuildStageVoiceChannel(
     channel: Channel,
   ): channel is GuildStageVoiceChannel;
 
-  /**
-   * Returns whether a channel is a thread and narrows its type.
-   */
+  /** Returns whether a channel is a thread and narrows its type. */
   function isThreadChannel(channel: Channel): channel is ThreadChannel;
 }

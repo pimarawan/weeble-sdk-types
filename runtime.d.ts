@@ -1061,42 +1061,4 @@ declare namespace weeble {
       transaction: (prev: T | undefined) => T | undefined,
     ): Promise<T | undefined>;
   }
-
-  type PluginSettingValue = string | number | boolean;
-  type PluginSettings = Record<string, PluginSettingValue>;
-
-  /** What an installed plugin gets from the server that added it. */
-  interface PluginContext<S extends PluginSettings = PluginSettings> {
-    /** The plugin's slug from `plugin.toml`. */
-    readonly slug: string;
-    readonly version: string;
-    /** Values the server owner chose, with manifest defaults filled in. */
-    readonly settings: Readonly<S>;
-    /**
-     * A KV store only this plugin uses. Keys live under `plugin:<slug>`, or
-     * `plugin:<slug>:<name>` when a name is given.
-     */
-    kv(name?: string): KVNamespace;
-    /** Same as `discord.on`, but an error in the handler is logged instead of stopping other handlers. */
-    on: typeof discord.on;
-  }
-
-  /**
-   * Declares a plugin. `setup` runs once when the deployment loads and must be synchronous,
-   * because commands and handlers are collected at publish.
-   *
-   * ```ts
-   * weeble.definePlugin<{ channel: string }>((plugin) => {
-   *   plugin.on('MESSAGE_REACTION_ADD', async (reaction) => {
-   *     await plugin.kv().increment(reaction.messageId);
-   *   });
-   * });
-   * ```
-   *
-   * Outside an installed plugin, for example while testing in the editor, `slug` is `dev`
-   * and `settings` is empty.
-   */
-  function definePlugin<S extends PluginSettings = PluginSettings>(
-    setup: (plugin: PluginContext<S>) => void,
-  ): void;
 }
