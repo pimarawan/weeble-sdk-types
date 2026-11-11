@@ -7887,6 +7887,15 @@ declare namespace discord {
     event: typeof events.MESSAGE_CREATE,
     handler: (message: Message | GuildMemberMessage) => Promise<unknown>,
   ): void;
+  /**
+   * A message was edited. Discord also sends this when a link preview loads;
+   * only real edits have `message.editedAt` set.
+   *
+   * `old` is the message as it was before, or `null` when the bot never saw
+   * it: Weeble keeps copies of a server's messages for 7 days, the newest
+   * 200 per channel, from when a script in that server first handles edits
+   * or deletes.
+   */
   function on(
     event: typeof events.MESSAGE_UPDATE,
     handler: (
@@ -7894,6 +7903,13 @@ declare namespace discord {
       old: Message | null,
     ) => Promise<unknown>,
   ): void;
+  /**
+   * A message was deleted. Discord only sends its ID.
+   *
+   * `old` is the message as it was, or `null` when the bot never saw it, for
+   * example because it was sent before the script started handling deletes.
+   * See MESSAGE_UPDATE for how long copies are kept.
+   */
   function on(
     event: typeof events.MESSAGE_DELETE,
     handler: (
@@ -7901,9 +7917,24 @@ declare namespace discord {
       old: Message | null,
     ) => Promise<unknown>,
   ): void;
+  /**
+   * Several messages were deleted at once, such as by a purge command.
+   *
+   * `old` holds a copy of each deleted message the bot saw, oldest first.
+   * Messages it never saw are missing from it, so it can be shorter than
+   * `event.ids`, or empty.
+   *
+   * @example
+   * ```ts
+   * discord.on(discord.events.MESSAGE_DELETE_BULK, async (event, old) => {
+   *   const lines = old.map((message) => `${message.author?.username}: ${message.content}`);
+   *   console.log(`${event.ids.length} deleted, ${old.length} saved:\n${lines.join("\n")}`);
+   * });
+   * ```
+   */
   function on(
     event: typeof events.MESSAGE_DELETE_BULK,
-    handler: (event: MessageDeleteBulkEvent) => Promise<unknown>,
+    handler: (event: MessageDeleteBulkEvent, old: Message[]) => Promise<unknown>,
   ): void;
   function on(
     event: typeof events.MESSAGE_REACTION_ADD,
