@@ -334,6 +334,10 @@ declare namespace discord {
     readonly GUILD_INCIDENT_ALERT_MODE_ENABLED: 36;
     readonly GUILD_INCIDENT_REPORT_FALSE_ALARM: 39;
     readonly GUILD_INCIDENT_REPORT_RAID: 38;
+    /** Someone bought something from the server's store. */
+    readonly PURCHASE_NOTIFICATION: 44;
+    /** A poll ended. The message's embed holds the results. */
+    readonly POLL_RESULT: 46;
     readonly GUILD_INVITE_REMINDER: 22;
     readonly INTERACTION_PREMIUM_UPSELL: 26;
     readonly RECIPIENT_ADD: 1;
@@ -362,6 +366,7 @@ declare namespace discord {
     readonly CROSSPOSTED: 1;
     readonly EPHEMERAL: 64;
     readonly FAILED_TO_MENTION_SOME_ROLES_IN_THREAD: 256;
+    readonly HAS_SNAPSHOT: 16384;
     readonly HAS_THREAD: 32;
     readonly IS_COMPONENTS_V2: 32768;
     readonly IS_CROSSPOST: 2;
@@ -382,11 +387,36 @@ declare namespace discord {
     readonly IS_THUMBNAIL: 2;
     readonly IS_REMIX: 4;
     readonly IS_SPOILER: 8;
+    /** Discord's content scanning flagged it as explicit. */
+    readonly CONTAINS_EXPLICIT_CONTENT: 16;
     readonly IS_ANIMATED: 32;
+    /** Discord's content scanning flagged it as gore. */
+    readonly CONTAINS_GORE_CONTENT: 64;
+    /** Discord's content scanning flagged it as self-harm. */
+    readonly CONTAINS_SELF_HARM_CONTENT: 128;
   };
 
   /** A value of {@link AttachmentFlags}. */
   type AttachmentFlags = (typeof AttachmentFlags)[keyof typeof AttachmentFlags];
+
+  /**
+   * Flags on a received embed, read from {@link Embed.flags}.
+   *
+   * @see https://docs.discord.com/developers/resources/message#embed-object-embed-flags
+   */
+  const EmbedFlags: {
+    /** Discord's content scanning flagged the embed's media as explicit. */
+    readonly CONTAINS_EXPLICIT_CONTENT: 16;
+    /** The embed stands in for a reply to an activity card. */
+    readonly IS_CONTENT_INVENTORY_ENTRY: 32;
+    /** Discord's content scanning flagged the embed's media as gore. */
+    readonly CONTAINS_GORE_CONTENT: 64;
+    /** Discord's content scanning flagged the embed's media as self-harm. */
+    readonly CONTAINS_SELF_HARM_CONTENT: 128;
+  };
+
+  /** A value of {@link EmbedFlags}. */
+  type EmbedFlags = (typeof EmbedFlags)[keyof typeof EmbedFlags];
 
   /**
    * Interaction types.
@@ -525,6 +555,7 @@ declare namespace discord {
     readonly CHANNEL_OVERWRITE_CREATE: 13;
     readonly CHANNEL_OVERWRITE_DELETE: 15;
     readonly CHANNEL_OVERWRITE_UPDATE: 14;
+    readonly CHANNEL_POSITION_UPDATE: 16;
     readonly CHANNEL_UPDATE: 11;
     readonly CREATOR_MONETIZATION_REQUEST_CREATED: 150;
     readonly CREATOR_MONETIZATION_TERMS_ACCEPTED: 151;
@@ -562,6 +593,7 @@ declare namespace discord {
     readonly ONBOARDING_UPDATE: 167;
     readonly ROLE_CREATE: 30;
     readonly ROLE_DELETE: 32;
+    readonly ROLE_POSITION_UPDATE: 33;
     readonly ROLE_UPDATE: 31;
     readonly SOUNDBOARD_SOUND_CREATE: 130;
     readonly SOUNDBOARD_SOUND_UPDATE: 131;
@@ -681,6 +713,28 @@ declare namespace discord {
    *
    * @see https://docs.discord.com/developers/resources/message#message-object
    */
+  /** What a forwarded message forwarded: a copy of the original, without its author or channel. */
+  interface ForwardedMessage {
+    /** The original's type, such as `0` for a normal message. */
+    readonly type: number;
+    readonly content: string;
+    readonly embeds: Embed[];
+    readonly attachments: Attachment[];
+    readonly mentions: User[];
+    /** IDs of the roles it mentions. */
+    readonly mentionRoles: Snowflake[];
+    /** Its components, as Discord sends them. */
+    readonly components: Record<string, unknown>[];
+    /** Its stickers, as Discord sends them. */
+    readonly stickerItems: Record<string, unknown>[];
+    /** The original's {@link MessageFlags}. */
+    readonly flags: number;
+    /** When the original was sent, in milliseconds. */
+    readonly timestamp: number | null;
+    /** When the original was last edited before it was forwarded, in milliseconds. */
+    readonly editedTimestamp: number | null;
+  }
+
   class Message {
     /** Files attached to the message. */
     readonly attachments: Attachment[];
@@ -753,6 +807,20 @@ declare namespace discord {
 
     /** The message this one replies to, or `null` if it isn't a reply or was deleted. */
     readonly referencedMessage: Message | null;
+
+    /**
+     * What this message forwarded, or `null` if it isn't a forward. It's a
+     * copy made when it was forwarded, without its author or channel, so it
+     * doesn't change if the original is edited. Reading its content needs
+     * the Message Content intent, as for any message.
+     *
+     * ```ts
+     * if (message.forwarded) console.log("Forwarded:", message.forwarded.content);
+     * ```
+     *
+     * https://docs.discord.com/developers/resources/message#message-snapshot-object
+     */
+    readonly forwarded: ForwardedMessage | null;
 
     /** Whether this is a normal message, a reply, or a system message. */
     readonly type: MessageType;
@@ -1225,6 +1293,16 @@ declare namespace discord {
       name: string;
       value: string;
     }>;
+
+    /**
+     * Bitfield of {@link EmbedFlags}, set by Discord, for example when its content
+     * scanning flags the embed's media. `0` when none are set.
+     *
+     * ```ts
+     * if (embed.flags & discord.EmbedFlags.CONTAINS_EXPLICIT_CONTENT) await message.delete();
+     * ```
+     */
+    readonly flags: number;
 
     /** The footer, or `null`. */
     readonly footer: {
@@ -2838,6 +2916,24 @@ declare namespace discord {
     me(): Promise<GuildMember>;
 
     /**
+     * Changes the bot's own profile in this server: its nickname, and its
+     * per-server avatar, banner and bio.
+     *
+     * **On the shared Weeble bot, only `nick` can be changed.** Weeble's bot
+     * carries Weeble's name in every server, so it can't be given another
+     * avatar, banner or bio; the request fails with a permission error. A
+     * deployment that runs on a bot of its own can change all four.
+     *
+     * ```ts
+     * await guild.editMe({ nick: "Helper" });
+     * ```
+     *
+     * Needs the Change Nickname permission for `nick`.
+     * https://docs.discord.com/developers/resources/guild#modify-current-member
+     */
+    editMe(options: BotMemberEditOptions): Promise<GuildMember>;
+
+    /**
      * Fetches a member.
      *
      * @returns The member, or `null` if the user isn't in the guild. Other failures throw.
@@ -3333,20 +3429,26 @@ declare namespace discord {
       | "CREATOR_STORE_PAGE"
       | "DEVELOPER_SUPPORT_SERVER"
       | "DISCOVERABLE"
+      | "ENHANCED_ROLE_COLORS"
       | "FEATURABLE"
+      | "GUESTS_ENABLED"
+      | "GUILD_TAGS"
       | "INVITES_DISABLED"
       | "INVITE_SPLASH"
       | "MEMBER_VERIFICATION_GATE_ENABLED"
+      | "MORE_SOUNDBOARD"
       | "MORE_STICKERS"
       | "NEWS"
       | "PARTNERED"
       | "PREVIEW_ENABLED"
       | "PRIVATE_THREADS"
+      | "PRUNE_REQUIRES_ADMIN"
       | "RAID_ALERTS_DISABLED"
       | "ROLE_ICONS"
       | "ROLE_SUBSCRIPTIONS_AVAILABLE_FOR_PURCHASE"
       | "ROLE_SUBSCRIPTIONS_ENABLED"
       | "SEVEN_DAY_THREAD_ARCHIVE"
+      | "SOUNDBOARD"
       | "THREE_DAY_THREAD_ARCHIVE"
       | "TICKETED_EVENTS_ENABLED"
       | "VANITY_URL"
@@ -3932,6 +4034,23 @@ declare namespace discord {
   }
 
   /** A custom emoji to create. */
+  /** Changes to the bot's own profile in a server. Fields left out stay as they are. */
+  interface BotMemberEditOptions {
+    /** Nickname in this server, up to 32 characters, or `null` to remove it. */
+    nick?: string | null;
+    /**
+     * Avatar in this server as a data URI, or `null` to use its main avatar.
+     * Not available on the shared Weeble bot.
+     */
+    avatar?: string | null;
+    /** Banner in this server as a data URI, or `null` to remove it. Not available on the shared Weeble bot. */
+    banner?: string | null;
+    /** "About me" in this server, or `null` to remove it. Not available on the shared Weeble bot. */
+    bio?: string | null;
+    /** Reason shown in the audit log. */
+    reason?: string;
+  }
+
   interface EmojiCreateOptions {
     /** The image as a data URI, up to 256 KB. */
     image: string;
@@ -3951,6 +4070,24 @@ declare namespace discord {
     reason?: string;
     /** IDs of the roles that can use the emoji. */
     roles?: Snowflake[];
+  }
+
+  /** One of Discord's own packs of stickers. */
+  interface StickerPack {
+    /** ID of the pack. */
+    id: Snowflake;
+    /** Name of the pack. */
+    name: string;
+    /** Description of the pack. */
+    description: string;
+    /** ID of the pack's SKU. */
+    skuId: Snowflake;
+    /** ID of the sticker shown as the pack's icon, or `null`. */
+    coverStickerId: Snowflake | null;
+    /** ID of the pack's banner image, or `null`. */
+    bannerAssetId: Snowflake | null;
+    /** The stickers in the pack. */
+    stickers: Sticker[];
   }
 
   /** A sticker. */
@@ -4014,6 +4151,20 @@ declare namespace discord {
     reason?: string;
     /** Name of the emoji Discord suggests the sticker for. */
     tags?: string;
+  }
+
+  /** One of the sounds every server has on its soundboard. */
+  interface DefaultSoundboardSound {
+    /** ID of the sound. Discord's own sounds have small IDs such as `"1"`. */
+    id: Snowflake;
+    /** Name of the sound. */
+    name: string;
+    /** Volume, from 0 to 1. */
+    volume: number;
+    /** ID of the sound's custom emoji, or `null`. */
+    emojiId: Snowflake | null;
+    /** The sound's Unicode emoji, or `null`. */
+    emojiName: string | null;
   }
 
   /** A sound on a guild's soundboard. */
@@ -4152,6 +4303,9 @@ declare namespace discord {
     /** The activity the invite is for, or `null`. */
     readonly targetApplication: Record<string, unknown> | null;
 
+    /** IDs of the roles given to whoever accepts the invite. Empty when there are none. */
+    readonly roleIds: Snowflake[];
+
     /** Fetches the invite again. */
     fetch(): Promise<Invite>;
 
@@ -4173,6 +4327,92 @@ declare namespace discord {
      * @param reason Reason shown in the audit log.
      */
     delete(reason?: string): Promise<void>;
+
+    /**
+     * Fetches the IDs of the users allowed to see and accept the invite. Empty
+     * when anyone with the link can use it.
+     *
+     * Only for this server's invites. Needs the bot to have created the invite,
+     * or **Manage Server** or **View Audit Log**.
+     *
+     * @see https://docs.discord.com/developers/resources/invite#get-target-users
+     */
+    fetchTargetUsers(): Promise<Snowflake[]>;
+
+    /**
+     * Lets one more user see and accept the invite.
+     *
+     * Only for this server's invites. Needs the bot to have created the invite, or **Manage Server**.
+     *
+     * @see https://docs.discord.com/developers/resources/invite#add-target-user
+     */
+    addTargetUser(userId: Snowflake): Promise<void>;
+
+    /**
+     * Stops a user from seeing and accepting the invite.
+     *
+     * Only for this server's invites. Needs the bot to have created the invite, or **Manage Server**.
+     *
+     * @see https://docs.discord.com/developers/resources/invite#remove-target-user
+     */
+    removeTargetUser(userId: Snowflake): Promise<void>;
+
+    /**
+     * Lets these users see and accept the invite. Any number of IDs: they are
+     * sent 1000 at a time.
+     *
+     * Only for this server's invites. Needs the bot to have created the invite, or **Manage Server**.
+     *
+     * @see https://docs.discord.com/developers/resources/invite#bulk-add-target-users
+     */
+    addTargetUsers(userIds: readonly Snowflake[]): Promise<void>;
+
+    /**
+     * Stops these users from seeing and accepting the invite. Any number of IDs:
+     * they are sent 1000 at a time.
+     *
+     * Only for this server's invites. Needs the bot to have created the invite, or **Manage Server**.
+     *
+     * @see https://docs.discord.com/developers/resources/invite#bulk-delete-target-users
+     */
+    removeTargetUsers(userIds: readonly Snowflake[]): Promise<void>;
+
+    /**
+     * Makes exactly these users the ones allowed to see and accept the invite,
+     * adding and removing users as needed.
+     *
+     * @example
+     * ```ts
+     * const invite = await channel.createInvite({ maxAge: 0, targetUserIds: [alice] });
+     * await invite.setTargetUsers([alice, bob]);
+     * ```
+     */
+    setTargetUsers(userIds: readonly Snowflake[]): Promise<void>;
+
+    /**
+     * Fetches the progress of the job that adds an invite's users when they were
+     * given as a CSV file, for example from the Discord app. Users added from a
+     * script are added straight away and need no job.
+     *
+     * @see https://docs.discord.com/developers/resources/invite#get-target-users-job-status
+     */
+    fetchTargetUsersJob(): Promise<InviteTargetUsersJob>;
+  }
+
+  /** Where Discord is in adding the users of a CSV upload to an invite. */
+  interface InviteTargetUsersJob {
+    /** `0` unknown, `1` processing, `2` completed, `3` failed. */
+    status: number;
+    /** How many users the file has. */
+    totalUsers: number;
+    /** How many of them have been added so far. */
+    processedUsers: number;
+    /** When the job started, or `null`. */
+    createdAt: Date | null;
+    /** When the job finished, or `null` while it runs. */
+    completedAt: Date | null;
+    /** Why the job failed, or `null`. */
+    errorMessage: string | null;
   }
 
   /** The public details of an invite's guild. */
@@ -4233,6 +4473,16 @@ declare namespace discord {
     maxUses?: number;
     /** Reason shown in the audit log. */
     reason?: string;
+    /**
+     * Roles given to whoever accepts the invite. Needs **Manage Roles**, and each
+     * role must be below the bot's highest role.
+     */
+    roleIds?: readonly Snowflake[];
+    /**
+     * Only these users can see and accept the invite, up to 1000. Change the list
+     * later with {@link Invite.setTargetUsers}.
+     */
+    targetUserIds?: readonly Snowflake[];
     /** Whether members who join with it are removed when they go offline without a role. */
     temporary?: boolean;
     /** Whether to always create a new invite, instead of returning a matching one. */
@@ -4850,12 +5100,14 @@ declare namespace discord {
     | RoleCreateEntry
     | RoleUpdateEntry
     | RoleDeleteEntry
+    | RolePositionUpdateEntry
     | ChannelCreateEntry
     | ChannelUpdateEntry
     | ChannelDeleteEntry
     | ChannelPermissionOverwriteCreateEntry
     | ChannelPermissionOverwriteUpdateEntry
     | ChannelPermissionOverwriteDeleteEntry
+    | ChannelPositionUpdateEntry
     | EmojiCreateEntry
     | EmojiUpdateEntry
     | EmojiDeleteEntry
@@ -5040,6 +5292,15 @@ declare namespace discord {
     };
   }
 
+  /** Roles were reordered. `targetId` is a moved role and `options.count` how many moved. */
+  class RolePositionUpdateEntry extends AuditLogEntry {
+    readonly actionType: typeof AuditLogActionType.ROLE_POSITION_UPDATE;
+
+    readonly changes: {
+      readonly position?: AuditLogChange<number>;
+    };
+  }
+
   /** A channel was created. */
   class ChannelCreateEntry extends AuditLogEntry {
     readonly actionType: typeof AuditLogActionType.CHANNEL_CREATE;
@@ -5111,6 +5372,15 @@ declare namespace discord {
       readonly type: AuditLogOldValue<number>;
       readonly allow: AuditLogOldValue<string>;
       readonly deny: AuditLogOldValue<string>;
+    };
+  }
+
+  /** Channels were reordered. `targetId` is a moved channel and `options.count` how many moved. */
+  class ChannelPositionUpdateEntry extends AuditLogEntry {
+    readonly actionType: typeof AuditLogActionType.CHANNEL_POSITION_UPDATE;
+
+    readonly changes: {
+      readonly position?: AuditLogChange<number>;
     };
   }
 
@@ -5349,7 +5619,10 @@ declare namespace discord {
   /**
    * A slash command, button press, menu choice, autocomplete request or modal
    * submission. Check its kind with an `is*()` method first. Discord needs a
-   * reply, defer or update within 3 seconds.
+   * reply, defer or update within 3 seconds. If a handler hasn't answered after
+   * 2 seconds, Weeble defers for it, and its `reply()` or `update()` then fills
+   * the deferred response in. Show modals before doing anything slow: a
+   * deferred interaction can't show one.
    *
    * ```ts
    * discord.on(discord.events.INTERACTION_CREATE, async (interaction) => {
@@ -5657,6 +5930,9 @@ declare namespace discord {
   }
 
   /** A fixed choice for a command option. */
+  /** `"image"`, `"video"`, `"audio"`, or a dot-prefixed extension such as `".pdf"`. */
+  type FileTypeFilter = "image" | "video" | "audio" | `.${string}`;
+
   interface OptionChoice<T extends string | number = string | number> {
     /** The text shown in the list, up to 100 characters. */
     name: string;
@@ -5746,7 +6022,11 @@ declare namespace discord {
       number(description: string): CommandArgument<number>;
       /** A duration such as `10m` or `1.5h`, in milliseconds. Units are `ms`, `s`, `m`, `h`, `d` and `w`. */
       duration(description: string): CommandArgument<number>;
-      /** Everything left in the message. Must be the last argument. */
+      /**
+       * Everything left in the message, exactly as typed: line breaks, quotes and
+       * code blocks are kept. Text wrapped whole in quotes is unwrapped. Must be
+       * the last argument.
+       */
       rest(description: string): CommandArgument<string>;
       /** A user, as a mention or ID. */
       user(description: string): CommandArgument<User>;
@@ -6071,6 +6351,21 @@ declare namespace discord {
       types: ChannelType[],
     ): CommandOption<TValue, TOptional, TKind>;
     /**
+     * Sets which files can be picked, up to 10 entries. Discord only checks the
+     * file's extension, so check the content yourself if it matters.
+     *
+     * ```ts
+     * screenshot: option.attachment("A screenshot of the bug").fileTypes(["image"]),
+     * log: option.attachment("The log file").fileTypes([".txt", ".log"]),
+     * ```
+     *
+     * @see https://docs.discord.com/developers/reference#file-type-filtering
+     */
+    fileTypes(
+      this: CommandOption<TValue, TOptional, "attachment">,
+      types: FileTypeFilter[],
+    ): CommandOption<TValue, TOptional, TKind>;
+    /**
      * Limits the option to up to 25 values. Pass a value, or `{ name, value }`
      * to show a different label. Can't be combined with autocomplete.
      */
@@ -6378,7 +6673,19 @@ declare namespace discord {
     function fileUpload(options: {
       customId: string;
       label?: string;
+      /** Whether files must be uploaded before the modal can be sent. Defaults to `true`. */
       required?: boolean;
+      /** Fewest files to upload, 0 to 10. Defaults to 1. */
+      minValues?: number;
+      /** Most files to upload, up to 10. Defaults to 1. */
+      maxValues?: number;
+      /**
+       * Which files can be picked, up to 10 entries. Discord only checks the
+       * file's extension, so check the content yourself if it matters.
+       *
+       * @see https://docs.discord.com/developers/reference#file-type-filtering
+       */
+      fileTypes?: FileTypeFilter[];
     }): Component;
 
     /**
@@ -7928,6 +8235,46 @@ declare namespace discord {
     webhookId: Snowflake,
     token?: string,
   ): Promise<Webhook | null>;
+
+  /**
+   * Fetches any sticker by ID, from any server or one of Discord's own packs, or
+   * returns `null` if it doesn't exist. Stickers from other servers can be read
+   * but not changed.
+   *
+   * @see https://docs.discord.com/developers/resources/sticker#get-sticker
+   */
+  function fetchSticker(stickerId: Snowflake): Promise<Sticker | null>;
+
+  /**
+   * Fetches Discord's own sticker packs, the stickers anyone can use.
+   *
+   * @see https://docs.discord.com/developers/resources/sticker#list-sticker-packs
+   */
+  function fetchStickerPacks(): Promise<StickerPack[]>;
+
+  /**
+   * Fetches one of Discord's sticker packs, or returns `null` if it doesn't exist.
+   *
+   * @see https://docs.discord.com/developers/resources/sticker#get-sticker-pack
+   */
+  function fetchStickerPack(packId: Snowflake): Promise<StickerPack | null>;
+
+  /**
+   * Fetches the sounds every server has on its soundboard. Play one with
+   * {@link GuildVoiceChannel.sendSoundboardSound} and its `id`.
+   *
+   * @see https://docs.discord.com/developers/resources/soundboard#list-default-soundboard-sounds
+   */
+  function fetchDefaultSoundboardSounds(): Promise<DefaultSoundboardSound[]>;
+
+  /**
+   * Fetches a server template by its code, from any server, or returns `null` if
+   * it doesn't exist. Only templates of this server can be synced or edited.
+   *
+   * @param code The part after `discord.new/`.
+   * @see https://docs.discord.com/developers/resources/guild-template#get-guild-template
+   */
+  function fetchGuildTemplate(code: string): Promise<GuildTemplate | null>;
 
   //#endregion
 
