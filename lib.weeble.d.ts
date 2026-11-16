@@ -735,6 +735,17 @@ declare namespace discord {
     readonly editedTimestamp: number | null;
   }
 
+  /**
+   * A message in a channel. `MESSAGE_CREATE` handlers and prefix commands get
+   * one, and `channel.send()` and `message.reply()` return one.
+   *
+   * @example
+   * ```ts
+   * discord.on(discord.events.MESSAGE_CREATE, async (message) => {
+   *   if (message.content === "!ping") await message.reply("pong");
+   * });
+   * ```
+   */
   class Message {
     /** Files attached to the message. */
     readonly attachments: Attachment[];
@@ -1635,7 +1646,11 @@ declare namespace discord {
     /** Fetches the member's roles. */
     fetchRoles(): Promise<Role[]>;
 
-    /** Fetches the member's highest role, or returns `null` if they only have `@everyone`. */
+    /**
+     * Returns the member's highest role, or `null` if they only have
+     * `@everyone`. Reads the guild's roles from Weeble's cache, and only asks
+     * Discord when the cache doesn't have them.
+     */
     highestRole(): Promise<Role | null>;
 
     /**
@@ -1647,7 +1662,8 @@ declare namespace discord {
 
     /**
      * Returns whether the member has a permission in a channel, counting the
-     * channel's overwrites.
+     * channel's overwrites. Reads the guild's roles and the channel from
+     * Weeble's cache, and only asks Discord when the cache doesn't have them.
      */
     canIn(channelId: Snowflake, permission: PermissionFlag): Promise<boolean>;
 
@@ -6030,11 +6046,20 @@ declare namespace discord {
       rest(description: string): CommandArgument<string>;
       /** A user, as a mention or ID. */
       user(description: string): CommandArgument<User>;
-      /** A member, as a mention or ID. */
+      /**
+       * A member, as a mention or ID. Taken from the message's mentions or
+       * Weeble's cache; Discord is only asked when neither has them.
+       */
       member(description: string): CommandArgument<GuildMember>;
-      /** A channel, as a mention or ID. */
+      /**
+       * A channel, as a mention or ID. Read from Weeble's cache; Discord is
+       * only asked when the cache doesn't have it.
+       */
       channel(description: string): CommandArgument<AnyGuildChannel>;
-      /** A role, as a mention or ID. */
+      /**
+       * A role, as a mention or ID. Read from Weeble's cache; Discord is only
+       * asked when the cache doesn't have it.
+       */
       role(description: string): CommandArgument<Role>;
       /** A value read by your own parser. */
       custom<TValue>(

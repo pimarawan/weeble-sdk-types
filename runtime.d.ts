@@ -10,6 +10,7 @@ interface Console {
   debug(message?: unknown, ...optionalParams: unknown[]): void;
 }
 
+/** `log()`, `warn()` and `error()` print to the console in the editor. */
 declare var console: Console;
 
 interface Performance {
@@ -20,6 +21,7 @@ interface Performance {
   readonly timeOrigin: number;
 }
 
+/** `performance.now()`, for timing. */
 declare var performance: Performance;
 
 /** Decodes base64 to a Latin-1 binary string, not UTF-8 text. */
@@ -71,6 +73,7 @@ declare var AbortSignal: {
   timeout(milliseconds: number): AbortSignal;
 };
 
+/** Cancels a `fetch()`. */
 declare class AbortController {
   constructor();
   readonly signal: AbortSignal;
@@ -79,6 +82,7 @@ declare class AbortController {
 
 type FormDataEntryValue = File | string;
 
+/** Form fields and files for a request body. */
 declare class FormData {
   constructor();
 
@@ -102,6 +106,7 @@ declare class FormData {
   [Symbol.iterator](): IterableIterator<[string, FormDataEntryValue]>;
 }
 
+/** Reads and builds query strings. */
 declare class URLSearchParams {
   constructor(
     init?:
@@ -130,6 +135,7 @@ declare class URLSearchParams {
   [Symbol.iterator](): IterableIterator<[string, string]>;
 }
 
+/** Parses and builds URLs. */
 declare class URL {
   constructor(url: string, base?: string | URL);
   static canParse(url: string, base?: string | URL): boolean;
@@ -300,6 +306,7 @@ declare var Crypto: {
   prototype: Crypto;
 };
 
+/** `randomUUID()`, `getRandomValues()`, and `crypto.subtle` for hashing and signing. */
 declare var crypto: Crypto;
 
 type BodyInit =
@@ -326,6 +333,7 @@ type HeadersInit =
   | Iterable<readonly [string, string]>
   | Record<string, string>;
 
+/** HTTP headers for requests and responses. */
 declare class Headers {
   constructor(init?: HeadersInit);
 
@@ -389,6 +397,7 @@ interface RequestInit {
   window?: null;
 }
 
+/** An HTTP request, for `fetch()`. */
 interface Request extends Body {
   readonly cache: RequestCache;
   readonly credentials: RequestCredentials;
@@ -416,6 +425,7 @@ interface ResponseInit {
   statusText?: string;
 }
 
+/** What `fetch()` returns: the status, headers and body, with `json()` and `text()` to read it. */
 interface Response extends Body {
   readonly headers: Headers;
   readonly ok: boolean;
@@ -464,6 +474,7 @@ interface FilePropertyBag extends BlobPropertyBag {
   lastModified?: number;
 }
 
+/** Binary data. `File` is a `Blob` with a name. */
 declare class Blob {
   constructor(blobParts?: BlobPart[], options?: BlobPropertyBag);
 
@@ -517,6 +528,7 @@ interface TextEncoderEncodeIntoResult {
   written: number;
 }
 
+/** Turns strings into UTF-8 bytes. `TextDecoder` does the reverse. */
 declare class TextEncoder {
   readonly encoding: string;
 
@@ -658,6 +670,7 @@ interface ReadableWritablePair<R = unknown, W = unknown> {
   writable: WritableStream<W>;
 }
 
+/** A stream of data, such as a response body. `WritableStream` and `TransformStream` are also available. */
 interface ReadableStream<R = unknown> {
   readonly locked: boolean;
   cancel(reason?: unknown): Promise<void>;
