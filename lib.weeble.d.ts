@@ -7206,6 +7206,16 @@ declare namespace discord {
     const AUDIT_LOG_ENTRY_CREATE: "AUDIT_LOG_ENTRY_CREATE";
     /** Discord's name for {@link events.AUDIT_LOG_ENTRY_CREATE}. */
     const GUILD_AUDIT_LOG_ENTRY_CREATE: "GUILD_AUDIT_LOG_ENTRY_CREATE";
+    /**
+     * Sent by Weeble, not Discord: a new revision of this deployment went
+     * live. See {@link DeploymentEvent}.
+     */
+    const DEPLOYMENT_PUBLISHED: "DEPLOYMENT_PUBLISHED";
+    /**
+     * Sent by Weeble, not Discord: this deployment was rolled back to an
+     * earlier revision. See {@link DeploymentEvent}.
+     */
+    const DEPLOYMENT_ROLLBACK: "DEPLOYMENT_ROLLBACK";
   }
 
   /**
@@ -7665,10 +7675,66 @@ declare namespace discord {
     handler: (event: AuditLogEntryEvent) => Promise<unknown>,
   ): void;
 
+  /**
+   * A new revision of this deployment went live. Only this deployment hears
+   * about it, so it only fires for the server it is deployed to.
+   *
+   * ```ts
+   * discord.on(discord.events.DEPLOYMENT_PUBLISHED, async (event) => {
+   *   const channel = await discord.fetchGuildTextChannel('1504537312841961583');
+   *   await channel?.send(
+   *     `**${event.deployment.name}** is now on revision ${event.revision}, published by ${event.user.name}.`,
+   *   );
+   * });
+   * ```
+   */
+  function on(
+    event: typeof events.DEPLOYMENT_PUBLISHED,
+    handler: (event: DeploymentEvent) => Promise<unknown>,
+  ): void;
+
+  /**
+   * This deployment was rolled back to an earlier revision. The handler that
+   * runs is the one in the revision rolled back to, so a revision written
+   * before it listened to this event stays quiet.
+   */
+  function on(
+    event: typeof events.DEPLOYMENT_ROLLBACK,
+    handler: (event: DeploymentEvent) => Promise<unknown>,
+  ): void;
+
   function on(
     event: string,
     handler: (payload: unknown) => void | Promise<void>,
   ): void;
+
+  /** Data for {@link events.DEPLOYMENT_PUBLISHED} and {@link events.DEPLOYMENT_ROLLBACK}. */
+  interface DeploymentEvent {
+    /** Unique per event. Delivery is at least once, so use it to skip repeats. */
+    id: string;
+    /** `rollback` when someone went back to an earlier revision. */
+    type: "published" | "rollback";
+    /** The server this deployment runs in. */
+    guildId: Snowflake;
+    deployment: {
+      id: string;
+      name: string;
+    };
+    /** The revision now live. */
+    revision: number;
+    /** The revision live before, or `null` when nothing was. */
+    previousRevision: number | null;
+    /** Who made the revision live. */
+    user: {
+      /** Their Discord user ID. */
+      id: Snowflake;
+      username: string;
+      /** Their display name, or their username when they have none. */
+      name: string;
+    };
+    /** When the revision went live, as an ISO 8601 string. */
+    occurredAt: string;
+  }
 
   /** An event that only names its guild. */
   interface GuildIdEvent {
