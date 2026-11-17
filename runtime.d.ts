@@ -956,6 +956,34 @@ declare namespace weeble {
 
   }
 
+  /**
+   * Values your server's editors set under **Secrets** in the editor or on the dashboard, like a
+   * database URL or an API key, so they aren't written into your code where anyone who can
+   * view the script could read them.
+   *
+   * Nobody can read a secret back after setting it, not even its editors. If your script prints
+   * one, the console shows `[secret NAME]` instead. A change reaches your script within about
+   * 15 seconds, without publishing.
+   *
+   * ```ts
+   * const url = await weeble.secrets.require("UPSTASH_REDIS_REST_URL");
+   * const token = await weeble.secrets.require("UPSTASH_REDIS_REST_TOKEN");
+   * const visits = await fetch(`${url}/incr/visits`, {
+   *   headers: { Authorization: `Bearer ${token}` },
+   * }).then((response) => response.json());
+   * ```
+   */
+  namespace secrets {
+    /**
+     * The secret's value, or `undefined` when it isn't set. Names are capital letters, digits
+     * and underscores, like `DATABASE_URL`; anything else throws.
+     */
+    function get(name: string): Promise<string | undefined>;
+
+    /** Like `get`, but throws a clear error when the secret isn't set. */
+    function require(name: string): Promise<string>;
+  }
+
   interface KVPutOptions {
     /** Duration in milliseconds until the key expires. Omitting it removes an existing TTL. */
     ttl?: number;
