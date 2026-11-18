@@ -984,6 +984,62 @@ declare namespace weeble {
     function require(name: string): Promise<string>;
   }
 
+  /**
+   * Webhooks run your script when another service sends a request: a Stripe payment, a GitHub
+   * push, a form sign-up. Create one under **Webhooks** in the editor, paste its address into
+   * the other service, and handle what arrives here.
+   *
+   * Weeble answers the sender as soon as the request arrives, then runs the handler, so what it
+   * returns is ignored. A webhook can check Stripe's or GitHub's signature for you, and then
+   * only requests that really came from them reach the handler.
+   *
+   * ```ts
+   * weeble.webhooks.on("stripe", async (request) => {
+   *   const event = request.json<{ type: string; data: { object: { customer_email: string } } }>();
+   *   if (event.type !== "checkout.session.completed") return;
+   *   const channel = await discord.getChannel("123456789012345678");
+   *   if (channel instanceof discord.GuildTextChannel) {
+   *     await channel.send(`New supporter: ${event.data.object.customer_email}`);
+   *   }
+   * });
+   * ```
+   */
+  namespace webhooks {
+    /** A request a webhook received. */
+    interface WebhookRequest {
+      /** The delivery's ID. A sender that retries may send the same thing again under a new ID. */
+      readonly id: string;
+      /** The webhook's name, as created in the editor. */
+      readonly webhook: string;
+      readonly method: string;
+      /** The headers the sender chose. */
+      readonly headers: Headers;
+      readonly query: URLSearchParams;
+      readonly receivedAt: Date;
+      /** `"stripe"` or `"github"` when Weeble checked the request's signature, otherwise `null`. */
+      readonly verified: "stripe" | "github" | null;
+      /** `"test"` for the editor's test sends, `"replay"` for replays, otherwise `"request"`. */
+      readonly origin: "request" | "test" | "replay";
+      /** The body as text. */
+      text(): string;
+      /** The body parsed as JSON. Throws if it isn't JSON. */
+      json<T = unknown>(): T;
+      /** The body parsed as a form (`application/x-www-form-urlencoded`). */
+      form(): URLSearchParams;
+      /** The body's bytes, exactly as they arrived. */
+      bytes(): Uint8Array;
+    }
+
+    type WebhookHandler = (request: WebhookRequest) => unknown;
+
+    /**
+     * Runs `handler` for each request the webhook called `name` receives. Names are lowercase
+     * letters, digits and dashes, like `stripe`. Registering the same name again replaces the
+     * handler.
+     */
+    function on(name: string, handler: WebhookHandler): void;
+  }
+
   interface KVPutOptions {
     /** Duration in milliseconds until the key expires. Omitting it removes an existing TTL. */
     ttl?: number;
